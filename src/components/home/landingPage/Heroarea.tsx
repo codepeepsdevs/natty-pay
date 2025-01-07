@@ -110,17 +110,17 @@ const Heroarea = () => {
           <p className="text-sm xs:text-base lg:text-lg leading-[1.6rem] xs:leading-[1.8rem]">
             As an answer to solve the issue of local and global people in the
             world face getting standard and quality Financial for daily
-            well-being, spring forth NATTYPAY DIGITAL GLOBAL SERVICES LTD. Over
-            time we&apos;ve been able to solve this great complication in our
-            society and put big promising smiles on people&apos;s faces thus
-            far. {/* Add margin here for space */}
+            well-being, spring forth NATTYPAY GLOBAL SOLUTION LIMITED. Over time
+            we&apos;ve been able to solve this great complication in our society
+            and put big promising smiles on people&apos;s faces thus far.{" "}
+            {/* Add margin here for space */}
             <span className="sm:hidden block my-4"></span>
-            In an era defined by rapid technological evolution, NATTYPAY DIGITAL
-            GLOBAL SERVICES LTD emerges as a key player, shaping the future
-            through a commitment to excellence, foresight, and a relentless
-            pursuit of groundbreaking advancements. Our journey is rooted in a
-            deep understanding of the dynamic needs of the modern consumer, and
-            we take pride in crafting solutions that not only meet but exceed
+            In an era defined by rapid technological evolution, NATTYPAY GLOBAL
+            SOLUTION LIMITED emerges as a key player, shaping the future through
+            a commitment to excellence, foresight, and a relentless pursuit of
+            groundbreaking advancements. Our journey is rooted in a deep
+            understanding of the dynamic needs of the modern consumer, and we
+            take pride in crafting solutions that not only meet but exceed
             expectations.
           </p>
         </motion.div>

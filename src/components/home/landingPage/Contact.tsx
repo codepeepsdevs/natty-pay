@@ -43,12 +43,12 @@ const Contact = () => {
             <div className="flex flex-col gap-2 text-black">
               <div className="flex items-center gap-4">
                 <FaPhone />
-                <p className="text-sm">+2398134146906</p>
+                <p className="text-sm">+2348134146906</p>
               </div>
 
               <div className="flex items-center gap-4">
                 <MdEmail className="text-xl" />
-                <p className="text-sm">nattypay349@gmail.com </p>
+                <p className="text-sm">support@Nattypay.com</p>
               </div>
             </div>
             <motion.div variants={zoomIn(0.2, 0.5)}>
