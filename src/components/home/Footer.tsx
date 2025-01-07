@@ -34,13 +34,13 @@ const Footer = () => {
                   rgba(212, 177, 57, 0) 80%
                 )
               `,
-                filter: "blur(300px)",
+                filter: "blur(60px)",
                 transform: "scale(1.1)",
               }}
             />
           </div>
 
-          <div className=" w-full xl:w-[60%] max-sm:gap-y-8 max-md:gap-y-10 grid grid-cols-2 md:grid-cols-3 justify-between text-sm 2xs:text-base">
+          <div className="z-10 w-full xl:w-[60%] max-sm:gap-y-8 max-md:gap-y-10 grid grid-cols-2 md:grid-cols-3 justify-between text-sm 2xs:text-base">
             <div className="flex flex-col">
               <h3 className="text-base xs:text-lg font-semibold mb-2 xs:mb-3">
                 Company

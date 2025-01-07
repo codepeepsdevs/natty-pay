@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <NextTopLoader color="#D4B139" showSpinner={false} />
-          <main className="">{children}</main>
+          <main className="w-full overflow-hidden">{children}</main>
         </ThemeProvider>
       </body>
     </html>
