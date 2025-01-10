@@ -15,6 +15,8 @@ import servicesOthersIcon from "./home/landingPage/services/others.svg";
 
 import wcuBgImage from "./home/landingPage/wcuBg.png";
 
+import providersBg from "./home/landingPage/providersBg.svg";
+
 import partner1 from "./home/partners/partner1.svg";
 import partner2 from "./home/partners/partner2.svg";
 import partner3 from "./home/partners/partner3.svg";
@@ -39,7 +41,17 @@ import contactBg from "./home/landingPage/contactBg.png";
 import appCtaBg from "./home/landingPage/appCtaBg.png";
 import appStoreCta from "./home/landingPage/app-store-cta.svg";
 import playStoreCta from "./home/landingPage/play-store-cta.svg";
+import useWebCta from "./home/landingPage/use-web-cta.svg";
 import barCode from "./home/landingPage/bar-code.svg";
+
+import coreValues1 from "./home/about/coreValues1.svg";
+import coreValues2 from "./home/about/coreValues2.svg";
+import coreValues3 from "./home/about/coreValues3.svg";
+
+import planet from "./home/about/planet.png";
+
+import map from "./home/map.png";
+import mapDark from "./home/map-dark.png";
 
 const landingPage = {
   heroImage,
@@ -55,6 +67,8 @@ const landingPage = {
   servicesTicketsIcon,
 
   wcuBgImage,
+
+  providersBg,
 
   partner1,
   partner2,
@@ -80,11 +94,23 @@ const landingPage = {
   appCtaBg,
   appStoreCta,
   playStoreCta,
+  useWebCta,
   barCode,
+};
+
+const about = {
+  coreValues1,
+  coreValues2,
+  coreValues3,
+
+  planet,
 };
 
 export default {
   logo,
   singleLogo,
   landingPage,
+  about,
+  map,
+  mapDark,
 };

@@ -123,3 +123,35 @@ export const WcuData = [
       "Our dedicated support team is always ready to help. Whether you have a question about a transaction or need assistance with our services, we are here to provide prompt and effective solutions.",
   },
 ];
+
+export const CoreValuesData = [
+  {
+    id: 1,
+    title: "Customer-Centricity",
+    image: images.about.coreValues1,
+    description:
+      "At the heart of everything we do is our commitment to our customers. We listen to their needs, understand their challenges, and tailor our services to provide the best possible solutions",
+  },
+  {
+    id: 2,
+    title: "Innovation",
+    image: images.about.coreValues2,
+    description:
+      "We believe in the power of technology to transform lives. Natypay is built on a foundation of continuous innovation, leveraging the latest advancements in fintech to offer cutting-edge services",
+  },
+  {
+    id: 3,
+    title: "Integrity",
+    image: images.about.coreValues3,
+    description:
+      "Trust is the cornerstone of our business. We operate with the highest standards of honesty, transparency, and ethical behavior.",
+  },
+
+  {
+    id: 4,
+    title: "Inclusivity",
+    image: images.about.coreValues1,
+    description:
+      "We are dedicated to making financial services accessible to all Nigerians, regardless of their location or economic status",
+  },
+];

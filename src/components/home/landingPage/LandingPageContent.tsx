@@ -1,15 +1,15 @@
 import Contact from "./Contact";
-import Faqs from "./Faqs/Faqs";
+import Faqs from "./faqs/Faqs";
 import Heroarea from "./Heroarea";
 import Providers from "./Providers";
-import ServicesContent from "./ServicesContent";
+import Services from "./Services";
 import Wcu from "./Wcu";
 
 const LandingPageContent = () => {
   return (
     <div className="w-full relative z-0 bg-bg-800 dark:bg-black overflow-hidden flex flex-col">
       <Heroarea />
-      <ServicesContent />
+      <Services />
       <Wcu />
       <Providers />
       <Faqs />

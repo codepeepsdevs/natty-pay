@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-const ServicesContent = () => {
+const Services = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.25 });
 
@@ -51,7 +51,7 @@ const ServicesContent = () => {
                   src={item.image}
                   className={` ${
                     index === 0
-                      ? "w-9 2xs:w-8 sm:w-6 md:w-12 lg:w-14"
+                      ? "w-9 2xs:w-8 sm:w-6 md:w-12"
                       : index === 6
                       ? "w-14 2xs:w-12 xs:w-10 sm:w-8 md:w-14 lg:w-16"
                       : "w-16 2xs:w-14 xs:w-12 sm:w-10 md:w-20 lg:w-24"
@@ -74,4 +74,4 @@ const ServicesContent = () => {
   );
 };
 
-export default SectionWrapper(ServicesContent, "services");
+export default SectionWrapper(Services, "services");

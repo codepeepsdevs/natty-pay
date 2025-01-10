@@ -31,7 +31,7 @@ const AppCta = () => {
               src={images.landingPage.appCtaBg}
             />
           </div>
-          <div className="relative max-xs:-top-[6rem] max-md:-top-[8rem] max-lg:-top-[10rem] w-full lg:w-[50%] flex flex-col  gap-16 lg:gap-8 xl:gap-10 ">
+          <div className="relative max-xs:-top-[6rem] max-md:-top-[8rem] max-lg:-top-[10rem] w-full lg:w-[50%] flex flex-col  gap-12 lg:gap-8 xl:gap-10 ">
             <motion.div
               variants={textVariant(0.1)}
               className="w-full xs:w-[90%] md:w-[80%] text-text-200 dark:text-text-400 flex flex-col max-lg:self-center max-lg:text-center max-lg:justify-center max-lg:items-center gap-4 xs:gap-2.5"
