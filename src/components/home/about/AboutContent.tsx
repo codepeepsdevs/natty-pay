@@ -1,7 +1,7 @@
+import Services from "../landingPage/Services";
 import CoreValues from "./CoreValues";
 import Heroarea from "./Heroarea";
 import Mission from "./Mission";
-import Services from "./Services";
 
 const AboutContent = () => {
   return (
