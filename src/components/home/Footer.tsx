@@ -94,7 +94,7 @@ const Footer = () => {
                   href="/documentation"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
-                  Documentation{" "}
+                  Refund Policy{" "}
                 </Link>
                 <Link
                   href="/security"
@@ -115,8 +115,8 @@ const Footer = () => {
                   market road Main market onitsha Anambra state
                 </a>
 
-                <a>+2348131416906</a>
-                <a>nattpay349@gmail.com</a>
+                <a>+2348134146906</a>
+                <a>support@Nattypay.com</a>
               </div>
             </div>
           </div>
@@ -125,7 +125,7 @@ const Footer = () => {
       <div className="sm:border-t border-border-100  w-full flex justify-center">
         <div className="w-[90%] flex flex-col md:flex-row justify-between items-center py-6 sm:py-5">
           <p className="text-sm xs:text-base ">
-            © 2025 Nattpay All rights reserved
+            © {new Date().getFullYear()} Nattpay All rights reserved
           </p>
           <div className="flex space-x-2.5 sm:space-x-4 mt-2.5 xs:mt-4 md:mt-0">
             <a href="#" className=" hover:text-white">
