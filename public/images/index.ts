@@ -53,6 +53,8 @@ import planet from "./home/about/planet.png";
 import map from "./home/map.png";
 import mapDark from "./home/map-dark.png";
 
+import accountTypeDescription from "./auth/AccountTypeDesc.jpg";
+
 const landingPage = {
   heroImage,
 
@@ -106,6 +108,10 @@ const about = {
   planet,
 };
 
+const auth = {
+  accountTypeDescription,
+};
+
 export default {
   logo,
   singleLogo,
@@ -113,4 +119,5 @@ export default {
   about,
   map,
   mapDark,
+  auth,
 };

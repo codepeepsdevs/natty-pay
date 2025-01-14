@@ -167,7 +167,7 @@ const Navbar = () => {
                         className={cn(
                           `w-full text-center no-underline py-3 text-base hover:text-secondary`,
                           {
-                            "bg-bg-800": theme === "light",
+                            "bg-bg-400": theme === "light",
                             "text-secondary dark:text-primary dark:bg-bg-1100":
                               isActive(item.path),
                             "text-text-200 dark:text-text-400": !isActive(

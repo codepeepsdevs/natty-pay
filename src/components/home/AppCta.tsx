@@ -10,7 +10,7 @@ const AppCta = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.25 });
   return (
-    <div className="w-full  overflow-hidden flex justify-center bg-bg-800 dark:bg-black">
+    <div className="w-full  overflow-hidden flex justify-center bg-bg-400 dark:bg-black">
       <motion.div
         ref={ref}
         animate={isInView ? "show" : "hidden"}
