@@ -79,28 +79,28 @@ const Footer = () => {
               </h3>
               <div className="flex flex-col gap-1.5 xs:gap-2 ">
                 <Link
-                  href="/terms"
+                  href="/termsOfUse"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Terms of Use{" "}
                 </Link>
                 <Link
-                  href="/privacy"
+                  href="/terms&condition"
+                  className="transition-all duration-300 cursor-pointer hover:pl-2"
+                >
+                  Terms & Condition{" "}
+                </Link>
+                <Link
+                  href="/privacyPolicy"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Privacy Policy{" "}
                 </Link>
                 <Link
-                  href="/documentation"
+                  href="/refundPolicy"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Refund Policy{" "}
-                </Link>
-                <Link
-                  href="/security"
-                  className="transition-all duration-300 cursor-pointer hover:pl-2"
-                >
-                  Security{" "}
                 </Link>
               </div>
             </div>
