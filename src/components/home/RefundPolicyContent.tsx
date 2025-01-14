@@ -2,7 +2,6 @@
 
 import { textVariant } from "@/utils/motion";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
 import { useRef } from "react";
 
 const RefundPolicyContent = () => {

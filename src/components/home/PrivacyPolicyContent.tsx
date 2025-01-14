@@ -2,7 +2,6 @@
 
 import { textVariant } from "@/utils/motion";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
 import { useRef } from "react";
 
 const PrivacyPolicyContent = () => {
@@ -252,8 +251,8 @@ const PrivacyPolicyContent = () => {
                   <p className="">
                     We may update this Privacy Policy from time to time. We will
                     notify you of any material changes by posting the new
-                    Privacy Policy on our website and updating the "Last Updated
-                    "10th  November 2024
+                    Privacy Policy on our website and updating the &ldquo;Last
+                    Updated&rdquo; 10th November 2024
                   </p>
                 </div>
               </div>

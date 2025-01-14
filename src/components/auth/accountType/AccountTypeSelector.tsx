@@ -1,6 +1,5 @@
 "use client";
 import ErrorToast from "@/components/toast/ErrorToast";
-import SuccessToast from "@/components/toast/SuccessToast";
 import useNavigate from "@/hooks/useNavigate";
 import React, { useState } from "react";
 

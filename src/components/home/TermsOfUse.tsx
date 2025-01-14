@@ -2,7 +2,6 @@
 
 import { textVariant } from "@/utils/motion";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
 import { useRef } from "react";
 
 const TermsOfUseContent = () => {
@@ -59,13 +58,14 @@ const TermsOfUseContent = () => {
                 </h4>
                 <div className="flex flex-col gap-4">
                   <p className="">
-                    By accessing or using  personal account,, Business
-                    account,,Bill Payments,, create of USD card ,,NGN card,
-                    International transactions,, investment,, saving and others
-                    financial services (the “Service”), you agree to comply with
-                    and be bound by these Terms of Use (the "Terms") and our
-                    Privacy Policy. If you do not agree with any part of these
-                    Terms, you must not use the Service by cook island trust
+                    By accessing or using personal account, Business account,
+                    Bill Payments, creation of USD card, NGN card, International
+                    transactions, investment, savings and other financial
+                    services (the &ldquo;Service&rdquo;), you agree to comply
+                    with and be bound by these Terms of Use (the
+                    &ldquo;Terms&rdquo;) and our Privacy Policy. If you do not
+                    agree with any part of these Terms, you must not use the
+                    Service by Cook Island Trust.
                   </p>
                 </div>
               </div>
