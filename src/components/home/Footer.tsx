@@ -3,19 +3,26 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import images from "../../../public/images";
+import useNavigate from "@/hooks/useNavigate";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-black text-text-400 w-full flex flex-col justify-center">
-      <motion.div className=" w-[90%] mx-auto py-12 xl:py-20">
+      <motion.div className=" w-[90%] mx-auto py-8 xl:py-10">
+        <div className="w-full flex max-xs:justify-center">
+          {" "}
+          <Image
+            onClick={() => navigate("/")}
+            src={images.logo}
+            alt="logo"
+            className="w-44 lg:w-48 h-auto "
+          />{" "}
+        </div>
+
         <div className="flex max-xl:flex-col items-start gap-8 xs:gap-12 sm:gap-16 xl:gap-12 2xl:gap-20">
-          <div className="relative w-full xl:w-[40%] flex items-start gap-1 2xs:gap-2.5 2xl:gap-4 xl:mt-4">
-            <Image
-              src={images.singleLogo}
-              alt="Nattpay Logo"
-              className="mb-4 w-16 sm:w-20 2xl:w-24"
-            />
-            <p className="text-sm 2xs:text-base leading-5 2xs:leading-6 xs:leading-7">
+          <div className="relative w-full xl:w-[40%] flex flex-col items-start ">
+            <p className="max-xs:text-center text-sm 2xs:text-base leading-5 2xs:leading-6 xs:leading-7">
               Nattpay is more than just a financial service provider; we are a
               community dedicated to improving financial well-being. Join
               thousands of satisfied users who trust Nattpay for their financial
@@ -39,10 +46,9 @@ const Footer = () => {
               }}
             />
           </div>
-
           <div className="z-10 w-full xl:w-[60%] max-sm:gap-y-8 max-md:gap-y-10 grid grid-cols-2 md:grid-cols-3 justify-between text-sm 2xs:text-base">
             <div className="flex flex-col">
-              <h3 className="text-base xs:text-lg font-semibold mb-2 xs:mb-3">
+              <h3 className="text-primary text-base xs:text-lg font-semibold mb-2 xs:mb-3">
                 Company
               </h3>
               <div className="flex flex-col gap-1.5 xs:gap-2 ">
@@ -74,7 +80,7 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-col">
-              <h3 className="text-base xs:text-lg font-semibold mb-2 xs:mb-3">
+              <h3 className="text-primary text-base xs:text-lg font-semibold mb-2 xs:mb-3">
                 Resources
               </h3>
               <div className="flex flex-col gap-1.5 xs:gap-2 ">
@@ -106,7 +112,7 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-col">
-              <h3 className="text-base xs:text-lg font-semibold mb-2 xs:mb-3">
+              <h3 className="text-primary text-base xs:text-lg font-semibold mb-2 xs:mb-3">
                 Info
               </h3>
               <div className="flex flex-col gap-1.5 xs:gap-2 ">
