@@ -45,7 +45,7 @@ const ContactUsForm = () => {
               type="text"
               {...register("fullName")}
               placeholder="Full Name*"
-              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-700 rounded-md py-4 px-4"
+              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-400 rounded-md py-4 px-4"
             />
             {errors.fullName?.message && (
               <p className="text-red-500 text-sm">{errors.fullName.message}</p>
@@ -61,7 +61,7 @@ const ContactUsForm = () => {
               {...register("email")}
               type="email"
               placeholder="Email Address*"
-              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-700 rounded-md py-4 px-4"
+              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-400 rounded-md py-4 px-4"
             />
             {errors.email?.message && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -76,7 +76,7 @@ const ContactUsForm = () => {
             <input
               {...register("phoneNumber")}
               placeholder="Phone Number (Optional)"
-              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-700 rounded-md py-4 px-4"
+              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-400 rounded-md py-4 px-4"
               type="text"
               onKeyDown={handleNumericKeyDown}
               onPaste={handleNumericPaste}
@@ -97,7 +97,7 @@ const ContactUsForm = () => {
               type="text"
               {...register("title")}
               placeholder="Title of your message*"
-              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-700 rounded-md py-4 px-4"
+              className="outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-400 rounded-md py-4 px-4"
             />
             {errors.title?.message && (
               <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -113,7 +113,7 @@ const ContactUsForm = () => {
               {...register("message")}
               placeholder="type message here...."
               rows={6}
-              className="resize-y outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-700 rounded-md py-4 px-4"
+              className="resize-y outline-none text-base text-black dark:text-white bg-bg-600 dark:bg-bg-1100  placeholder:text-text-400 rounded-md py-4 px-4"
             />
             {errors.message?.message && (
               <p className="text-red-500 text-sm">{errors.message.message}</p>

@@ -88,7 +88,7 @@ const CoreValues = () => {
           <p className="text-sm xs:text-base lg:text-lg leading-[1.6rem] xs:leading-[1.8rem]">
             At NATTYPAY GLOBAL SOLUTION LIMITED, the Story is passionate and
             determined, driven by the desire to bring high-quality and standard
-            financial services to individuals locally and globally. As NDGSL
+            financial services to individuals locally and globally. As NGSL
             flourished in Onitsha, its influence expanded beyond. Branches
             sprouted in Asaba, Delta State, and the legacy continued to thrive
             in Onitsha, Anambra State, all of the country and worldwide.
