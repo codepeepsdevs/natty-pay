@@ -77,11 +77,11 @@ const ContactUs = () => {
               <div className="flex flex-col gap-2 text-text-200 dark:text-text-400">
                 <div className="flex items-center gap-1 ">
                   <FaPhone className="text-xl text-text-1000" />
-                  <p className="">+2398134146906</p>
+                  <p className="">+2348134146906</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <MdMail className="text-xl text-text-1000" />
-                  <p className="">info@nattpay.com</p>
+                  <p className="">Support@Nattypay.com </p>
                 </div>
               </div>
             </div>

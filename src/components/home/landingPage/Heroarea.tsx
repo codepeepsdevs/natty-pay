@@ -21,7 +21,7 @@ const Heroarea = () => {
         initial="hidden"
         className="w-[90%] lg:w-[88%] flex flex-col justify-center h-full py-10"
       >
-        <div className="inset-0 mx-auto flex max-lg:flex-col lg:justify-between lg:items-center max-2xs:pt-2.5 max-xs:pt-5 max-lg:pt-10">
+        <div className="inset-0 mx-auto flex max-lg:flex-col lg:justify-between lg:items-center max-lg:pt-20">
           <div className="relative w-full sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col gap-6">
             <div
               className="absolute top-40 -inset-60 opacity-60 dark:opacity-40"
