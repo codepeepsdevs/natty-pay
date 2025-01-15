@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import SpinnerLoader from "../loader/SpinnerLoader";
 import { cn } from "@/utils/cn";
+import SpinnerLoader from "../Loader/SpinnerLoader";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -28,9 +28,11 @@ const CustomButton = ({
         "flex items-center justify-center",
 
         // State styles
-        !isLoading && !disabled && "hover:scale-105 active:scale-95", // Scale up on hover, scale down on active
+        !isLoading &&
+          !disabled &&
+          "hover:scale-105 active:scale-95 cursor-pointer", // Scale up on hover, scale down on active
         isLoading && "opacity-70 cursor-wait",
-        disabled && "opacity-50 cursor-not-allowed",
+        disabled && "opacity-70 cursor-not-allowed",
 
         // Custom styles passed as props (will properly merge with defaults)
         className
@@ -39,7 +41,7 @@ const CustomButton = ({
       {...props}
     >
       {isLoading ? (
-        <SpinnerLoader width={25} height={25} color="#fff" />
+        <SpinnerLoader width={25} height={25} color="#000" />
       ) : (
         children
       )}

@@ -6,6 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Toaster } from "react-hot-toast";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import UserProvider from "@/providers/UserProvider";
 
 // Initialize Inter font
 const inter = Inter({
@@ -30,23 +31,25 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <ReactQueryProvider>
-            <Toaster
-              position="top-center"
-              reverseOrder={false}
-              toastOptions={{
-                style: {
-                  border: "1px solid #E4E7EC",
-                  borderRadius: 15,
-                  padding: "16px",
-                  color: "#000",
-                  fontSize: 15,
-                  fontWeight: 400,
-                },
-                duration: 2000,
-              }}
-            />
-            <NextTopLoader color="#D4B139" showSpinner={false} />
-            <main className="w-full overflow-hidden">{children}</main>
+            <UserProvider>
+              <Toaster
+                position="top-center"
+                reverseOrder={false}
+                toastOptions={{
+                  style: {
+                    border: "1px solid #E4E7EC",
+                    borderRadius: 15,
+                    padding: "16px",
+                    color: "#000",
+                    fontSize: 15,
+                    fontWeight: 400,
+                  },
+                  duration: 100,
+                }}
+              />
+              <NextTopLoader color="#D4B139" showSpinner={false} />
+              <main className="w-full overflow-hidden">{children}</main>
+            </UserProvider>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

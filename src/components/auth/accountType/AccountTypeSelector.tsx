@@ -13,7 +13,7 @@ const AccountTypeSelector = () => {
 
   return (
     <div className="w-full h-full flex flex-col gap-4">
-      <label className="relative flex items-center px-4 2xs:px-5 py-4 2xs:py-5 sm:py-6 bg-bg-600 rounded-lg sm:rounded-xl cursor-pointer hover:opacity-80">
+      <label className="relative flex items-center px-4 2xs:px-5 py-4 2xs:py-5 bg-bg-600 dark:bg-bg-1100 rounded-lg sm:rounded-xl cursor-pointer hover:opacity-80">
         <input
           type="radio"
           name="accountType"
@@ -26,14 +26,18 @@ const AccountTypeSelector = () => {
           }}
         />
         <div className="flex-1">
-          <h3 className="text-base 2xs:text-lg md:text-xl font-medium text-text-200">
+          <h3 className="text-base 2xs:text-lg md:text-xl font-medium text-text-200 dark:text-text-1300">
             Personal Account
           </h3>
-          <p className="text-text-700 text-xs 2xs:text-sm">for individuals</p>
+          <p className="text-text-700 dark:text-text-800 text-xs 2xs:text-sm">
+            for individuals
+          </p>
         </div>
         <div
           className={`w-5 h-5 sm:w-6 sm:h-6 border-2 ${
-            selectedType === "personal" ? "border-primary" : "border-border-200"
+            selectedType === "personal"
+              ? "border-primary"
+              : "border-border-200 dark:border-border-100"
           } rounded-full flex items-center justify-center`}
         >
           <div
@@ -44,7 +48,7 @@ const AccountTypeSelector = () => {
         </div>
       </label>
 
-      <label className="relative flex items-center px-4 2xs:px-5 py-4 2xs:py-5 sm:py-6 bg-bg-600 rounded-lg sm:rounded-xl cursor-pointer hover:opacity-80">
+      <label className="relative flex items-center px-4 2xs:px-5 py-4 2xs:py-5  bg-bg-600 dark:bg-bg-1100 rounded-lg sm:rounded-xl cursor-pointer hover:opacity-80">
         <input
           type="radio"
           name="accountType"
@@ -66,16 +70,18 @@ const AccountTypeSelector = () => {
           }}
         />
         <div className="flex-1">
-          <h3 className="text-base 2xs:text-lg md:text-xl font-medium text-text-200">
+          <h3 className="text-base 2xs:text-lg md:text-xl font-medium text-text-200 dark:text-text-1300">
             Business Account
           </h3>
-          <p className="text-text-700 text-xs 2xs:text-sm">
+          <p className="text-text-700 dark:text-text-800 text-xs 2xs:text-sm">
             for corporate entities
           </p>
         </div>
         <div
           className={`w-5 h-5 sm:w-6 sm:h-6 border-2 ${
-            selectedType === "business" ? "border-primary" : "border-border-200"
+            selectedType === "business"
+              ? "border-primary"
+              : "border-border-200 dark:border-border-100"
           } rounded-full flex items-center justify-center`}
         >
           <div

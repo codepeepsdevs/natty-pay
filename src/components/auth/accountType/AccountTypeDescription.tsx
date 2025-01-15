@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import images from "../../../../public/images";
 import { motion, useInView } from "framer-motion";
 import { textVariant } from "@/utils/motion";
 import { useRef } from "react";
+import images from "../../../../public/images";
 
 const AccountTypeDescription = () => {
   const ref = useRef(null);
@@ -13,7 +13,7 @@ const AccountTypeDescription = () => {
       ref={ref}
       animate={isInView ? "show" : "hidden"}
       initial="hidden"
-      className="flex py-6 w-full lg:w-[50%] xl:w-[45%] bg-bg-400 max-lg:py-20 h-full lg:h-screen relative"
+      className="flex py-6 w-full lg:w-[50%] xl:w-[45%] bg-bg-400 max-lg:pb-20 max-lg:pt-44 h-full min-h-screen relative"
     >
       <div className="absolute inset-0 bg-bg-800 opacity-80 z-10"></div>
 
@@ -27,7 +27,7 @@ const AccountTypeDescription = () => {
 
       <motion.div
         variants={textVariant(0.1)}
-        className="z-10 w-[90%] text-black flex flex-col justify-center gap-2 xs:gap-3 px-6 2xs:px-8 sm:px-12"
+        className="lg:mt-20 z-10 w-[90%] text-black flex flex-col justify-center gap-2 xs:gap-3 px-6 2xs:px-8 sm:px-12"
       >
         <h1 className="text-3xl 2xs:text-4xl xs:text-5xl font-bold">
           Welcome to Nattypay{" "}

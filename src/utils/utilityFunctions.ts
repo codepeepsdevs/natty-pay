@@ -1,3 +1,12 @@
+import icons from "../../public/icons";
+
+const currencyIcons = {
+  ngnIcon: icons.currenciesIcons.ngnIcon,
+  usdIcon: icons.currenciesIcons.usdIcon,
+  eurIcon: icons.currenciesIcons.eurIcon,
+  gbpIcon: icons.currenciesIcons.gbpIcon,
+};
+
 // For email masking and initials
 export function getInitials(firstName: string, lastName: string): string {
   const firstInitial = firstName.charAt(0).toUpperCase();
@@ -97,3 +106,16 @@ export function formatNumberWithoutExponential(
 
   return formattedNumber;
 }
+
+type CurrencyIconKey = "ngn" | "usd" | "eur" | "gbp";
+
+export const getCurrencyIconByString = (currency: string): string | null => {
+  const iconMap: Record<CurrencyIconKey, string> = {
+    ngn: currencyIcons.ngnIcon,
+    usd: currencyIcons.usdIcon,
+    eur: currencyIcons.eurIcon,
+    gbp: currencyIcons.gbpIcon,
+  };
+
+  return iconMap[currency as CurrencyIconKey] || null;
+};
