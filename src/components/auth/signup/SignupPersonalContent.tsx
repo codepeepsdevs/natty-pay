@@ -21,6 +21,8 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { getCurrencyIconByString } from "@/utils/utilityFunctions";
 import { useTheme } from "@/store/theme.store";
 import useAuthEmailStore from "@/store/authEmail.store";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -76,6 +78,12 @@ const SignupPersonalContent = () => {
   const theme = useTheme();
   const { setAuthEmail } = useAuthEmailStore();
   const [currencyState, setCurrencyState] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const datePickerRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(datePickerRef as React.RefObject<HTMLElement>, () =>
+    setShowDatePicker(false)
+  );
 
   const form = useForm<RegisterFormData>({
     defaultValues: {
@@ -103,7 +111,19 @@ const SignupPersonalContent = () => {
   } = form;
   const { errors, isValid } = formState;
 
+  const watchedDateOfBirth = watch("dateOfBirth");
   const watchedCurrency = watch("countryCode");
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const newDate = new Date(date);
+      const day = newDate.getDate();
+      const month = newDate.toLocaleString("en-US", { month: "short" });
+      const year = newDate.getFullYear();
+      setValue("dateOfBirth", `${day}-${month}-${year}`);
+      setShowDatePicker(false);
+    }
+  };
 
   const onError = async (error: any) => {
     const errorMessage = error?.response?.data?.message;
@@ -140,17 +160,8 @@ const SignupPersonalContent = () => {
   const registerLoading = registerPending && !registerError;
 
   const onSubmit = async (data: RegisterFormData) => {
-    const date = new Date(data.dateOfBirth);
-    const day = date.getDate();
-    const month = date.toLocaleString("en-US", { month: "short" });
-    const year = date.getFullYear();
-
-    const formattedData = {
-      ...data,
-      dateOfBirth: `${day}-${month}-${year}`,
-    };
-
-    signup(formattedData);
+    console.log(data);
+    // signup(data);
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -426,15 +437,49 @@ const SignupPersonalContent = () => {
               />
             </div>
 
-            <AuthInput
-              id="dateOfBirth"
-              label="Date of Birth"
-              htmlFor="dateOfBirth"
-              placeholder="Date of Birth"
-              type="date"
-              error={errors.dateOfBirth?.message}
-              {...register("dateOfBirth")}
-            />
+            <div className="w-full relative">
+              <div className="flex flex-col justify-center items-center gap-1 w-full text-black dark:text-white">
+                <label
+                  className="w-full text-base text-text-800 mb-1 flex items-start "
+                  htmlFor={"dateOfBirth"}
+                >
+                  Date of Birth
+                </label>
+                <div
+                  onClick={() => setShowDatePicker(true)}
+                  className="cursor-pointer w-full flex gap-2 justify-center items-center bg-bg-2000 dark:bg-bg-2100 border border-border-600 rounded-lg py-4 px-3"
+                >
+                  {watchedDateOfBirth ? (
+                    <div className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-text-700 dark:placeholder:text-text-1000 placeholder:text-sm">
+                      {watchedDateOfBirth}
+                    </div>
+                  ) : (
+                    <div className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-text-700 dark:placeholder:text-text-1000 placeholder:text-sm">
+                      Select Date of Birth
+                    </div>
+                  )}
+                </div>
+
+                {errors.dateOfBirth?.message ? (
+                  <p className="flex self-start text-red-500 font-semibold mt-0.5 text-sm">
+                    {errors.dateOfBirth?.message}
+                  </p>
+                ) : null}
+              </div>
+
+              {showDatePicker && (
+                <div ref={datePickerRef} className="absolute z-10 mt-1">
+                  <DatePicker
+                    selected={
+                      watchedDateOfBirth ? new Date(watchedDateOfBirth) : null
+                    }
+                    onChange={handleDateChange}
+                    inline
+                    calendarClassName="custom-calendar"
+                  />
+                </div>
+              )}
+            </div>
 
             <AuthInput
               id="referralCode"
