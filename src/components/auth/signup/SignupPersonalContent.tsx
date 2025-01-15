@@ -160,8 +160,7 @@ const SignupPersonalContent = () => {
   const registerLoading = registerPending && !registerError;
 
   const onSubmit = async (data: RegisterFormData) => {
-    console.log(data);
-    // signup(data);
+    signup(data);
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
