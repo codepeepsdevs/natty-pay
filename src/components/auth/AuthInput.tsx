@@ -47,7 +47,7 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
       type === "password" && open ? "text" : type == "number" ? "text" : type;
 
     return (
-      <div className="flex flex-col justify-center items-center gap-1 w-full text-black">
+      <div className="flex flex-col justify-center items-center gap-1 w-full text-black dark:text-white">
         <div className="w-full flex items-center justify-between">
           <label
             className="text-base text-text-800 mb-1 flex items-start "
@@ -89,7 +89,7 @@ const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
             <button
               type="button"
               onClick={() => setOpen(!open)}
-              className="pl-2.5"
+              className="pl-2.5 "
             >
               {open ? (
                 <AiOutlineEye cursor="pointer" />
