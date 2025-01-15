@@ -179,7 +179,7 @@ const TwoFactorAuthContent = () => {
                 }}
               />{" "}
             </div>
-            <div className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%] md:w-[60%] flex flex-col justify-center items-center gap-0.5 sm:gap-2 text-text-700 dark:text-text-900">
+            <div className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%]  flex flex-col justify-center items-center gap-0.5 sm:gap-2 text-text-700 dark:text-text-900">
               <h2 className="text-xl xs:text-2xl xl:text-3xl font-semibold">
                 Two-Factor Authentication
               </h2>
