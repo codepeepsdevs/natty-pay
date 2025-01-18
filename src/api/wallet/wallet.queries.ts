@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createPinRequest, getUser, updateUserRequest } from "./user.apis";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  initiateBvnVerificationRequest,
+  validateBvnVerificationRequest,
+} from "./wallet.apis";
 
-export const useGetUser = () => {
-  return useQuery({
-    queryKey: ["user"],
-    queryFn: getUser,
-  });
-};
-
-export const useUpdateUser = (
+export const useInitiateBvnVerification = (
   onError: (error: any) => void,
   onSuccess: (data: any) => void
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: updateUserRequest,
+    mutationFn: initiateBvnVerificationRequest,
     onError,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
@@ -26,14 +22,14 @@ export const useUpdateUser = (
   });
 };
 
-export const useCreatePin = (
+export const useValidateBvnVerification = (
   onError: (error: any) => void,
   onSuccess: (data: any) => void
 ) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createPinRequest,
+    mutationFn: validateBvnVerificationRequest,
     onError,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });

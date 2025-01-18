@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import useNavigate from "@/hooks/useNavigate";
 import useUserStore from "@/store/user.store";
 import LoadingAnimation from "@/components/Loader/LoadingCompletion";
+import { TIER_LEVEL } from "@/constants/types";
+import ErrorToast from "@/components/toast/ErrorToast";
 
 interface UserProtectionProviderProps {
   children: React.ReactNode;
@@ -11,6 +13,13 @@ interface UserProtectionProviderProps {
 
 const UserProtectionProvider = ({ children }: UserProtectionProviderProps) => {
   const navigate = useNavigate();
+  const { user } = useUserStore();
+  const isBvnVerified =
+    user?.tierLevel !== TIER_LEVEL.notSet && user?.isBvnVerified;
+  const isPinCreated = user?.isWalletPinSet;
+
+  const isVerified = isBvnVerified && isPinCreated;
+
   const { isLoggedIn } = useUserStore();
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
@@ -35,6 +44,16 @@ const UserProtectionProvider = ({ children }: UserProtectionProviderProps) => {
       sessionStorage.removeItem("isLoggingOut");
     }
   }, [isLoggedIn, navigate, pathname]);
+
+  useEffect(() => {
+    if (!isVerified && pathname !== "/user/dashboard") {
+      ErrorToast({
+        title: "This feature is not available yet",
+        descriptions: ["Complete your verification to access this feature"],
+      });
+      navigate("/user/dashboard", "replace");
+    }
+  }, [isVerified, navigate, pathname]);
 
   // Show loading state while checking auth
   if (isClient && !isLoggedIn) {

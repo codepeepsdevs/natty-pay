@@ -64,12 +64,16 @@ const useUserStore = create(
           if (isValid) {
             try {
               const { data } = await getUser();
-              get().setUser(data);
+              set({ user: data, isLoggedIn: true, isInitialized: true });
             } catch (error) {
               console.error("Error fetching user data:", error);
-              get().setUser(null);
+              set({ user: null, isLoggedIn: false, isInitialized: true });
             }
+          } else {
+            set({ user: null, isLoggedIn: false, isInitialized: true });
           }
+        } else {
+          set({ user: null, isLoggedIn: false, isInitialized: true });
         }
       },
     }),

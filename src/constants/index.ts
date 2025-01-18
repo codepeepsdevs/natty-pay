@@ -1,4 +1,14 @@
 import images from "../../public/images";
+import { IoSettingsOutline, IoWalletOutline } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
+import { PiCellSignalFullBold, PiHandWithdraw } from "react-icons/pi";
+import { FaWifi } from "react-icons/fa6";
+import { LiaMoneyBillWaveSolid, LiaPiggyBankSolid } from "react-icons/lia";
+import { LuTicket } from "react-icons/lu";
+import { TfiList } from "react-icons/tfi";
+import { CiCreditCard1 } from "react-icons/ci";
+import { GiSettingsKnobs } from "react-icons/gi";
+import { FiLogOut } from "react-icons/fi";
 
 export const NavItems = [
   {
@@ -153,5 +163,109 @@ export const CoreValuesData = [
     image: images.about.coreValues1,
     description:
       "We are dedicated to making financial services accessible to all Nigerians, regardless of their location or economic status",
+  },
+];
+
+export const SidebarData = [
+  {
+    id: 1,
+    data: [
+      {
+        id: 1,
+        title: "Dashboard",
+        path: "/user/dashboard",
+        icon: RxDashboard,
+      },
+      {
+        id: 2,
+        title: "Send Money",
+        path: "/user/send-money",
+        icon: IoWalletOutline,
+      },
+      {
+        id: 3,
+        title: "Withdraw",
+        path: "/user/withdraw",
+        icon: PiHandWithdraw,
+      },
+      {
+        id: 4,
+        title: "Airtime",
+        path: "/user/airtime",
+        icon: PiCellSignalFullBold,
+      },
+
+      {
+        id: 5,
+        title: "Internet",
+        path: "/user/internet",
+        icon: FaWifi,
+      },
+    ],
+  },
+  {
+    id: 2,
+    data: [
+      {
+        id: 1,
+        title: "Bills Payment",
+        path: "/user/bills-payment",
+        icon: LiaMoneyBillWaveSolid,
+      },
+
+      {
+        id: 2,
+        title: "Wallet",
+        path: "/user/wallet",
+        icon: LuTicket,
+      },
+      {
+        id: 3,
+        title: "Transactions",
+        path: "/user/transactions",
+        icon: TfiList,
+      },
+
+      {
+        id: 4,
+        title: "Cards",
+        path: "/user/cards",
+        icon: CiCreditCard1,
+      },
+    ],
+  },
+  {
+    id: 3,
+    data: [
+      {
+        id: 1,
+        title: "Savings",
+        path: "/user/savings",
+        icon: LiaPiggyBankSolid,
+      },
+      {
+        id: 2,
+        title: "Invest",
+        path: "/user/invest",
+        icon: GiSettingsKnobs,
+      },
+    ],
+  },
+  {
+    id: 4,
+    data: [
+      {
+        id: 1,
+        title: "Settings",
+        path: "/user/settings",
+        icon: IoSettingsOutline,
+      },
+      {
+        id: 2,
+        title: "Logout",
+        path: "/logout",
+        icon: FiLogOut,
+      },
+    ],
   },
 ];

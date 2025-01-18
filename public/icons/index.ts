@@ -26,6 +26,8 @@ import gbpIcon from "./home/currencies/gbpIcon.svg";
 
 import emailIcon from "./home/auth/emailIcon.svg";
 
+import plusIcon from "./user/plusIcon.svg";
+
 const landingPage = {
   wcuCheckIcon,
 };
@@ -59,6 +61,10 @@ const socialIcons = {
   tiktokIcon,
 };
 
+const userIcons = {
+  plusIcon,
+};
+
 export default {
   landingPage,
   toastSuccessIcon,
@@ -66,4 +72,5 @@ export default {
   socialIcons,
   authIcons,
   currenciesIcons,
+  userIcons,
 };

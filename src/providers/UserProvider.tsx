@@ -4,12 +4,12 @@ import useUserStore from "@/store/user.store";
 import { useEffect, useState } from "react";
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { initializeAuth } = useUserStore();
+  const { initializeAuth, user } = useUserStore();
   const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     initializeAuth();
-  }, [initializeAuth, showLoading]);
+  }, [initializeAuth, showLoading, user]);
 
   if (showLoading) {
     return (

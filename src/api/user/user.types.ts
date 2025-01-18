@@ -6,3 +6,7 @@ export interface IUpdateUser {
 export interface IUpdateUserCurrency {
   currency: string;
 }
+
+export interface ICreatePin {
+  pin: string;
+}
