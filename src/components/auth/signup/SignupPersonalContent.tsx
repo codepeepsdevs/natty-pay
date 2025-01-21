@@ -109,7 +109,7 @@ const SignupPersonalContent = () => {
     watch,
     setValue,
   } = form;
-  const { errors, isValid } = formState;
+  const { errors } = formState;
 
   const watchedDateOfBirth = watch("dateOfBirth");
   const watchedCurrency = watch("countryCode");
