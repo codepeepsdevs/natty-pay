@@ -7,3 +7,18 @@ export interface IValidateBvnVerification {
   verificationId: string;
   otpCode: string;
 }
+
+export interface IVerifyAccount {
+  accountNumber: string;
+  bankCode?: string;
+}
+
+export interface IInitiateTransfer {
+  accountNumber: string;
+  sessionId: string;
+  bankCode: string;
+  amount: number;
+  description?: string;
+  currency: string;
+  walletPin: string;
+}

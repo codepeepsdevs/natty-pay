@@ -55,6 +55,11 @@ import mapDark from "./home/map-dark.png";
 
 import accountTypeDescription from "./auth/AccountTypeDesc.jpg";
 
+import emptyMiniSchedule from "./empty-state-images/empty-mini-schedule.svg";
+import emptyTransactions from "./empty-state-images/empty-transactions.svg";
+
+import walletCardBg from "./user/wallet-card-bg.jpg";
+
 const landingPage = {
   heroImage,
 
@@ -112,6 +117,11 @@ const auth = {
   accountTypeDescription,
 };
 
+const emptyState = {
+  emptyMiniSchedule,
+  emptyTransactions,
+};
+
 export default {
   logo,
   singleLogo,
@@ -120,4 +130,6 @@ export default {
   map,
   mapDark,
   auth,
+  emptyState,
+  walletCardBg,
 };

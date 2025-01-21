@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   forgotPasswordRequest,
   loginRequest,
@@ -72,10 +72,17 @@ export const useVerify2faCode = (
   onError: (error: any) => void,
   onSuccess: (data: any) => void
 ) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: verify2faCodeRequest,
     onError,
-    onSuccess,
+    onSuccess: (data) => {
+      console.log("Before invalidation");
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      console.log("After invalidation");
+      onSuccess(data);
+    },
   });
 };
 

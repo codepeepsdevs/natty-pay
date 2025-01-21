@@ -10,6 +10,12 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { FiLogOut } from "react-icons/fi";
 
+export const statusStyles = {
+  success: "text-text-1600",
+  failed: "text-red-500",
+  pending: "text-yellow-500",
+};
+
 export const NavItems = [
   {
     id: 1,
@@ -267,5 +273,33 @@ export const SidebarData = [
         icon: FiLogOut,
       },
     ],
+  },
+];
+
+export const DashboardSortList = [
+  {
+    id: 1,
+    label: "All Time",
+    value: "all",
+  },
+  {
+    id: 2,
+    label: "Today",
+    value: "today",
+  },
+  {
+    id: 3,
+    label: "Last 7 days",
+    value: "week",
+  },
+  {
+    id: 4,
+    label: "This Month",
+    value: "month",
+  },
+  {
+    id: 5,
+    label: "This Year",
+    value: "year",
   },
 ];

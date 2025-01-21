@@ -119,3 +119,8 @@ export const getCurrencyIconByString = (currency: string): string | null => {
 
   return iconMap[currency as CurrencyIconKey] || null;
 };
+
+export const shortenReference = (ref: string) => {
+  if (!ref) return "";
+  return `${ref.slice(0, 4)}...${ref.slice(-4)}`;
+};

@@ -19,6 +19,23 @@ const Navbar = () => {
       title: "Dashboard",
       path: "/user/dashboard",
     },
+    {
+      title: "Send Money",
+      path: "/user/send-money",
+    },
+
+    {
+      title: "Wallet",
+      path: "/user/wallet",
+    },
+    {
+      title: "Add Funds",
+      path: "/user/add-funds",
+    },
+    {
+      title: "Transactions",
+      path: "/user/transactions",
+    },
   ];
 
   const Heading = HeadingData.find((item) => {
@@ -52,9 +69,11 @@ const Navbar = () => {
           </Link>
           <div className="max-lg:hidden flex flex-col text-text-1000 dark:text-text-800">
             <p className="capitalize text-base font-semibold mb-0.5">
-              {user?.fullname}
+              {user?.wallet ? `₦ ${user?.wallet.balance}` : user?.fullname}
             </p>
-            <p className="text-sm -mt-1.5">{user?.email}</p>
+            <p className="text-sm -mt-1.5">
+              {user?.wallet ? user?.wallet.accountNumber : user?.email}
+            </p>
           </div>
         </div>
       </div>

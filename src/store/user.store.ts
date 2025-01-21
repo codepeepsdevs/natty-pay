@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Cookies from "js-cookie";
 import { isTokenExpired } from "@/utils/tokenChecker";
-import { getUser } from "@/api/user/user.apis";
 
 interface States {
   user: User | null;
@@ -16,7 +15,7 @@ interface Actions {
   setInitialized: (initialized: boolean) => void;
   setIsLoggedIn: (state: boolean) => void;
   checkToken: () => Promise<boolean>;
-  initializeAuth: () => void;
+  initializeAuth: (user: User | null) => void;
 }
 
 const useUserStore = create(
@@ -57,14 +56,13 @@ const useUserStore = create(
         }
       },
 
-      initializeAuth: async () => {
+      initializeAuth: async (user: User | null) => {
         const token = Cookies.get("accessToken");
-        if (token) {
+        if (token && user) {
           const isValid = await get().checkToken();
           if (isValid) {
             try {
-              const { data } = await getUser();
-              set({ user: data, isLoggedIn: true, isInitialized: true });
+              set({ user, isLoggedIn: true, isInitialized: true });
             } catch (error) {
               console.error("Error fetching user data:", error);
               set({ user: null, isLoggedIn: false, isInitialized: true });

@@ -110,6 +110,8 @@ export enum TRANSACTION_STATUS {
 
 export enum TRANSACTION_CATEGORY {
   TRANSFER = "TRANSFER",
+  DEPOSIT = "DEPOSIT",
+  BILL_PAYMENT = "BILL_PAYMENT",
 }
 
 export interface Transaction {
@@ -130,4 +132,27 @@ export interface Transaction {
   createdAt: string;
   updatedAt: string;
   wallet: Wallet;
+}
+
+export interface BankProps {
+  name: string;
+  routingKey: string;
+  logoImage: string | null;
+  bankCode: string;
+  categoryId: string;
+  nubanCode: string | null;
+}
+
+export interface LineStatsProps {
+  id: number;
+  date: string;
+  credits: number;
+  debits: number;
+}
+
+export interface PieStatsProps {
+  id: number;
+  title: string;
+  value: number;
+  color: string;
 }

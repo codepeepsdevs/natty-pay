@@ -1,6 +1,6 @@
 "use client";
 import useUserStore from "@/store/user.store";
-import BalanceCard from "./BalanceCard";
+import BalanceCard from "../BalanceCard";
 import UnverifiedDashboard from "./UnverifiedDashboard";
 import { TIER_LEVEL } from "@/constants/types";
 import VerifiedDashboard from "./VerifiedDashboard";

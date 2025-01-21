@@ -1,7 +1,8 @@
+import SendMoneyContent from "@/components/user/sendMoney/SendMoneyContent";
 import React from "react";
 
 const SendMoneyPage = () => {
-  return <div>SendMoney</div>;
+  return <SendMoneyContent />;
 };
 
 export default SendMoneyPage;
