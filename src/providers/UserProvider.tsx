@@ -5,7 +5,7 @@ import useUserStore from "@/store/user.store";
 import { useEffect, useState } from "react";
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { initializeAuth, isLoggedIn } = useUserStore();
+  const { initializeAuth } = useUserStore();
   const [showLoading, setShowLoading] = useState(true);
 
   // Initialize query in background without blocking
