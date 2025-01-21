@@ -5,7 +5,7 @@ import { createPinRequest, getUser, updateUserRequest } from "./user.apis";
 import { User } from "@/constants/types";
 
 export const useGetUser = () => {
-  const { data } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
     // Run in the background
@@ -21,7 +21,7 @@ export const useGetUser = () => {
   });
   const user: User = data?.data;
 
-  return { user };
+  return { user, isError };
 };
 
 export const useUpdateUser = (

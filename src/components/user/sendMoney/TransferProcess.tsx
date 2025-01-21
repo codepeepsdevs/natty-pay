@@ -54,7 +54,8 @@ const schema = yup.object().shape({
   amount: yup
     .number()
     .required("Amount is required")
-    .typeError("Amount is required"),
+    .typeError("Amount is required")
+    .min(50, "Minimum amount is ₦50"),
 
   currency: yup.string().required("Currency is required"),
   sessionId: yup.string().required("Session ID is required"),

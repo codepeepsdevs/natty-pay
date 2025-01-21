@@ -9,11 +9,15 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [showLoading, setShowLoading] = useState(true);
 
   // Initialize query in background without blocking
-  const { user } = useGetUser();
+  const { user, isError } = useGetUser();
 
   useEffect(() => {
-    initializeAuth(user);
-  }, [initializeAuth, user]);
+    if (isError) {
+      initializeAuth(null);
+    } else {
+      initializeAuth(user);
+    }
+  }, [initializeAuth, user, isError]);
 
   if (showLoading) {
     return (
