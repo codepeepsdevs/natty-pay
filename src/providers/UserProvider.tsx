@@ -5,17 +5,17 @@ import useUserStore from "@/store/user.store";
 import { useEffect, useState } from "react";
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { initializeAuth } = useUserStore();
+  const { initializeAuth, isLoggedIn } = useUserStore();
   const [showLoading, setShowLoading] = useState(true);
 
   // Initialize query in background without blocking
   const { user, isError } = useGetUser();
 
   useEffect(() => {
-    if (isError) {
-      initializeAuth(null);
-    } else {
+    if (user && !isError) {
       initializeAuth(user);
+    } else {
+      initializeAuth(null);
     }
   }, [initializeAuth, user, isError]);
 
