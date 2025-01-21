@@ -45,7 +45,7 @@ const schema = yup.object().shape({
   dateOfBirth: yup.string().required("Date of birth is required"),
 
   countryCode: yup.string().required("Account type is required"),
-  referralCode: yup.string(),
+  referralCode: yup.string().optional(),
 });
 
 type RegisterFormData = yup.InferType<typeof schema>;
@@ -492,7 +492,7 @@ const SignupPersonalContent = () => {
 
             <CustomButton
               type="submit"
-              disabled={!isValid || registerLoading}
+              disabled={registerLoading}
               isLoading={registerLoading}
               className="w-full  border-2 border-primary text-black text-base 2xs:text-lg max-2xs:px-6 py-3.5 xs:py-4"
             >
