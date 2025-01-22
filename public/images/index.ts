@@ -59,6 +59,8 @@ import emptyMiniSchedule from "./empty-state-images/empty-mini-schedule.svg";
 import emptyTransactions from "./empty-state-images/empty-transactions.svg";
 
 import walletCardBg from "./user/wallet-card-bg.jpg";
+import backPress from "./user/airtime/backPress.svg";
+import successSvg from "./user/successSvg.svg";
 
 const landingPage = {
   heroImage,
@@ -122,6 +124,10 @@ const emptyState = {
   emptyTransactions,
 };
 
+const airtime = {
+  backPress,
+};
+
 export default {
   logo,
   singleLogo,
@@ -132,4 +138,6 @@ export default {
   auth,
   emptyState,
   walletCardBg,
+  airtime,
+  successSvg,
 };

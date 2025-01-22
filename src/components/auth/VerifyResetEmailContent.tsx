@@ -205,7 +205,7 @@ const VerifyResetEmailContent = () => {
                 )}
               />
             </div>
-            <p className=" my-1 sm:my-2.5 text-center w-[90%] xs:w-[80%] text-sm 2xs:text-base text-text-1000  font-medium">
+            <div className=" my-1 sm:my-2.5 text-center w-[90%] xs:w-[80%] text-sm 2xs:text-base text-text-1000  font-medium">
               {resendTimer && resendTimer > 0 ? (
                 <>
                   Didn’t get the code?{" "}
@@ -229,7 +229,7 @@ const VerifyResetEmailContent = () => {
                   </span>
                 </div>
               )}
-            </p>
+            </div>
             <CustomButton
               type="button"
               disabled={loadingStatus || !isValid}

@@ -36,6 +36,10 @@ const Navbar = () => {
       title: "Transactions",
       path: "/user/transactions",
     },
+    {
+      title: "Airtime",
+      path: "/user/airtime",
+    },
   ];
 
   const Heading = HeadingData.find((item) => {
@@ -68,12 +72,21 @@ const Navbar = () => {
             {user?.fullname.slice(0, 2)}
           </Link>
           <div className="max-lg:hidden flex flex-col text-text-1000 dark:text-text-800">
-            <p className="capitalize text-base font-semibold mb-0.5">
+            {/* <p className="capitalize text-base font-semibold mb-0.5">
               {user?.wallet ? `₦ ${user?.wallet.balance}` : user?.fullname}
             </p>
             <p className="text-sm -mt-1.5">
               {user?.wallet ? user?.wallet.accountNumber : user?.email}
+            </p> */}
+
+            <p className="capitalize text-base font-semibold mb-0.5">
+              {user?.fullname}
             </p>
+            {user?.wallet?.accountNumber ? (
+              <p className="text-sm -mt-1.5">
+                Acc No: {user?.wallet.accountNumber}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

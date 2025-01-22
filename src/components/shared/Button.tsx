@@ -24,7 +24,7 @@ const CustomButton = ({
 
         // Core styles
         "font-medium text-base text-text-300",
-        "transition-transform duration-300 ease-in-out", // Smooth scaling animation
+        "transition-transform duration-100 ease-in-out", // Smooth scaling animation
         "flex items-center justify-center",
 
         // State styles
