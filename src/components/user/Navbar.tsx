@@ -40,6 +40,10 @@ const Navbar = () => {
       title: "Airtime",
       path: "/user/airtime",
     },
+    {
+      title: "Mobile Data",
+      path: "/user/internet",
+    },
   ];
 
   const Heading = HeadingData.find((item) => {

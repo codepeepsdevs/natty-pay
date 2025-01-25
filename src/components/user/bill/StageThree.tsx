@@ -9,21 +9,25 @@ type StageThreeProps = {
   network: string;
   amount: string;
   type?: "airtime" | "data";
+  checkoutMessage?: string;
+  setNetwork?: (network: string) => void;
 };
 
 const BillStageThree: React.FC<StageThreeProps> = ({
   setStage,
   phone,
-  network,
+  // network,
   amount,
   type = "airtime",
+  checkoutMessage = "",
+  setNetwork = () => {},
 }) => {
   const getPurchaseMessage = () => {
     switch (type) {
       case "airtime":
         return "Airtime Purchase";
       case "data":
-        return "Data Purchase";
+        return "Mobile Data Purchase";
       default:
         return "Purchase";
     }
@@ -32,25 +36,25 @@ const BillStageThree: React.FC<StageThreeProps> = ({
   const getSubText = () => {
     switch (type) {
       case "airtime":
-        return `You just purchase ${network.toLocaleUpperCase()} Airtime for ${phone}`;
+        return `Glo Airtime for ${phone}`;
       case "data":
-        return `You just purchase ${amount}GB of data for ${phone}`;
+        return checkoutMessage;
     }
   };
 
   return (
     <div className="w-full py-10 flex items-center justify-center">
-      <div className="w-[40%] flex flex-col items-center gap-8 rounded-lg sm:rounded-xl p-8">
+      <div className="xl:w-[40%] flex flex-col items-center gap-12 rounded-lg sm:rounded-xl p-8">
         <div className="text-center flex flex-col items-center">
-          <Image src={successSvg} alt="success" />
+          <Image className="w-20 h-20" src={successSvg} alt="success" />
 
-          <p className="mt-1 text-xl font-semibold text-green-600">
+          <p className="mt-2 text-xl font-semibold text-green-600">
             {getPurchaseMessage()}
           </p>
           <p className="text-xl text-green-600 font-semibold">Successful!</p>
         </div>
 
-        <div className="flex flex-col text-center">
+        <div className="flex dark:text-white dark:text-opacity-60 flex-col text-center">
           <p>
             You just purchase &#8358;{" "}
             {new Intl.NumberFormat("en-NG", {
@@ -63,8 +67,11 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         {/* button section */}
         <CustomButton
           type="button"
-          onClick={() => setStage("one")}
-          className="w-full border-2 border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
+          onClick={() => {
+            setNetwork("");
+            setStage("one");
+          }}
+          className="w-full border-2 dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
         >
           Done{" "}
         </CustomButton>

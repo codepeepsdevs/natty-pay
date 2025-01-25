@@ -61,6 +61,12 @@ import emptyTransactions from "./empty-state-images/empty-transactions.svg";
 import walletCardBg from "./user/wallet-card-bg.jpg";
 import backPress from "./user/airtime/backPress.svg";
 import successSvg from "./user/successSvg.svg";
+import mtnLogo from "./user/airtime/mtn.png";
+import gloLogo from "./user/airtime/glo.png";
+import airtelLogo from "./user/airtime/airtel.png";
+import etisalatLogo from "./user/airtime/etisalat.png";
+import phoneIcon from "./user/internet/phone.png";
+import internetIcon from "./user/internet/internet.png";
 
 const landingPage = {
   heroImage,
@@ -126,6 +132,15 @@ const emptyState = {
 
 const airtime = {
   backPress,
+  mtnLogo,
+  gloLogo,
+  airtelLogo,
+  etisalatLogo,
+};
+
+const internet = {
+  phoneIcon,
+  internetIcon,
 };
 
 export default {
@@ -139,5 +154,6 @@ export default {
   emptyState,
   walletCardBg,
   airtime,
+  internet,
   successSvg,
 };

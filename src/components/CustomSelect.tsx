@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 type Option = {
   value: string;
   label: string;
-  logo?: string;
+  logo?: StaticImageData | string;
   [key: string]: unknown; // Allow for additional properties
 };
 
@@ -21,11 +21,13 @@ interface CustomSelectProps {
   disabled?: boolean;
   selectClassName?: string;
   placeholderClassName?: string;
+  loading?: boolean;
 }
 
 import { cn } from "@/utils/cn";
 import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import SpinnerLoader from "./Loader/SpinnerLoader";
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
   options = [],
@@ -41,6 +43,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   disabled = false,
   selectClassName = "",
   placeholderClassName = "",
+  loading = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -76,7 +79,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <Image
           src={option.logo}
           alt={`${option.label} logo`}
-          className="w-5 h-5 rounded-full"
+          className="w-10 h-10 rounded-full"
         />
       )}
       <span>{option.label}</span>
@@ -84,12 +87,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   );
 
   const defaultRenderSelected = (option: Option) => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 h-full py-2">
       {option.logo && (
         <Image
           src={option.logo}
+          width={20}
+          height={20}
           alt={`${option.label} logo`}
-          className="w-5 h-5 rounded-full"
+          className="w-10 h-10 rounded-full"
         />
       )}
       <span className="text-sm">{option.label}</span>
@@ -117,11 +122,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         `}
       >
         <div className="flex-1 truncate">
-          {value ? (
-            renderSelectedFn(value)
-          ) : (
-            <span className={placeholderClassName}>{placeholder}</span>
-          )}
+          <div className="flex items-center gap-2">
+            {loading && <SpinnerLoader />}
+            {value ? (
+              renderSelectedFn(value)
+            ) : (
+              <span className={placeholderClassName}>{placeholder}</span>
+            )}
+          </div>
         </div>
         <IoIosArrowDown
           className={`w-4 h-4 text-gray-500 transition-transform duration-200 ml-2
@@ -132,7 +140,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       </button>
 
       {isOpen && !disabled && (
-        <div className="absolute w-full mt-1 bg-white border rounded-lg shadow-lg z-50">
+        <div className="absolute w-full mt-1 dark:bg-[#141414] dark:border-none bg-white border rounded-lg shadow-lg z-50">
           {isSearchable && (
             <div className="p-2 border-b">
               <input
@@ -160,7 +168,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                 <button
                   key={option.value}
                   onClick={() => handleSelect(option)}
-                  className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center transition-colors"
+                  className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50  dark:hover:text-black flex items-center transition-colors"
                 >
                   {renderOptionFn(option)}
                 </button>

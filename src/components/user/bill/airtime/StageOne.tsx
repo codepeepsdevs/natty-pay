@@ -1,63 +1,82 @@
 "use client";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Image from "next/image";
 import images from "../../../../../public/images";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Switch from "@mui/material/Switch";
 import CustomSelect from "@/components/CustomSelect";
 import CustomButton from "@/components/shared/Button";
+import {
+  useGetAirtimeNetWorkProvider,
+  useGetAirtimePlan,
+} from "@/api/airtime/airtime.queries";
+import classNames from "classnames";
+import { addBeneficiaryLabel, NetworkProvider } from "../bill.data";
+import { Option } from "../type";
+import { useTheme } from "@/store/theme.store";
 
 type StageOneProps = {
   stage: "one" | "two" | "three";
+  network: string;
+  currency: string;
   setStage: (stage: "one" | "two" | "three") => void;
-  setPhone: (phone: string) => void;
+  setPhone?: (phone: string) => void;
   setAmount: (amount: string) => void;
-  setNetwork: (network: string) => void;
-};
-
-const schema = yup.object().shape({
-  phone: yup
-    .string()
-    .required("Phone Number is required")
-    .min(11, "Phone Number must be at least 11 digits")
-    .max(11, "Phone Number must be exactly 11 digits"),
-
-  amount: yup
-    .number()
-    .required("Amount is required")
-    .typeError("Amount is required"),
-
-  networkProvider: yup.string(),
-});
-
-type AirtimeFormData = yup.InferType<typeof schema>;
-
-const addBeneficiaryLabel = {
-  inputProps: { "aria-label": "Switch demo" },
-  sx: {
-    "& .MuiSwitch-switchBase.Mui-checked": {
-      color: "#D4B139", // Custom active color for the thumb
-    },
-    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-      backgroundColor: "#4caf50", // Custom active color for the track
-    },
-  },
+  setNetwork?: (network: string) => void;
+  setOperatorId: (operatorId: number) => void;
+  isBeneficiaryChecked?: boolean;
+  setIsBeneficiaryChecked?: (isBeneficiaryChecked: boolean) => void;
 };
 
 const AirtimeStageOne: React.FC<StageOneProps> = ({
   // stage,
+  network,
+  currency,
   setStage,
-  setPhone,
+  setPhone = () => {},
   setAmount,
-  setNetwork,
+  setNetwork = () => {},
+  setOperatorId,
+  isBeneficiaryChecked = false,
+  setIsBeneficiaryChecked = () => {},
 }) => {
+  const [minimumAmount, setMinimumAmount] = useState<number>(0);
+  const [maxAmount, setMaximumAmount] = useState<number>(0);
+
+  const theme = useTheme();
+
+  const schema = useMemo(
+    () =>
+      yup.object().shape({
+        phone: yup
+          .string()
+          .required("Phone Number is required")
+          .min(11, "Phone Number must be at least 11 digits")
+          .max(11, "Phone Number must be exactly 11 digits"),
+
+        amount: yup
+          .number()
+          .required("Amount is required")
+          .typeError("Amount is required")
+          .min(
+            minimumAmount,
+            `Minimum amount is ₦${minimumAmount.toLocaleString()}`
+          )
+          .max(maxAmount, `Maximum amount is ₦${maxAmount.toLocaleString()}`),
+      }),
+    [minimumAmount, maxAmount]
+  );
+
+  type AirtimeFormData = yup.InferType<typeof schema>;
+
   const form = useForm<AirtimeFormData>({
     defaultValues: {
       phone: "",
-      networkProvider: "",
       amount: undefined,
     },
     resolver: yupResolver(schema),
@@ -79,7 +98,63 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
   // const watchedNetwork = watch("networkProvider");
   const watchedPhone = watch("phone");
 
-  const [isBeneficiaryChecked, setIsBeneficiaryChecked] = useState(false);
+  const [providerOptions, setProviderOptions] = useState<Option[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState<Option | null>(null);
+
+  const { data: networkProviders } = useGetAirtimeNetWorkProvider();
+  const { data: airtimePlan, isPending: isAirtimePlanLoading } =
+    useGetAirtimePlan({
+      phone: watchedPhone,
+      currency,
+    });
+
+  console.log("airtimePlan", airtimePlan);
+  useEffect(() => {
+    const planData = airtimePlan?.data?.data;
+
+    if (planData) {
+      const { plan, network } = planData;
+      setMinimumAmount(plan.minAmount);
+      setMaximumAmount(plan.maxAmount);
+      setNetwork(network.toLocaleUpperCase());
+
+      const provider = NetworkProvider.find(
+        (item) => item.name === network.toLocaleUpperCase()
+      );
+
+      setSelectedProvider({
+        value: plan.operatorId,
+        label: plan.name,
+        logo: provider?.logo,
+      });
+    } else {
+      setSelectedProvider(null);
+    }
+  }, [airtimePlan?.data?.data, setNetwork]);
+
+  useEffect(() => {
+    if (selectedProvider) {
+      setOperatorId(Number(selectedProvider.value));
+    }
+  }, [selectedProvider, setOperatorId]);
+
+  useEffect(() => {
+    const networkProvidersData = networkProviders?.data?.data;
+    if (networkProvidersData && networkProvidersData?.length > 0) {
+      setProviderOptions(
+        networkProvidersData?.map((item: any) => {
+          const provider = NetworkProvider.find(
+            (provider) => provider.name === item?.network?.toLocaleUpperCase()
+          );
+          return {
+            value: item?.operatorId,
+            label: item?.planName,
+            logo: provider?.logo,
+          };
+        })
+      );
+    }
+  }, [networkProviders, network]);
 
   const onBackPressClick = () => {
     setValue("phone", "");
@@ -89,17 +164,16 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
     Promise.all([
       Promise.resolve(setPhone(data.phone)),
       Promise.resolve(setAmount(String(data.amount))),
-      Promise.resolve(setNetwork(data.networkProvider ?? "")),
       Promise.resolve(setStage("two")),
     ]);
   };
 
   return (
     <div className="w-full py-10 flex items-center justify-center">
-      <div className="w-[50%] bg-[#F2F1EE] rounded-lg sm:rounded-xl p-8">
+      <div className="w-[100%] sm:w-[70%] lg:w-[65%] xl:w-[50%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-4 md:p-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col gap-6"
+          className="w-full flex flex-col gap-4 md:gap-6"
         >
           {/* phone number section */}
           <div className="flex flex-col items-end gap-2">
@@ -139,12 +213,14 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
             </div>
 
             {/* Add beneficiary section */}
-            <div className="flex items-center gap-6">
-              <p>Add as beneficiary</p>
+            <div className="flex items-center gap-2 sm:gap-6">
+              <p className="text-sm md:text-base dark:text-white dark:text-opacity-60">
+                Add as beneficiary
+              </p>
               <Switch
                 checked={isBeneficiaryChecked}
                 onChange={(e) => setIsBeneficiaryChecked(e.target.checked)}
-                {...addBeneficiaryLabel}
+                {...addBeneficiaryLabel(theme === "dark")}
               />
             </div>
           </div>
@@ -159,14 +235,30 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
             </label>
 
             <CustomSelect
-              options={[]}
-              value={null}
-              onChange={() => {}}
+              options={providerOptions}
+              value={selectedProvider}
+              onChange={(option: Option) => {
+                setSelectedProvider({
+                  value: option.value,
+                  label: option.label,
+                  logo: option.logo,
+                });
+              }}
+              disabled={
+                isAirtimePlanLoading && !errors.phone && watchedPhone != ""
+              }
+              loading={
+                isAirtimePlanLoading && !errors.phone && watchedPhone != ""
+              }
+              // renderOption={RenderOptions}
               placeholder="Select Network Provider"
               isSearchable={false}
               className="w-full bg-bg-2400 dark:bg-bg-2100 border outline-none border-border-600 rounded-lg text-base text-text-200 dark:text-white"
-              selectClassName="py-4 px-3"
-              placeholderClassName="placeholder:text-text-200 dark:placeholder:text-text-1000 placeholder:text-sm"
+              selectClassName={classNames({
+                "px-3": true,
+                "py-4": !selectedProvider,
+              })}
+              placeholderClassName="text-text-200 dark:text-text-1000 text-sm"
             />
           </div>
 
@@ -184,18 +276,26 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
                 className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-[#797B86] dark:placeholder:text-text-1000 placeholder:text-sm"
                 placeholder="&#8358;5,000"
                 required={true}
+                min={minimumAmount}
+                max={maxAmount}
                 type="number"
                 {...register("amount")}
                 // onKeyDown={handleNumericKeyDown}
                 // onPaste={handleNumericPaste}
               />
             </div>
+
+            {errors?.amount?.message && (
+              <p className="flex self-start text-red-500 font-semibold mt-0.5 text-sm">
+                {errors?.amount?.message}
+              </p>
+            )}
           </div>
 
           <CustomButton
             type="submit"
             disabled={!isValid}
-            className="w-full border-2 border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
+            className="w-full border-2 dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
           >
             Next{" "}
           </CustomButton>
