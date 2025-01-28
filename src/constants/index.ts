@@ -204,7 +204,7 @@ export const SidebarData = [
       {
         id: 5,
         title: "Internet",
-        path: "/user/internet",
+        path: "/user/internet/mobile-data",
         icon: FaWifi,
       },
     ],
@@ -215,7 +215,7 @@ export const SidebarData = [
       {
         id: 1,
         title: "Bills Payment",
-        path: "/user/bills-payment",
+        path: "/user/bills",
         icon: LiaMoneyBillWaveSolid,
       },
 

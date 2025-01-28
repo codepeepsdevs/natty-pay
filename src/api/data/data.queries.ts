@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   dataPaymentRequest,
   dataPlanNetworkRequest,
@@ -8,6 +8,7 @@ import {
   dataVariationRequest,
 } from "./data.apis";
 import { IDataPlan, IDataVariationPayload } from "./data.types";
+import { NetworkPlan } from "@/constants/types";
 
 const validatePhone = (phone: string, currency: string) => {
   if (phone.length === 11 && currency === "NGN") {
@@ -17,29 +18,46 @@ const validatePhone = (phone: string, currency: string) => {
 };
 
 export const useGetDataPlan = (payload: IDataPlan) => {
-  return useQuery({
-    queryKey: ["data-plan", payload.phone],
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["data-plan", payload],
     queryFn: () => dataPlanRequest(payload),
     enabled: validatePhone(payload.phone, payload.currency),
   });
+
+  const res = data?.data?.data;
+
+  const network: string = res?.network;
+  const networkPlans: NetworkPlan[] = res?.plan;
+
+  return { isLoading, isError, network, networkPlans };
 };
 
 export const useGetDataVariation = (payload: IDataVariationPayload) => {
-  return useQuery({
-    queryKey: ["data-variation", payload.operatorId],
+  const { isPending, isError, data } = useQuery({
+    queryKey: ["data-variation", payload],
     queryFn: () => dataVariationRequest(payload),
     enabled: !!payload.operatorId,
   });
+
+  const variations: {
+    [price: string]: string;
+  } = data?.data?.data?.fixedAmountsDescriptions;
+  return { isPending, isError, variations };
 };
 
 export const usePayForData = (
   onError: (error: any) => void,
   onSuccess: (data: any) => void
 ) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: dataPaymentRequest,
     onError,
-    onSuccess,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      onSuccess(data);
+    },
   });
 };
 

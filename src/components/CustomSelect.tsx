@@ -79,7 +79,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <Image
           src={option.logo}
           alt={`${option.label} logo`}
-          className="w-10 h-10 rounded-full"
+          className="w-9 h-9 rounded-full"
         />
       )}
       <span>{option.label}</span>
@@ -94,7 +94,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           width={20}
           height={20}
           alt={`${option.label} logo`}
-          className="w-10 h-10 rounded-full"
+          className="w-9 h-9 rounded-full"
         />
       )}
       <span className="text-sm">{option.label}</span>

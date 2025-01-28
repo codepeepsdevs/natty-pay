@@ -28,6 +28,23 @@ import emailIcon from "./home/auth/emailIcon.svg";
 
 import plusIcon from "./user/plusIcon.svg";
 
+import dstvIcon from "./user/cable/dstvImage.jpeg";
+import gotvIcon from "./user/cable/gotvImage.png";
+import startimesIcon from "./user/cable/startTimesImage.png";
+
+import aedc from "./user/electricity/Abuja Electric.svg";
+import bedc from "./user/electricity/Benin electric.svg";
+import ekedc from "./user/electricity/Eko Electric.svg";
+import eedc from "./user/electricity/Enugu Electric.svg";
+import ibedc from "./user/electricity/Ibadan Electric.svg";
+import ikedc from "./user/electricity/Ikeja Electric.svg";
+import jed from "./user/electricity/Jos Electric.svg";
+import kedco from "./user/electricity/kano Electric.svg";
+import kaedco from "./user/electricity/Kaduna Electric.svg";
+import phed from "./user/electricity/PH electric.svg";
+import yedc from "./user/electricity/Yola Electricity.svg";
+import abedc from "./user/electricity/Aba Electricity.svg";
+
 const landingPage = {
   wcuCheckIcon,
 };
@@ -63,6 +80,22 @@ const socialIcons = {
 
 const userIcons = {
   plusIcon,
+  dstvIcon,
+  startimesIcon,
+  gotvIcon,
+
+  abedc,
+  bedc,
+  eedc,
+  ekedc,
+  yedc,
+  phed,
+  kaedco,
+  kedco,
+  jed,
+  ikedc,
+  ibedc,
+  aedc,
 };
 
 export default {

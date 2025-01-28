@@ -44,9 +44,19 @@ const Navbar = () => {
       title: "Mobile Data",
       path: "/user/internet",
     },
+    {
+      title: "Bills Payment",
+      path: "/user/bills",
+    },
+    {
+      title: "Cable / TV Bills",
+      path: "/user/bills/cable",
+    },
   ];
 
-  const Heading = HeadingData.find((item) => {
+  const Heading = HeadingData.sort(
+    (a, b) => b.path.length - a.path.length
+  ).find((item) => {
     if (Array.isArray(item.path)) {
       return item.path.includes(pathname);
     }
@@ -76,21 +86,24 @@ const Navbar = () => {
             {user?.fullname.slice(0, 2)}
           </Link>
           <div className="max-lg:hidden flex flex-col text-text-1000 dark:text-text-800">
-            {/* <p className="capitalize text-base font-semibold mb-0.5">
-              {user?.wallet ? `₦ ${user?.wallet.balance}` : user?.fullname}
-            </p>
-            <p className="text-sm -mt-1.5">
-              {user?.wallet ? user?.wallet.accountNumber : user?.email}
-            </p> */}
+            {user?.wallet ? (
+              <>
+                <p className="capitalize text-base font-semibold mb-0.5">
+                  Bal: ₦ {user?.wallet.balance.toLocaleString()}
+                </p>
 
-            <p className="capitalize text-base font-semibold mb-0.5">
-              {user?.fullname}
-            </p>
-            {user?.wallet?.accountNumber ? (
-              <p className="text-sm -mt-1.5">
-                Acc No: {user?.wallet.accountNumber}
-              </p>
-            ) : null}
+                <p className="text-sm -mt-1.5">
+                  Acc No: {user?.wallet.accountNumber}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="capitalize text-base font-semibold mb-0.5">
+                  {user?.fullname}
+                </p>
+                <p className="text-sm -mt-1.5">{user?.email}</p>
+              </>
+            )}
           </div>
         </div>
       </div>

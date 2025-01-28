@@ -1,5 +1,6 @@
 import { useState, ReactNode } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import SpinnerLoader from "../Loader/SpinnerLoader";
 
 interface SearchableDropdownProps<T> {
   items: T[];
@@ -10,6 +11,8 @@ interface SearchableDropdownProps<T> {
   showSearch?: boolean;
   isOpen: boolean;
   onClose: () => void;
+  isLoading?: boolean;
+  disabled?: boolean;
 }
 
 const SearchableDropdown = <T extends object>({
@@ -19,6 +22,7 @@ const SearchableDropdown = <T extends object>({
   onSelect,
   showSearch = true,
   placeholder = "Search...",
+  isLoading,
 }: SearchableDropdownProps<T>) => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -42,20 +46,30 @@ const SearchableDropdown = <T extends object>({
       ) : null}
 
       <div className="h-fit">
-        {filteredItems?.length > 0 ? (
-          filteredItems.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => onSelect(item)}
-              className="hover:opacity-80 w-full flex items-center justify-between px-4 py-2 gap-2 cursor-pointer"
-            >
-              <span className="w-full text-sm">{displayFormat(item)}</span>
-            </div>
-          ))
-        ) : (
-          <div className="px-4 py-2 text-sm text-gray-500">
-            No results found
+        {isLoading ? (
+          <div className="flex items-center gap-2 p-2 text-text-200 dark:text-text-400">
+            <SpinnerLoader width={25} height={25} color="#d4b139" />
+            <p>Fetching...</p>
           </div>
+        ) : (
+          <>
+            {" "}
+            {filteredItems?.length > 0 ? (
+              filteredItems.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => onSelect(item)}
+                  className="hover:opacity-80 w-full flex items-center justify-between px-4 py-2 gap-2 cursor-pointer"
+                >
+                  <span className="w-full text-sm">{displayFormat(item)}</span>
+                </div>
+              ))
+            ) : (
+              <div className="px-4 py-2 text-sm text-gray-500">
+                No results found
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

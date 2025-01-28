@@ -1,15 +1,16 @@
-import React from "react";
-import successSvg from "../../../../public/images/user/successSvg.svg";
 import CustomButton from "@/components/shared/Button";
-import Image from "next/image";
+import toast from "react-hot-toast";
+import { LuCopy } from "react-icons/lu";
 
 type StageThreeProps = {
   setStage: (stage: "one" | "two" | "three") => void;
-  phone: string;
-  network: string;
+  phone?: string;
+  network?: string;
+  cableProvider?: string;
   amount: string;
-  type?: "airtime" | "data";
+  type: "airtime" | "data" | "cable" | "electricity";
   checkoutMessage?: string;
+  electricityResCode?: string;
   setNetwork?: (network: string) => void;
 };
 
@@ -18,8 +19,10 @@ const BillStageThree: React.FC<StageThreeProps> = ({
   phone,
   // network,
   amount,
-  type = "airtime",
-  checkoutMessage = "",
+  cableProvider,
+  type,
+  checkoutMessage,
+  electricityResCode,
   setNetwork = () => {},
 }) => {
   const getPurchaseMessage = () => {
@@ -28,6 +31,10 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         return "Airtime Purchase";
       case "data":
         return "Mobile Data Purchase";
+      case "cable":
+        return `${cableProvider} Subscription`;
+      case "electricity":
+        return `Electricity Purchase`;
       default:
         return "Purchase";
     }
@@ -39,42 +46,99 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         return `Glo Airtime for ${phone}`;
       case "data":
         return checkoutMessage;
+      case "cable":
+        return checkoutMessage;
+      case "electricity":
+        return "worth of electricity recharge";
     }
   };
 
   return (
-    <div className="w-full py-10 flex items-center justify-center">
-      <div className="xl:w-[40%] flex flex-col items-center gap-12 rounded-lg sm:rounded-xl p-8">
+    <div className="w-full py-5 xs:py-10   flex items-center justify-center">
+      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] flex flex-col gap-8 rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
         <div className="text-center flex flex-col items-center">
-          <Image className="w-20 h-20" src={successSvg} alt="success" />
+          <div
+            className="flex items-center justify-center w-12 h-12 bg-bg-2600 rounded-full mb-4"
+            style={{
+              animation: "shadowBeat 1.5s ease-in-out infinite",
+              boxShadow: "0 0 0 0 rgba(34, 197, 94, 0.7)", // Starting shadow
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
 
-          <p className="mt-2 text-xl font-semibold text-green-600">
+            {/* Inline Keyframes */}
+            <style>
+              {`
+      @keyframes shadowBeat {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 20px 10px rgba(34, 197, 94, 0.4);
+        }
+      }
+    `}
+            </style>
+          </div>
+          <p className="mt-2 text-xl font-bold text-text-1800">
             {getPurchaseMessage()}
           </p>
-          <p className="text-xl text-green-600 font-semibold">Successful!</p>
+          <p className="text-xl text-text-1800 font-bold">Successful!</p>
         </div>
 
-        <div className="flex dark:text-white dark:text-opacity-60 flex-col text-center">
+        <div className="flex text-text-200 dark:text-text-800   flex-col text-center">
           <p>
-            You just purchase &#8358;{" "}
-            {new Intl.NumberFormat("en-NG", {
-              maximumFractionDigits: 2,
-            }).format(Number(amount))}
+            You just purchase{" "}
+            <span className="font-semibold dark:text-text-400">
+              ₦ {amount?.toLocaleString()}
+            </span>{" "}
           </p>
           <p>{getSubText()}</p>
+          {type === "electricity" && electricityResCode && (
+            <div className="flex items-center justify-center gap-2">
+              <p>
+                Recharge Code:{" "}
+                <span className="text-text-1600">{electricityResCode}</span>
+              </p>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(electricityResCode);
+                  toast.success("Copied to clipboard", {
+                    duration: 3000,
+                  });
+                }}
+                className="transition-colors"
+              >
+                <LuCopy className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* button section */}
-        <CustomButton
-          type="button"
-          onClick={() => {
-            setNetwork("");
-            setStage("one");
-          }}
-          className="w-full border-2 dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
-        >
-          Done{" "}
-        </CustomButton>
+        <div className="flex justify-center">
+          {/* button section */}
+          <CustomButton
+            type="button"
+            onClick={() => {
+              setNetwork("");
+              setStage("one");
+            }}
+            className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%] border-2 text-text-1500  dark:text-text-200 dark:font-bold border-primary text-base 2xs:text-lg max-2xs:px-6 py-3.5"
+          >
+            Done{" "}
+          </CustomButton>
+        </div>
       </div>
     </div>
   );

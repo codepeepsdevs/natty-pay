@@ -1,3 +1,4 @@
+import icons from "../../../../public/icons";
 import images from "../../../../public/images";
 
 export const addBeneficiaryLabel = (dark: boolean) => ({
@@ -43,26 +44,115 @@ export const NetworkProvider = [
 export const dataPlanNetwork = [
   {
     id: 1,
-    network: "mtn",
-    name: "MTN Data",
-    logo: images.airtime.mtnLogo,
+    value: "mtn",
+    label: "MTN Data",
   },
   {
     id: 2,
-    network: "glo",
-    name: "GLO Data",
-    logo: images.airtime.gloLogo,
+    value: "glo",
+    label: "GLO Data",
   },
   {
     id: 3,
-    network: "airtel",
-    name: "AIRTEL Data",
-    logo: images.airtime.airtelLogo,
+    value: "airtel",
+    label: "AIRTEL Data",
   },
   {
     id: 4,
-    network: "etisalat",
-    name: "ETISALAT Data",
-    logo: images.airtime.etisalatLogo,
+    value: "9mobile",
+    label: "9MOBILE Data",
+  },
+];
+
+export const cablePlansData = [
+  {
+    id: 1,
+    value: "dstv",
+    label: "DSTV",
+  },
+  {
+    id: 2,
+    value: "gotv",
+    label: "GOTV",
+  },
+  {
+    id: 3,
+    value: "startimes",
+    label: "STARTIMES",
+  },
+];
+
+export const ElectricityProvidersData = [
+  {
+    disco: "aba",
+    acronym: "ABEDC",
+    label: "Aba Electricity",
+    logo: icons.userIcons.abedc,
+  },
+  {
+    disco: "abuja",
+    acronym: "AEDC",
+    label: "Abuja Electricity",
+    logo: icons.userIcons.aedc,
+  },
+  {
+    disco: "benin",
+    acronym: "BEDC",
+    label: "Benin Electricity",
+    logo: icons.userIcons.bedc,
+  },
+  {
+    disco: "eko disco",
+    acronym: "EKEDC",
+    label: "Eko Electricity",
+    logo: icons.userIcons.ekedc,
+  },
+  {
+    disco: "enugu",
+    acronym: "EEDC",
+    label: "Enugu Electricity",
+    logo: icons.userIcons.eedc,
+  },
+  {
+    disco: "ibadan",
+    acronym: "IBEDC",
+    label: "Ibadan Electric",
+    logo: icons.userIcons.ibedc,
+  },
+  {
+    disco: "ikeja",
+    acronym: "IKEDC",
+    label: "Ikeja Electric",
+    logo: icons.userIcons.ikedc,
+  },
+  {
+    disco: "jos",
+    acronym: "JED",
+    label: "Jos Electric",
+    logo: icons.userIcons.jed,
+  },
+  {
+    disco: "kaduna",
+    acronym: "KAEDCO",
+    label: "Kaduna Electric",
+    logo: icons.userIcons.kaedco,
+  },
+  {
+    disco: "kano",
+    acronym: "KEDCO",
+    label: "Kano Electric",
+    logo: icons.userIcons.kedco,
+  },
+  {
+    disco: "port harcourt",
+    acronym: "PHED",
+    label: "Port Harcourt Electric",
+    logo: icons.userIcons.phed,
+  },
+  {
+    disco: "yola",
+    acronym: "YEDC",
+    label: "Yola Electric",
+    logo: icons.userIcons.yedc,
   },
 ];

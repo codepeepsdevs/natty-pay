@@ -21,4 +21,5 @@ export interface IInitiateTransfer {
   description?: string;
   currency: string;
   walletPin: string;
+  addBeneficiary?: boolean;
 }

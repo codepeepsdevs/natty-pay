@@ -33,7 +33,7 @@ export const GenerateColumns = () => {
                   duration: 3000,
                 });
               }}
-              className="hover:text-text-3500 transition-colors"
+              className="hover:text-primary transition-colors"
             >
               <LuCopy className="w-4 h-4" />
             </button>
@@ -78,7 +78,13 @@ export const GenerateColumns = () => {
             </span>
           );
         } else if (value === TRANSACTION_CATEGORY.BILL_PAYMENT) {
-          return <span>Bill Payment</span>;
+          const billDetails = row.original?.billDetails;
+
+          return (
+            <span className="capitalize">
+              {billDetails?.type} purchase for {billDetails?.recipientPhone}{" "}
+            </span>
+          );
         }
         return <span>N/A</span>;
       },

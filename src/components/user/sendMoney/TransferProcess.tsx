@@ -26,6 +26,9 @@ import SpinnerLoader from "@/components/Loader/SpinnerLoader";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import SearchableDropdown from "@/components/shared/SearchableDropdown";
 import { BankProps } from "@/constants/types";
+import { Switch } from "@mui/material";
+import { addBeneficiaryLabel } from "../bill/bill.data";
+import { useTheme } from "@/store/theme.store";
 
 const transferMethods = [
   {
@@ -77,6 +80,7 @@ interface BankResponseData {
 }
 
 const TransferProcess = () => {
+  const theme = useTheme();
   const [selectedType, setSelectedType] = useState<string>("nattypay");
   const [bankData, setBankData] = useState<BankResponseData | null>(null);
   const [bankState, setBankState] = useState(false);
@@ -84,6 +88,7 @@ const TransferProcess = () => {
   const [selectedBank, setSelectedBank] = useState<BankProps>();
   const [pin, setPin] = useState<string>("");
   const [bankName, setBankName] = useState<string>("");
+  const [isBeneficiaryChecked, setIsBeneficiaryChecked] = useState(false);
 
   const { banks } = useGetAllBanks();
 
@@ -398,17 +403,31 @@ const TransferProcess = () => {
                     <>
                       {bankData ? (
                         <div className="w-full flex flex-col gap-6">
-                          <div className="w-full flex flex-col gap-2 rounded-xl px-4 py-3 bg-bg-400 xs:bg-bg-600 dark:bg-black dark:xs:bg-bg-1100">
-                            <p className="text-sm text-text-200 dark:text-text-1000 font-semibold">
-                              Recipient{" "}
-                            </p>
-                            <div className="flex flex-col text-sm  2xs:text-base">
-                              <p className=" text-text-200 dark:text-text-1000 font-medium">
-                                {bankData?.accountName}
+                          <div className="flex flex-col gap-2">
+                            <div className="w-full flex flex-col gap-2 rounded-xl px-4 py-3 bg-bg-400 xs:bg-bg-600 dark:bg-black dark:xs:bg-bg-1100">
+                              <p className="text-sm text-text-200 dark:text-text-1000 font-semibold">
+                                Beneficiary{" "}
                               </p>
-                              <p className=" text-primary">
-                                {bankData?.accountNumber}
+                              <div className="flex flex-col text-sm  2xs:text-base">
+                                <p className=" text-text-200 dark:text-text-1000 font-medium">
+                                  {bankData?.accountName}
+                                </p>
+                                <p className=" text-primary">
+                                  {bankData?.accountNumber}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex self-end items-center gap-2 sm:gap-6">
+                              <p className="text-sm md:text-base dark:text-white dark:text-opacity-60">
+                                Add as beneficiary
                               </p>
+                              <Switch
+                                checked={isBeneficiaryChecked}
+                                onChange={(e) =>
+                                  setIsBeneficiaryChecked(e.target.checked)
+                                }
+                                {...addBeneficiaryLabel(theme === "dark")}
+                              />
                             </div>
                           </div>
 
@@ -645,6 +664,7 @@ const TransferProcess = () => {
                     sessionId: watchedSessionId,
                     bankCode: watchedBankCode,
                     currency: "NGN",
+                    addBeneficiary: isBeneficiaryChecked,
                   });
                 } else {
                   ErrorToast({

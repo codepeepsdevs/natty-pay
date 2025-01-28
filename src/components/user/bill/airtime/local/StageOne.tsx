@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Image from "next/image";
-import images from "../../../../../public/images";
+import images from "../../../../../../public/images";
 import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -16,9 +16,13 @@ import {
   useGetAirtimePlan,
 } from "@/api/airtime/airtime.queries";
 import classNames from "classnames";
-import { addBeneficiaryLabel, NetworkProvider } from "../bill.data";
-import { Option } from "../type";
+import { addBeneficiaryLabel, NetworkProvider } from "../../bill.data";
+import { Option } from "../../type";
 import { useTheme } from "@/store/theme.store";
+import {
+  handleNumericKeyDown,
+  handleNumericPaste,
+} from "@/utils/utilityFunctions";
 
 type StageOneProps = {
   stage: "one" | "two" | "three";
@@ -169,12 +173,15 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
   };
 
   return (
-    <div className="w-full py-10 flex items-center justify-center">
-      <div className="w-[100%] sm:w-[70%] lg:w-[65%] xl:w-[50%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-4 md:p-8">
+    <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
+      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-4 md:gap-6"
         >
+          <h2 className="2xs:hidden text-2xl font-semibold text-text-800">
+            Local Airtime
+          </h2>
           {/* phone number section */}
           <div className="flex flex-col items-end gap-2">
             <div className="flex flex-col justify-center items-center gap-1 w-full text-black dark:text-white">
@@ -189,10 +196,12 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
                   className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-text-200 dark:placeholder:text-text-1000 placeholder:text-sm"
                   placeholder="Enter Phone Number"
                   required={true}
-                  type="number"
+                  type="text"
+                  maxLength={11}
+                  minLength={11}
                   {...register("phone")}
-                  // onKeyDown={handleNumericKeyDown}
-                  // onPaste={handleNumericPaste}
+                  onKeyDown={handleNumericKeyDown}
+                  onPaste={handleNumericPaste}
                 />
 
                 {watchedPhone && (
@@ -213,7 +222,7 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
             </div>
 
             {/* Add beneficiary section */}
-            <div className="flex items-center gap-2 sm:gap-6">
+            <div className="flex items-center gap-2 sm:gap-4">
               <p className="text-sm md:text-base dark:text-white dark:text-opacity-60">
                 Add as beneficiary
               </p>

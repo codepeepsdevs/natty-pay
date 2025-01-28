@@ -1,9 +1,7 @@
-import Airtime from "@/components/user/bill/airtime";
+import LocalAirtimeContent from "@/components/user/bill/airtime/local/AirtimeContent";
 
-export default function AirtimePage() {
-  return (
-    <>
-      <Airtime />
-    </>
-  );
-}
+const LocalAirtimePage = () => {
+  return <LocalAirtimeContent />;
+};
+
+export default LocalAirtimePage;

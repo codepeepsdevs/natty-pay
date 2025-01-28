@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   airtimeNetworkProviderRequest,
   airtimePaymentRequest,
@@ -35,10 +35,14 @@ export const usePayForAirtime = (
   onError: (error: any) => void,
   onSuccess: (data: any) => void
 ) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: airtimePaymentRequest,
     onError,
-    onSuccess,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      onSuccess(data);
+    },
   });
 };
 

@@ -1,32 +1,32 @@
-import { IAirtimePayPayload } from "@/api/airtime/airtime.types";
-import { IDataPayPayload } from "@/api/data/data.types";
 import CustomButton from "@/components/shared/Button";
 import React, { useState } from "react";
 
 type StageTwoProps = {
+  billerCode?: string;
+  billerNumber?: string;
+  itemCode?: string;
   operatorId?: number;
-  phone: string;
+  phone?: string;
   amount: string;
-  network: string;
-  type?: "airtime" | "data";
+  network?: string;
+  cableProvider?: string;
+  type: "airtime" | "data" | "cable" | "electricity";
   currency: string;
-  payFunction: (formdata: IAirtimePayPayload | IDataPayPayload) => void;
+  payFunction: (walletPin: string) => void;
   isLoading?: boolean;
   isBeneficiaryChecked?: boolean;
   checkoutMessage?: string;
 };
 
 const BillStageTwo: React.FC<StageTwoProps> = ({
-  operatorId,
   phone,
   amount,
   network,
-  type = "airtime",
-  currency,
+  billerNumber,
+  type,
   payFunction,
   isLoading = false,
-  isBeneficiaryChecked = false,
-  checkoutMessage = "",
+  checkoutMessage,
 }) => {
   const [walletPin, setWalletPin] = useState("");
 
@@ -38,6 +38,12 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
         return "Airtime Topup for";
       case "data":
         return checkoutMessage;
+
+      case "cable":
+        return checkoutMessage;
+
+      case "electricity":
+        return checkoutMessage;
     }
   };
 
@@ -45,33 +51,27 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
     switch (type) {
       case "airtime":
       case "data":
-        return `${phone} (${network.toLocaleUpperCase()})`;
+        return `${phone} (${network?.toLocaleUpperCase()})`;
+
+      case "cable":
+        return `Cable Plan`;
+      case "electricity":
+        return `for meter No. ${billerNumber}`;
     }
   };
 
   const onConfirm = () => {
-    switch (type) {
-      case "airtime":
-      case "data":
-        payFunction({
-          phone,
-          currency,
-          walletPin,
-          operatorId: operatorId!,
-          amount: Number(amount),
-          addBeneficiary: isBeneficiaryChecked,
-        });
-        break;
-    }
+    payFunction(walletPin);
   };
 
   return (
-    <div className="w-full dark:text-white dark:text-opacity-60 py-10 flex items-center justify-center">
-      <div className="xl:w-[40%]  flex flex-col gap-8 rounded-lg sm:rounded-xl p-8">
+    <div className="w-full py-5 xs:py-10 text-text-200 dark:text-text-400  flex items-center justify-center">
+      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] flex flex-col gap-8 rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
         {/* airtime preview section */}
         <div className="flex flex-col gap-1 text-center">
           <p className="text-lg font-medium">{getTitleMessage()}</p>
           <p className="font-bold text-lg">{getSubTitlteMessage()}</p>
+
           <p className="text-primary text-3xl font-bold ">
             &#8358;{" "}
             {new Intl.NumberFormat("en-NG", {
@@ -106,16 +106,17 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
           </p>
         </div>
 
-        {/* button section */}
-        <CustomButton
-          type="submit"
-          disabled={isValidated || isLoading}
-          isLoading={isLoading}
-          onClick={onConfirm}
-          className="w-full border-2  dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
-        >
-          Confirm{" "}
-        </CustomButton>
+        <div className="flex justify-center">
+          <CustomButton
+            type="submit"
+            disabled={isValidated || isLoading}
+            isLoading={isLoading}
+            onClick={onConfirm}
+            className="w-full border-2 text-text-1500  dark:text-text-200 dark:font-bold border-primary text-base 2xs:text-lg max-2xs:px-6 py-3.5"
+          >
+            Confirm{" "}
+          </CustomButton>
+        </div>
       </div>
     </div>
   );

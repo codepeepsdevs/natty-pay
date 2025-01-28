@@ -1,10 +1,25 @@
+import { StaticImageData } from "next/image";
 import icons from "../../public/icons";
+import images from "../../public/images";
 
 const currencyIcons = {
   ngnIcon: icons.currenciesIcons.ngnIcon,
   usdIcon: icons.currenciesIcons.usdIcon,
   eurIcon: icons.currenciesIcons.eurIcon,
   gbpIcon: icons.currenciesIcons.gbpIcon,
+};
+
+const networkIcons = {
+  mtnIcon: images.airtime.mtnLogo,
+  gloIcon: images.airtime.gloLogo,
+  airtelIcon: images.airtime.airtelLogo,
+  "9mobile": images.airtime.etisalatLogo,
+};
+
+const cableIcons = {
+  dstvIcon: icons.userIcons.dstvIcon,
+  gotvIcon: icons.userIcons.gotvIcon,
+  startimesIcon: icons.userIcons.startimesIcon,
 };
 
 // For email masking and initials
@@ -118,6 +133,35 @@ export const getCurrencyIconByString = (currency: string): string | null => {
   };
 
   return iconMap[currency as CurrencyIconKey] || null;
+};
+
+type NetworkIconKey = "mtn" | "glo" | "airtel" | "9mobile";
+
+export const getNetworkIconByString = (
+  network: string
+): string | StaticImageData | null => {
+  const iconMap: Record<NetworkIconKey, string | StaticImageData> = {
+    mtn: networkIcons.mtnIcon,
+    glo: networkIcons.gloIcon,
+    airtel: networkIcons.airtelIcon,
+    "9mobile": networkIcons["9mobile"],
+  };
+
+  return iconMap[network as NetworkIconKey] || null;
+};
+
+type CableIconsKey = "dstv" | "gotv" | "startimes";
+
+export const getCableIconByString = (
+  provider: string
+): string | StaticImageData | null => {
+  const iconMap: Record<CableIconsKey, string | StaticImageData> = {
+    dstv: cableIcons.dstvIcon,
+    gotv: cableIcons.gotvIcon,
+    startimes: cableIcons.startimesIcon,
+  };
+
+  return iconMap[provider as CableIconsKey] || null;
 };
 
 export const shortenReference = (ref: string) => {
