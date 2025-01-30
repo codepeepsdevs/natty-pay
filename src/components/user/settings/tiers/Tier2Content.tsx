@@ -33,7 +33,7 @@ interface SelfieCaptureProps {
 }
 
 // Selfie Capture Component
-const SelfieCaptureComponent: React.FC<SelfieCaptureProps> = ({
+export const SelfieCaptureComponent: React.FC<SelfieCaptureProps> = ({
   onImageCapture,
   error,
 }) => {
@@ -225,7 +225,7 @@ const Tier2Content = () => {
     mode: "onChange",
   });
 
-  const { register, handleSubmit, formState, setValue } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors, isValid } = formState;
 
   const onSuccess = () => {
@@ -254,12 +254,12 @@ const Tier2Content = () => {
     isError: verifyError,
   } = useTier2Verification(onError, onSuccess);
 
-  const handleImageCapture = (base64Image: string) => {
-    setSelfieBase64(base64Image);
-    setValue("selfieImage", base64Image, {
-      shouldValidate: true,
-    });
-  };
+  // const handleImageCapture = (base64Image: string) => {
+  //   setSelfieBase64(base64Image);
+  //   setValue("selfieImage", base64Image, {
+  //     shouldValidate: true,
+  //   });
+  // };
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -297,8 +297,8 @@ const Tier2Content = () => {
 
       <div className="w-full h-full 2xs:bg-bg-600 2xs:dark:bg-bg-1100 py-4 md:py-8 px-1 2xs:px-5 lg:px-8 flex justify-center rounded-xl sm:rounded-2xl">
         <div className="flex flex-col justify-center items-center gap-6 xs:gap-10 w-full xl:w-[80%] 2xl:w-[70%] bg-transparent lg:bg-bg-400 dark:bg-transparent lg:dark:bg-black rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
-          <h2 className="w-[80%] text-center text-xl xs:text-2xl text-text-200 dark:text-text-400 font-semibold">
-            Input your NIN and take or upload a selfie to verify your identity
+          <h2 className="w-full xs:w-[80%] text-center text-xl xs:text-2xl text-text-200 dark:text-text-400 ">
+            Input your National Identity Number (NIN) to verify your identity
           </h2>
 
           <form
@@ -337,10 +337,10 @@ const Tier2Content = () => {
                 <label className="text-sm font-medium text-text-200 dark:text-text-800">
                   Face Verification{" "}
                 </label>
-                <SelfieCaptureComponent
+                {/* <SelfieCaptureComponent
                   onImageCapture={handleImageCapture}
                   error={errors.selfieImage?.message}
-                />
+                /> */}
               </div>
             </div>
 
