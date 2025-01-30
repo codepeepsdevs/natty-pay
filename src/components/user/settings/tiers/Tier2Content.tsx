@@ -233,6 +233,7 @@ const Tier2Content = () => {
       description: "Successfully upgraded to tier two",
     });
     form.reset();
+    navigate("/user/settings/tiers", "replace");
   };
 
   const onError = (error: any) => {
