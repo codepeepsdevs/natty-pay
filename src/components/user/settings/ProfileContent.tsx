@@ -188,7 +188,7 @@ const ProfileContent = () => {
               alt="profile"
               width={500}
               height={500}
-              className="w-full rounded-full"
+              className="w-full h-full rounded-full"
             />
           ) : (
             <div className="uppercase w-full flex justify-center items-center text-text-200 dark:text-text-400 text-4xl sm:text-5xl">
