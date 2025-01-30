@@ -103,7 +103,7 @@ const TierCard = ({
       className={cn(
         "bg-bg-600 2xs:bg-bg-400 dark:bg-bg-1100 2xs:dark:bg-black text-base text-text-200 dark:text-text-400 rounded-xl px-6 xl:px-8 py-6 xl:py-8 flex flex-col  gap-2 sm:gap-3 ",
         {
-          " shadow-[0_4px_20px_0_rgba(241,181,0,0.3)]": active,
+          " shadow-[0_4px_20px_0_rgba(241,181,0,0.6)]": active,
           "border-none": !active,
         }
       )}
@@ -113,8 +113,22 @@ const TierCard = ({
         <p className="">{title}</p>
       </div>
       {active ? (
-        <div className="text-sm xs:text-base w-fit text-center px-4 py-1 xs:py-1.5 rounded-full text-black bg-primary">
-          Active Tier
+        <div className="flex flex-col gap-0.5">
+          <p className="flex items-center gap-1">
+            <span>Daily Limit: </span>
+            <span className="font-bold">₦{transLimit.toLocaleString()}</span>
+          </p>
+          <p className="flex items-center gap-1">
+            <span>Wallet Cap: </span>
+            <span className="font-bold">
+              {maxBal === Infinity
+                ? "Unlimited"
+                : `₦${maxBal.toLocaleString()}`}
+            </span>
+          </p>
+          <div className="mt-4 text-sm xs:text-base w-fit text-center px-4 py-1 xs:py-1.5 rounded-full text-black bg-primary">
+            Active Tier
+          </div>{" "}
         </div>
       ) : (
         <div className="flex flex-col gap-3 sm:gap-5">

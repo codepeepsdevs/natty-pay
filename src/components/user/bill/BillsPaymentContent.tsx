@@ -106,6 +106,8 @@ const BillsPaymentContent = () => {
               ) {
                 navigate(item.path);
               } else {
+                toast.dismiss();
+
                 toast.error("Unavailable at the moment", {
                   duration: 3000,
                 });

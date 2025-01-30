@@ -76,7 +76,7 @@ const WalletTransactions = () => {
           ) : (
             <EmptyState
               image={images.emptyState.emptyTransactions}
-              title={"No transactions"}
+              title={"No Deposit transactions"}
               path={"/user/services"}
               placeholder={"Pay a bill"}
               showButton={false}

@@ -172,34 +172,39 @@ const TransferNgnProcess = () => {
                   />
                 </div>
               </div>
-              {isLoading ? (
-                <div className="w-full flex justify-center items-center py-8">
-                  <SpinnerLoader width={50} height={50} color="#D4B139" />
-                </div>
-              ) : (
+              {amount && (
                 <>
-                  {qrCode ? (
-                    <div className="flex flex-col gap-1 w-full">
-                      <label
+                  {" "}
+                  {isLoading ? (
+                    <div className="w-full flex justify-center items-center py-8">
+                      <SpinnerLoader width={50} height={50} color="#D4B139" />
+                    </div>
+                  ) : (
+                    <>
+                      {qrCode ? (
+                        <div className="flex flex-col gap-1 w-full">
+                          {/* <label
                         className="w-full text-sm sm:text-base text-text-200 dark:text-text-800 mb-1 flex items-start "
                         htmlFor={"amount"}
                       >
                         Amount{" "}
-                      </label>{" "}
-                      <Image
-                        src={qrCode}
-                        alt="QR Code"
-                        width={200}
-                        height={200}
-                        className="w-[70%] 2xs:w-[60%] xs:w-[50%] sm:w-[40%] xl:w-[50%]"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-full flex justify-center items-center py-8">
-                      <p className="text-text-200 dark:text-text-400">
-                        No QR Code
-                      </p>
-                    </div>
+                      </label>{" "} */}
+                          <Image
+                            src={qrCode}
+                            alt="QR Code"
+                            width={200}
+                            height={200}
+                            className="w-[70%] 2xs:w-[60%] xs:w-[50%] sm:w-[40%] xl:w-[50%]"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-full flex justify-center items-center py-8">
+                          <p className="text-text-200 dark:text-text-400">
+                            No QR Code
+                          </p>
+                        </div>
+                      )}
+                    </>
                   )}
                 </>
               )}

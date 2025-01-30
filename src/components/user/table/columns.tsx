@@ -9,7 +9,7 @@ import {
   TRANSACTION_CATEGORY,
   TRANSACTION_STATUS,
 } from "@/constants/types";
-import { shortenReference } from "@/utils/utilityFunctions";
+import { handleCopy, shortenReference } from "@/utils/utilityFunctions";
 
 const statusStyles: Record<string, string> = {
   success: "text-green-500",
@@ -28,9 +28,11 @@ export const GenerateColumns = () => {
             <p>{shortenReference(value)}</p>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(value);
-                toast.success("Copied to clipboard", {
-                  duration: 3000,
+                handleCopy(value, () => {
+                  toast.dismiss();
+                  toast.success("Copied", {
+                    duration: 3000,
+                  });
                 });
               }}
               className="hover:text-primary transition-colors"
