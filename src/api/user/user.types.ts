@@ -30,7 +30,7 @@ export interface IReportScam {
 
 export interface ITier2Verification {
   nin: string;
-  selfieImage: string;
+  // selfieImage: string;
 }
 
 export interface ITier3Verification {

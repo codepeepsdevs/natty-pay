@@ -186,8 +186,8 @@ const ProfileContent = () => {
             <Image
               src={imgUrl}
               alt="profile"
-              width={500}
-              height={500}
+              fill
+              objectFit="cover"
               className="w-full h-full rounded-full"
             />
           ) : (

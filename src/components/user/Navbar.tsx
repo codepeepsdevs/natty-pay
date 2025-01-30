@@ -95,14 +95,14 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Link
             href="/user/settings/profile"
-            className="uppercase flex justify-center items-center rounded-full bg-primary w-10 xs:w-12 h-10 xs:h-12 text-center text-text-200 text-lg font-medium"
+            className="relative uppercase flex justify-center items-center rounded-full bg-primary w-10 xs:w-12 h-10 xs:h-12 text-center text-text-200 text-lg font-medium"
           >
             {imgUrl ? (
               <Image
                 src={imgUrl}
                 alt="profile"
-                width={500}
-                height={500}
+                fill
+                objectFit="cover"
                 className="w-fit h-fit rounded-full"
               />
             ) : (

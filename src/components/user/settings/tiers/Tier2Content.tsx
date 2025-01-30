@@ -22,7 +22,7 @@ import Image from "next/image";
 // Schema definition
 const schema = yup.object().shape({
   nin: yup.string().required("NIN is required"),
-  selfieImage: yup.string().required("Selfie is required"),
+  // selfieImage: yup.string().required("Selfie is required"),
 });
 
 type FormData = yup.InferType<typeof schema>;
@@ -214,12 +214,11 @@ export const SelfieCaptureComponent: React.FC<SelfieCaptureProps> = ({
 const Tier2Content = () => {
   const { user } = useUserStore();
   const navigate = useNavigate();
-  const [selfieBase64, setSelfieBase64] = useState<string>("");
+  // const [selfieBase64, setSelfieBase64] = useState<string>("");
 
   const form = useForm<FormData>({
     defaultValues: {
       nin: "",
-      selfieImage: "",
     },
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -234,7 +233,6 @@ const Tier2Content = () => {
       description: "Successfully upgraded to tier two",
     });
     form.reset();
-    setSelfieBase64("");
   };
 
   const onError = (error: any) => {
@@ -266,7 +264,6 @@ const Tier2Content = () => {
       // console.log(data);
       verify({
         nin: data.nin,
-        selfieImage: selfieBase64,
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -333,15 +330,15 @@ const Tier2Content = () => {
               </div>
 
               {/* Selfie Capture Component */}
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-text-200 dark:text-text-800">
                   Face Verification{" "}
                 </label>
-                {/* <SelfieCaptureComponent
+                <SelfieCaptureComponent
                   onImageCapture={handleImageCapture}
                   error={errors.selfieImage?.message}
-                /> */}
-              </div>
+                />
+              </div> */}
             </div>
 
             {/* Submit Button */}
