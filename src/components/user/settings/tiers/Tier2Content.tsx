@@ -43,33 +43,33 @@ const SelfieCaptureComponent: React.FC<SelfieCaptureProps> = ({
   const streamRef = useRef<MediaStream | null>(null);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: "user",
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-        },
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        streamRef.current = stream;
-        setShowCamera(true);
+  // const startCamera = async () => {
+  //   try {
+  //     const stream = await navigator.mediaDevices.getUserMedia({
+  //       video: {
+  //         facingMode: "user",
+  //         width: { ideal: 1280 },
+  //         height: { ideal: 720 },
+  //       },
+  //     });
+  //     if (videoRef.current) {
+  //       videoRef.current.srcObject = stream;
+  //       streamRef.current = stream;
+  //       setShowCamera(true);
 
-        // Wait for video to be ready
-        videoRef.current.onloadedmetadata = () => {
-          setIsCameraReady(true);
-        };
-      }
-    } catch (err) {
-      console.error("Error accessing camera:", err);
-      ErrorToast({
-        title: "Camera Error",
-        descriptions: ["Unable to access camera. Please check permissions."],
-      });
-    }
-  };
+  //       // Wait for video to be ready
+  //       videoRef.current.onloadedmetadata = () => {
+  //         setIsCameraReady(true);
+  //       };
+  //     }
+  //   } catch (err) {
+  //     console.error("Error accessing camera:", err);
+  //     ErrorToast({
+  //       title: "Camera Error",
+  //       descriptions: ["Unable to access camera. Please check permissions."],
+  //     });
+  //   }
+  // };
 
   const stopCamera = () => {
     if (streamRef.current) {
@@ -162,14 +162,14 @@ const SelfieCaptureComponent: React.FC<SelfieCaptureProps> = ({
       ) : (
         <div className="w-full">
           <div className="flex flex-wrap gap-4 mb-4">
-            <button
+            {/* <button
               type="button"
               onClick={startCamera}
               className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
             >
               <FaCamera className="text-lg" />
               Open Camera
-            </button>
+            </button> */}
             <label className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-primary/90 transition-colors">
               <FaUpload className="text-lg" />
               <span>Upload Photo</span>
@@ -335,7 +335,7 @@ const Tier2Content = () => {
               {/* Selfie Capture Component */}
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-text-200 dark:text-text-800">
-                  Selfie
+                  Face Verification{" "}
                 </label>
                 <SelfieCaptureComponent
                   onImageCapture={handleImageCapture}

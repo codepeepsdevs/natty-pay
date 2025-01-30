@@ -7,9 +7,18 @@ import useUserLayoutStore from "@/store/userLayout.store";
 import Link from "next/link";
 import Toggler from "../shared/Toggler";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const Navbar = () => {
   const { user } = useUserStore();
+  const [imgUrl, setImgUrl] = useState(user?.profileImageUrl || "");
+
+  useEffect(() => {
+    if (user?.profileImageUrl) {
+      setImgUrl(user.profileImageUrl);
+    }
+  }, [user]);
 
   const { toggleMenu } = useUserLayoutStore();
   const pathname = usePathname();
@@ -86,9 +95,19 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Link
             href="/user/settings/profile"
-            className="uppercase flex justify-center items-center rounded-full bg-primary p-2  text-center text-text-200 text-lg font-medium"
+            className="uppercase flex justify-center items-center rounded-full bg-primary w-10 xs:w-12 h-10 xs:h-12 text-center text-text-200 text-lg font-medium"
           >
-            {user?.fullname.slice(0, 2)}
+            {imgUrl ? (
+              <Image
+                src={imgUrl}
+                alt="profile"
+                width={500}
+                height={500}
+                className="w-fit h-fit rounded-full"
+              />
+            ) : (
+              <p> {user?.fullname.slice(0, 2)}</p>
+            )}{" "}
           </Link>
           <div className="max-lg:hidden flex flex-col text-text-1000 dark:text-text-800">
             {user?.wallet ? (

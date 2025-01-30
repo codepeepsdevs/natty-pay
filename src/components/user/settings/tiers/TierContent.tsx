@@ -101,7 +101,7 @@ const TierCard = ({
   return (
     <div
       className={cn(
-        "bg-bg-600 2xs:bg-bg-400 dark:bg-bg-1100 2xs:dark:bg-black text-base text-text-200 dark:text-text-400 rounded-xl px-6 xl:px-8 py-6 xl:py-8 flex flex-col justify-center gap-2 sm:gap-3 ",
+        "bg-bg-600 2xs:bg-bg-400 dark:bg-bg-1100 2xs:dark:bg-black text-base text-text-200 dark:text-text-400 rounded-xl px-6 xl:px-8 py-6 xl:py-8 flex flex-col  gap-2 sm:gap-3 ",
         {
           " shadow-[0_4px_20px_0_rgba(241,181,0,0.3)]": active,
           "border-none": !active,
@@ -128,7 +128,7 @@ const TierCard = ({
               <p>Wallet Cap: </p>
               <span className="font-bold">
                 {maxBal === Infinity
-                  ? "Infinity"
+                  ? "Unlimited"
                   : `₦${maxBal.toLocaleString()}`}
               </span>
             </p>

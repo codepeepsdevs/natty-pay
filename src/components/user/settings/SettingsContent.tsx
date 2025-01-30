@@ -7,7 +7,6 @@ import { CgProfile } from "react-icons/cg";
 import { MdSystemSecurityUpdateWarning } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
-import { IoGiftOutline } from "react-icons/io5";
 
 export const SettingsPages = [
   {
@@ -31,16 +30,16 @@ export const SettingsPages = [
     icon: TbLockPassword,
   },
 
-  {
-    id: 4,
-    title: "Referral",
-    path: "/user/settings/support",
-    icon: IoGiftOutline,
-  },
+  // {
+  //   id: 4,
+  //   title: "Referral",
+  //   path: "/user/settings/support",
+  //   icon: IoGiftOutline,
+  // },
 
   {
     id: 5,
-    title: "Legal & Support",
+    title: "Support",
     path: "/user/settings/support",
     icon: BiSupport,
   },
