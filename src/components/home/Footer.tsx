@@ -60,19 +60,19 @@ const Footer = () => {
                   About Us
                 </Link>
                 <Link
-                  href="/team"
+                  href="/coming-soon"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Join Our Team
                 </Link>
                 <Link
-                  href="/blog"
+                  href="/coming-soon"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Blog
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   className="transition-all duration-300 cursor-pointer hover:pl-2"
                 >
                   Contact Us
@@ -122,8 +122,22 @@ const Footer = () => {
                   market road Main market onitsha Anambra state
                 </a>
 
-                <a>+2348134146906</a>
-                <a>support@Nattypay.com</a>
+                <p
+                  onClick={() => {
+                    window.open("https://wa.me/2348134146906", "_blank");
+                  }}
+                  className="cursor-pointer"
+                >
+                  +2348134146906
+                </p>
+                <p
+                  onClick={() => {
+                    window.open("mailto:contact@webtrendshub.com", "_blank");
+                  }}
+                  className="cursor-pointer"
+                >
+                  support@Nattypay.com
+                </p>
               </div>
             </div>
           </div>

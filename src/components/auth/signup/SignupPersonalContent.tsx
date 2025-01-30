@@ -22,7 +22,6 @@ import { getCurrencyIconByString } from "@/utils/utilityFunctions";
 import { useTheme } from "@/store/theme.store";
 import useAuthEmailStore from "@/store/authEmail.store";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),

@@ -15,8 +15,10 @@ import images from "../../../../public/images";
 import icons from "../../../../public/icons";
 import CustomButton from "@/components/shared/Button";
 import { GoArrowRight } from "react-icons/go";
+import useNavigate from "@/hooks/useNavigate";
 
 const Wcu = () => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.25 });
 
@@ -99,7 +101,12 @@ const Wcu = () => {
               className="z-10 max-sm:mt-4"
               variants={zoomIn(0.2, 0.5)}
             >
-              <CustomButton className=" flex items-center gap-2.5  rounded-3xl px-6 py-3 bg-primary text-black">
+              <CustomButton
+                onClick={() => {
+                  navigate("/account-type");
+                }}
+                className="flex items-center gap-2.5  rounded-3xl px-6 py-3 bg-primary text-black"
+              >
                 <p> Create Account</p> <GoArrowRight className="text-2xl" />
               </CustomButton>
             </motion.div>

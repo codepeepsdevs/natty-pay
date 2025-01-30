@@ -70,6 +70,10 @@ import etisalatLogo from "./user/airtime/etisalat.png";
 import phoneIcon from "./user/internet/phone.png";
 import internetIcon from "./user/internet/internet.png";
 
+import tier1 from "./user/tiers/tier1.svg";
+import tier2 from "./user/tiers/tier2.svg";
+import tier3 from "./user/tiers/tier3.svg";
+
 const landingPage = {
   heroImage,
 
@@ -145,6 +149,12 @@ const internet = {
   internetIcon,
 };
 
+const tiers = {
+  tier1,
+  tier2,
+  tier3,
+};
+
 export default {
   logo,
   singleLogo,
@@ -158,4 +168,5 @@ export default {
   airtime,
   internet,
   successSvg,
+  tiers,
 };

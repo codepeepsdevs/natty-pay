@@ -52,6 +52,11 @@ const Navbar = () => {
       title: "Cable / TV Bills",
       path: "/user/bills/cable",
     },
+
+    {
+      title: "Settings",
+      path: "/user/settings",
+    },
   ];
 
   const Heading = HeadingData.sort(
@@ -81,7 +86,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Link
             href="/user/settings/profile"
-            className="uppercase flex justify-center items-center rounded-full bg-primary p-2.5 w-9 xl:w-10 h-9 xl:h-10 text-center text-text-200 text-lg font-medium"
+            className="uppercase flex justify-center items-center rounded-full bg-primary p-2  text-center text-text-200 text-lg font-medium"
           >
             {user?.fullname.slice(0, 2)}
           </Link>

@@ -7,6 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Toaster } from "react-hot-toast";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import UserProvider from "@/providers/UserProvider";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Initialize Inter font
 const inter = Inter({

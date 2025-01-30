@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createPinRequest, getUser, updateUserRequest } from "./user.apis";
+import {
+  changePasswordRequest,
+  createPinRequest,
+  getUser,
+  reportScamRequest,
+  resetOtpRequest,
+  resetPinRequest,
+  tier2VerificationRequest,
+  tier3VerificationRequest,
+  updateUserRequest,
+} from "./user.apis";
 import { User } from "@/constants/types";
 
 export const useGetUser = () => {
@@ -48,6 +58,82 @@ export const useCreatePin = (
 
   return useMutation({
     mutationFn: createPinRequest,
+    onError,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      onSuccess(data);
+    },
+  });
+};
+
+export const useResetOtp = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: resetOtpRequest,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useResetPin = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: resetPinRequest,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useChangePassword = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: changePasswordRequest,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useReportScam = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: reportScamRequest,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useTier2Verification = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: tier2VerificationRequest,
+    onError,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      onSuccess(data);
+    },
+  });
+};
+
+export const useTier3Verification = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: tier3VerificationRequest,
     onError,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });

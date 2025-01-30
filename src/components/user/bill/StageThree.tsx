@@ -54,9 +54,9 @@ const BillStageThree: React.FC<StageThreeProps> = ({
   };
 
   return (
-    <div className="w-full py-5 xs:py-10   flex items-center justify-center">
-      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] flex flex-col gap-8 rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
-        <div className="text-center flex flex-col items-center">
+    <div className="w-full max-2xs:mt-20 py-5 xs:py-10 h-full  flex items-center justify-center">
+      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] h-full flex flex-col justify-center gap-8 rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
+        <div className="text-center flex flex-col items-center justify-center">
           <div
             className="flex items-center justify-center w-12 h-12 bg-bg-2600 rounded-full mb-4"
             style={{
