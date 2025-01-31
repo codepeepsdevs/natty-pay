@@ -146,7 +146,7 @@ const Footer = () => {
       <div className="sm:border-t border-border-100  w-full flex justify-center">
         <div className="w-[90%] flex flex-col md:flex-row justify-between items-center gap-2.5 py-6 sm:py-5">
           <p className="text-sm xs:text-base ">
-            © {new Date().getFullYear()} Nattpay All rights reserved
+            © {new Date().getFullYear()} NattyPay All rights reserved
           </p>
           <div className="flex space-x-4 sm:space-x-6 mt-2.5 xs:mt-4 md:mt-0">
             <a
