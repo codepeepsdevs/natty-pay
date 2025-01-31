@@ -80,7 +80,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col max-md:ml-6">
               <h3 className="text-primary text-base xs:text-lg font-semibold mb-2 xs:mb-3">
                 Resources
               </h3>

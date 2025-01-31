@@ -37,7 +37,7 @@ const TierContent = () => {
     {
       planType: "three",
       maxBal: Infinity,
-      transLimit: 50000,
+      transLimit: 1000000,
       title: "Tier Three",
       image: images.tiers.tier3,
     },
