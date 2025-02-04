@@ -25,7 +25,7 @@ export const GenerateColumns = () => {
       Cell: ({ value }: { value: string }) => {
         return (
           <div className="flex items-center gap-2">
-            <p>{shortenReference(value)}</p>
+            <p>{shortenReference({ ref: value })}</p>
             <button
               onClick={() => {
                 handleCopy(value, () => {

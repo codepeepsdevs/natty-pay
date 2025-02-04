@@ -73,6 +73,7 @@ export const useInitiateTransfer = (
     onError,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["get-beneficiaries"] });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
       onSuccess(data);
     },

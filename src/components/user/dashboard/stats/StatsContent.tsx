@@ -86,7 +86,7 @@ const StatsContent = () => {
   return (
     <div className="w-full flex flex-col gap-2 mt-2 overflow-x-hidden">
       <div className="w-full flex max-lg:flex-col gap-4">
-        <div className="w-full lg:w-[50%] flex flex-col bg-bg-600 dark:bg-bg-1100 px-4 xs:px-6 py-4 xs:py-6 2xl:py-8 rounded-lg sm:rounded-xl">
+        <div className="max-sm:hidden  w-full lg:w-[50%] flex flex-col bg-bg-600 dark:bg-bg-1100 px-4 xs:px-6 py-4 xs:py-6 2xl:py-8 rounded-lg sm:rounded-xl">
           <h2 className="text-text-200 dark:text-text-400 text-lg md:text-xl font-semibold mb-4">
             My Portfolio
           </h2>
@@ -112,7 +112,7 @@ const StatsContent = () => {
           {isLoading
             ? renderChartSkeleton()
             : statsPieData && (
-                <div className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%] md:w-[60%] lg:w-full xl:w-[80%] flex justify-center items-center">
+                <div className="w-full  xs:w-[90%] sm:w-[80%] md:w-[70%] lg:w-full xl:w-full flex justify-center items-center">
                   <PieChart
                     chartData={statsPieData ?? []}
                     chartOption={statsPieOption}

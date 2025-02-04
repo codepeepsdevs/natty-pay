@@ -1,4 +1,5 @@
 import CustomButton from "@/components/shared/Button";
+import { BILL_TYPE } from "@/constants/types";
 import toast from "react-hot-toast";
 import { LuCopy } from "react-icons/lu";
 
@@ -7,8 +8,9 @@ type StageThreeProps = {
   phone?: string;
   network?: string;
   cableProvider?: string;
+  internetProvider?: string;
   amount: string;
-  type: "airtime" | "data" | "cable" | "electricity";
+  type: BILL_TYPE;
   checkoutMessage?: string;
   electricityResCode?: string;
   setNetwork?: (network: string) => void;
@@ -20,6 +22,7 @@ const BillStageThree: React.FC<StageThreeProps> = ({
   // network,
   amount,
   cableProvider,
+  internetProvider,
   type,
   checkoutMessage,
   electricityResCode,
@@ -35,8 +38,10 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         return `${cableProvider} Subscription`;
       case "electricity":
         return `Electricity Purchase`;
+      case "internet":
+        return `Internet Purchase`;
       default:
-        return "Purchase";
+        return `${internetProvider} Internet Purchase`;
     }
   };
 
@@ -50,6 +55,8 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         return checkoutMessage;
       case "electricity":
         return "worth of electricity recharge";
+      case "internet":
+        return checkoutMessage;
     }
   };
 

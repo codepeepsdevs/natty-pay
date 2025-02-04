@@ -43,15 +43,16 @@ export const statsLineOption = {
 
 export const statsPieOption = {
   responsive: true,
-
   plugins: {
     legend: {
-      position: "bottom",
+      position: window.innerWidth < 500 ? "bottom" : "right", // Mobile breakpoint at 768px
       labels: {
-        boxWidth: 5,
+        boxWidth: window.innerWidth < 500 ? 7 : 14,
+        boxHeight: window.innerWidth < 500 ? 7 : 14,
         padding: 15,
         font: {
-          size: 12,
+          size: 14, // Increased from 12
+          weight: "bold", // Added font weight
         },
       },
     },

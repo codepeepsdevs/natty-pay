@@ -28,6 +28,13 @@ import {
   useVerifyCableNumber,
 } from "@/api/cable/cable.queries";
 import ErrorToast from "@/components/toast/ErrorToast";
+import {
+  BENEFICIARY_TYPE,
+  BeneficiaryProps,
+  BILL_TYPE,
+} from "@/constants/types";
+import { useGetBeneficiaries } from "@/api/user/user.queries";
+import Beneficiaries from "../Beneficiaries";
 
 type CableStageOneProps = {
   billerNumber: string;
@@ -102,6 +109,7 @@ const DataStageOne: React.FC<CableStageOneProps> = ({
   const watchedProvider = watch("provider");
 
   const [providerState, setProviderState] = useState(false);
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   const {
     cablePlans,
@@ -193,6 +201,7 @@ const DataStageOne: React.FC<CableStageOneProps> = ({
     setValue("provider", "");
     setVerificationError("");
     setVerificationMessage("");
+    setSelectedBeneficiary("");
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -200,9 +209,36 @@ const DataStageOne: React.FC<CableStageOneProps> = ({
     setProviderState(false);
   });
 
+  const handleBeneficiarySelect = (beneficiary: BeneficiaryProps) => {
+    setSelectedBeneficiary(beneficiary.id);
+
+    if (beneficiary?.billerNumber) {
+      setValue("billerNumber", beneficiary.billerNumber);
+    }
+  };
+
+  const { beneficiaries } = useGetBeneficiaries({
+    category: BENEFICIARY_TYPE.BILL,
+    billType: BILL_TYPE.CABLE,
+  });
+
   return (
     <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
       <div className="w-full bg-transparent p-2 xs:p-4">
+        {beneficiaries?.length > 0 && (
+          <div className="mb-6 flex flex-col gap-1">
+            <h2 className="text-base font-medum text-text-200 dark:text-text-400">
+              Recent Beneficiaries
+            </h2>
+            <Beneficiaries
+              beneficiaries={beneficiaries}
+              handleBeneficiarySelect={handleBeneficiarySelect}
+              selectedBeneficiary={selectedBeneficiary}
+              type={BILL_TYPE.CABLE}
+            />
+          </div>
+        )}
+
         <div className="flex flex-col gap-2 h-full w-full">
           <div className="flex flex-col sm:flex-row items-start h-full w-full  lg:w-[90%] xl:w-[80%] 2xl:w-[70%] gap-4">
             {/* phone number section */}

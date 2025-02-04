@@ -6,6 +6,7 @@ import {
   ITier2Verification,
   ITier3Verification,
 } from "./user.types";
+import { BENEFICIARY_TYPE, BILL_TYPE, TRANSFER_TYPE } from "@/constants/types";
 
 export const getUser = () => {
   return request({ url: `/user/me` });
@@ -79,4 +80,20 @@ export const tier3VerificationRequest = async (
     method: "post",
     data: formdata,
   });
+};
+
+export const getBeneficiariesRequest = async ({
+  category,
+  transferType,
+  billType,
+}: {
+  category: BENEFICIARY_TYPE;
+  transferType?: TRANSFER_TYPE;
+  billType?: BILL_TYPE;
+}) => {
+  const url =
+    `/user/get-beneficiaries?category=${category}` +
+    (transferType ? `&transferType=${transferType}` : "") +
+    (billType ? `&billType=${billType}` : "");
+  return request({ url });
 };

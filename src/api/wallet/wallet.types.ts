@@ -15,6 +15,7 @@ export interface IVerifyAccount {
 
 export interface IInitiateTransfer {
   accountNumber: string;
+  accountName: string;
   sessionId: string;
   bankCode: string;
   amount: number;

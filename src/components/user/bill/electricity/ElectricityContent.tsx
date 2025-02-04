@@ -12,6 +12,7 @@ import ErrorToast from "@/components/toast/ErrorToast";
 import { IoChevronBack } from "react-icons/io5";
 import useNavigate from "@/hooks/useNavigate";
 import { usePayForElectricity } from "@/api/electricity/electricity.queries";
+import { BILL_TYPE } from "@/constants/types";
 
 const ElectricityContent = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const ElectricityContent = () => {
       : [errorMessage];
 
     ErrorToast({
-      title: "Error during electyricity purchase",
+      title: "Error during electricity purchase",
       descriptions,
     });
   };
@@ -93,7 +94,7 @@ const ElectricityContent = () => {
         )}
         {stage === "two" && (
           <ElectricityStageTwo
-            type="electricity"
+            type={BILL_TYPE.ELECTRICITY}
             itemCode={itemCode}
             billerCode={billerCode}
             amount={amount}
@@ -117,7 +118,7 @@ const ElectricityContent = () => {
         )}
         {stage === "three" && (
           <ElectricityStageThree
-            type="electricity"
+            type={BILL_TYPE.ELECTRICITY}
             setStage={setStage}
             electricityResCode={electricityResCode}
             amount={amount}

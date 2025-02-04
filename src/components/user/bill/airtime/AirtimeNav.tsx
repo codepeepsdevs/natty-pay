@@ -29,6 +29,7 @@ const AirtimeNav = () => {
           key={index}
           onClick={() => {
             if (item.path === "/user/airtime/international") {
+              toast.dismiss();
               toast.error("Unavailable at this time", {
                 duration: 3000,
               });

@@ -44,6 +44,7 @@ export const usePayForCable = (
     mutationFn: cablePaymentRequest,
     onError,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["get-beneficiaries"] });
       queryClient.invalidateQueries({ queryKey: ["user"] });
       onSuccess(data);
     },

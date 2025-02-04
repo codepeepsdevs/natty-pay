@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   changePasswordRequest,
   createPinRequest,
+  getBeneficiariesRequest,
   getUser,
   reportScamRequest,
   resetOtpRequest,
@@ -12,7 +13,13 @@ import {
   tier3VerificationRequest,
   updateUserRequest,
 } from "./user.apis";
-import { User } from "@/constants/types";
+import {
+  BENEFICIARY_TYPE,
+  BeneficiaryProps,
+  BILL_TYPE,
+  TRANSFER_TYPE,
+  User,
+} from "@/constants/types";
 
 export const useGetUser = () => {
   const { data, isError } = useQuery({
@@ -140,4 +147,25 @@ export const useTier3Verification = (
       onSuccess(data);
     },
   });
+};
+
+export const useGetBeneficiaries = ({
+  category,
+  transferType,
+  billType,
+}: {
+  category: BENEFICIARY_TYPE;
+  transferType?: TRANSFER_TYPE;
+  billType?: BILL_TYPE;
+}) => {
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["get-beneficiaries", { category, transferType, billType }],
+
+    queryFn: () =>
+      getBeneficiariesRequest({ category, transferType, billType }),
+  });
+
+  const beneficiaries: BeneficiaryProps[] = data?.data?.data;
+
+  return { beneficiaries, isPending, isError };
 };

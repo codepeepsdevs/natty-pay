@@ -23,6 +23,13 @@ import {
   handleNumericKeyDown,
   handleNumericPaste,
 } from "@/utils/utilityFunctions";
+import Beneficiaries from "../../Beneficiaries";
+import {
+  BENEFICIARY_TYPE,
+  BeneficiaryProps,
+  BILL_TYPE,
+} from "@/constants/types";
+import { useGetBeneficiaries } from "@/api/user/user.queries";
 
 type StageOneProps = {
   stage: "one" | "two" | "three";
@@ -51,6 +58,7 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
 }) => {
   const [minimumAmount, setMinimumAmount] = useState<number>(0);
   const [maxAmount, setMaximumAmount] = useState<number>(0);
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   const theme = useTheme();
 
@@ -162,6 +170,7 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
 
   const onBackPressClick = () => {
     setValue("phone", "");
+    setSelectedBeneficiary("");
   };
 
   const onSubmit = async (data: AirtimeFormData) => {
@@ -172,9 +181,36 @@ const AirtimeStageOne: React.FC<StageOneProps> = ({
     ]);
   };
 
+  const handleBeneficiarySelect = (beneficiary: BeneficiaryProps) => {
+    setSelectedBeneficiary(beneficiary.id);
+
+    if (beneficiary?.billerNumber) {
+      setValue("phone", beneficiary.billerNumber);
+    }
+  };
+
+  const { beneficiaries } = useGetBeneficiaries({
+    category: BENEFICIARY_TYPE.BILL,
+    billType: BILL_TYPE.AIRTIME,
+  });
+
   return (
     <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
-      <div className="w-[100%] sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
+      <div className="w-full sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
+        {beneficiaries?.length > 0 && (
+          <div className="mb-6 flex flex-col gap-1">
+            <h2 className="text-base font-medum text-text-200 dark:text-text-400">
+              Recent Beneficiaries
+            </h2>
+            <Beneficiaries
+              beneficiaries={beneficiaries}
+              handleBeneficiarySelect={handleBeneficiarySelect}
+              selectedBeneficiary={selectedBeneficiary}
+              type={BILL_TYPE.AIRTIME}
+            />
+          </div>
+        )}
+
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-4 md:gap-6"

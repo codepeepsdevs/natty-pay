@@ -55,6 +55,7 @@ export const usePayForData = (
     mutationFn: dataPaymentRequest,
     onError,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["get-beneficiaries"] });
       queryClient.invalidateQueries({ queryKey: ["user"] });
       onSuccess(data);
     },

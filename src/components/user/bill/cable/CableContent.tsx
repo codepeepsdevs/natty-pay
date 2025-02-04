@@ -12,6 +12,7 @@ import CableStageThree from "../StageThree";
 import { IoChevronBack } from "react-icons/io5";
 import useNavigate from "@/hooks/useNavigate";
 import { usePayForCable } from "@/api/cable/cable.queries";
+import { BILL_TYPE } from "@/constants/types";
 
 const CableContent = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const CableContent = () => {
         )}
         {stage === "two" && (
           <CableStageTwo
-            type="cable"
+            type={BILL_TYPE.CABLE}
             itemCode={itemCode}
             billerCode={billerCode}
             amount={amount}
@@ -119,7 +120,7 @@ const CableContent = () => {
         )}
         {stage === "three" && (
           <CableStageThree
-            type="cable"
+            type={BILL_TYPE.CABLE}
             setStage={setStage}
             cableProvider={cableProvider}
             amount={amount}

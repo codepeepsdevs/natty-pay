@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import Image from "next/image";
 import images from "../../../../../public/images";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -11,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Switch from "@mui/material/Switch";
 import CustomButton from "@/components/shared/Button";
 
-import { addBeneficiaryLabel, ElectricityProvidersData } from "../bill.data";
+import { addBeneficiaryLabel } from "../bill.data";
 import { useTheme } from "@/store/theme.store";
 import {
   handleNumericKeyDown,
@@ -19,12 +17,10 @@ import {
 } from "@/utils/utilityFunctions";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import {
-  useGetElectricityPlans,
-  useGetElectricityVariations,
-  useVerifyElectricityNumber,
-} from "@/api/electricity/electricity.queries";
-import ErrorToast from "@/components/toast/ErrorToast";
-import SpinnerLoader from "@/components/Loader/SpinnerLoader";
+  useGetInternetPlans,
+  useGetInternetVariations,
+} from "@/api/internet/internet.queries";
+
 import { motion } from "framer-motion";
 import SearchableDropdown from "@/components/shared/SearchableDropdown";
 import {
@@ -43,18 +39,20 @@ type StageOneProps = {
   setAmount: (amount: string) => void;
   setBillerNumber?: (code: string) => void;
   setItemCode: (code: string) => void;
+  setInternetProvider: (provider: string) => void;
   isBeneficiaryChecked?: boolean;
   setIsBeneficiaryChecked?: (isBeneficiaryChecked: boolean) => void;
   setCheckoutMessage: (checkoutMessage: string) => void;
 };
 
-const ElectricityStageOne: React.FC<StageOneProps> = ({
+const InternetStageOne: React.FC<StageOneProps> = ({
   currency,
   setStage,
   setBillerNumber = () => {},
   setAmount,
   setBillerCode = () => {},
   setItemCode,
+  setInternetProvider,
   isBeneficiaryChecked = false,
   setIsBeneficiaryChecked = () => {},
   setCheckoutMessage = () => {},
@@ -64,11 +62,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
   const schema = useMemo(
     () =>
       yup.object().shape({
-        billerNumber: yup
-          .string()
-          .required("Meter Number is required")
-          .min(11, "Meter Number must be at least 11 digits")
-          .max(11, "Meter Number must be exactly 11 digits"),
+        billerNumber: yup.string().required("Meter Number is required"),
 
         billerCode: yup.string().required("Biller code is required"),
 
@@ -79,8 +73,8 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
         amount: yup
           .number()
           .required("Amount is required")
-          .typeError("Amount is required")
-          .min(500, "Minimum amount is ₦500"),
+          .typeError("Amount is required"),
+        // .min(500, "Minimum amount is ₦500"),
       }),
     []
   );
@@ -95,7 +89,6 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
       itemCode: "",
       provider: "",
       plan: "",
-
       amount: undefined,
     },
     resolver: yupResolver(schema),
@@ -106,7 +99,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
     register,
     handleSubmit,
     formState,
-    // reset,
+    reset,
     watch,
     setValue,
     clearErrors,
@@ -122,82 +115,29 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
   const [providerState, setProviderState] = useState(false);
   const [planState, setPlanState] = useState(false);
 
+  const [fee, setFee] = useState(0);
+
   const {
-    electricityPlans,
-    isPending: isElectricityPlanPending,
-    isError: isElectricityPlanError,
-  } = useGetElectricityPlans({
+    internetPlans,
+    isPending: isInternetPlanPending,
+    isError: isInternetPlanError,
+  } = useGetInternetPlans({
     currency,
     isEnabled: !!watchedBillerNumber,
   });
 
-  const isElectricityPlanLoading =
-    isElectricityPlanPending && !isElectricityPlanError;
-  const [verificationMessage, setVerificationMessage] = useState<string>("");
-  const [verificationError, setVerificationError] = useState<string>("");
-
-  const onVerifySuccess = (data: any) => {
-    const res = data?.data?.data;
-    setVerificationMessage(res?.name);
-    setVerificationError("");
-  };
-
-  const onVerifyError = (error: any) => {
-    const errorMessage = error?.response?.data?.message;
-    console.log(errorMessage);
-    setVerificationMessage("");
-    setVerificationError(errorMessage);
-    const descriptions = Array.isArray(errorMessage)
-      ? errorMessage
-      : [errorMessage];
-
-    ErrorToast({
-      title: "Error verifying meter number",
-      descriptions,
-    });
-  };
-  const {
-    mutate: verify,
-    isPending: verifyPending,
-    isError: verifyError,
-  } = useVerifyElectricityNumber(onVerifyError, onVerifySuccess);
-
-  const verifyLoading = verifyPending && !verifyError;
+  const isInternetPlanLoading = isInternetPlanPending && !isInternetPlanError;
 
   const {
     variations,
-    isLoading: electricityVariationsPending,
-    isError: electricityVariationsError,
-  } = useGetElectricityVariations({
+    isLoading: internetVariationsPending,
+    isError: internetVariationsError,
+  } = useGetInternetVariations({
     billerCode: watchedBillerCode,
   });
 
-  const electricityVariationsLoading =
-    electricityVariationsPending && !electricityVariationsError;
-
-  useEffect(() => {
-    if (
-      watchedBillerNumber &&
-      watchedBillerNumber.length === 11 &&
-      watchedBillerCode &&
-      variations &&
-      variations.length > 0 &&
-      watchedProvider
-    ) {
-      verify({
-        itemCode: variations[0].item_code,
-        billerCode: watchedBillerCode,
-        billerNumber: watchedBillerNumber,
-      });
-    }
-  }, [
-    watchedBillerNumber,
-    electricityPlans,
-    variations,
-    watchedProvider,
-    watchedBillerCode,
-    verify,
-  ]);
+  const internetVariationsLoading =
+    internetVariationsPending && !internetVariationsError;
 
   useEffect(() => {
     if (errors?.billerNumber?.message) {
@@ -212,8 +152,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
     setValue("billerNumber", "");
     setValue("provider", "");
     setValue("plan", "");
-    setVerificationError("");
-    setVerificationMessage("");
+    reset();
     setSelectedBeneficiary("");
   };
 
@@ -227,10 +166,6 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
     setPlanState(false);
   });
 
-  const activeProvider = ElectricityProvidersData.find(
-    (item) => watchedProvider.toLowerCase() === item.disco
-  );
-
   const onSubmit = async (data: AirtimeFormData) => {
     Promise.all([
       Promise.resolve(setItemCode(data.itemCode)),
@@ -238,6 +173,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
       Promise.resolve(setBillerNumber(data.billerNumber)),
       Promise.resolve(setAmount(String(data.amount))),
       Promise.resolve(setCheckoutMessage(String(`${data.plan}`))),
+      Promise.resolve(setInternetProvider(data.provider)),
       Promise.resolve(setStage("two")),
     ]);
   };
@@ -252,8 +188,17 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
 
   const { beneficiaries } = useGetBeneficiaries({
     category: BENEFICIARY_TYPE.BILL,
-    billType: BILL_TYPE.ELECTRICITY,
+    billType: BILL_TYPE.INTERNET,
   });
+
+  // Add a derived isValid state based on specific fields
+  const isSubmitValid =
+    isValid &&
+    !!watchedBillerNumber &&
+    !!watchedBillerCode &&
+    !!watchedItemCode &&
+    !!watchedProvider &&
+    !!watchedPlan;
 
   return (
     <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
@@ -283,16 +228,14 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                 className="w-full text-sm sm:text-base font-medium  text-text-200 dark:text-text-800 mb-1 flex items-start "
                 htmlFor={"billerNumber"}
               >
-                Meter Number{" "}
+                Device Number{" "}
               </label>
               <div className="w-full flex gap-2 justify-center items-center bg-bg-2400 dark:bg-bg-2100 border border-border-600 rounded-lg py-4 px-3">
                 <input
                   className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-text-200 dark:placeholder:text-text-1000 placeholder:text-sm"
-                  placeholder="Enter Meter Number"
+                  placeholder="Enter Device Number"
                   required={true}
                   type="text"
-                  maxLength={11}
-                  minLength={11}
                   {...register("billerNumber")}
                   onKeyDown={handleNumericKeyDown}
                   onPaste={handleNumericPaste}
@@ -315,44 +258,18 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
               ) : null}
             </div>
 
-            {verifyLoading || electricityVariationsLoading ? (
-              <div className="flex items-center gap-2 p-2 text-text-200 dark:text-text-400">
-                <SpinnerLoader width={20} height={20} color="#d4b139" />
-                <p>Fetching customer and plans...</p>
+            <div className="flex flex-col  ">
+              <div className="flex items-center gap-2 sm:gap-4 ">
+                <p className="text-sm md:text-base dark:text-white dark:text-opacity-70">
+                  Add as beneficiary
+                </p>
+                <Switch
+                  checked={isBeneficiaryChecked}
+                  onChange={(e) => setIsBeneficiaryChecked(e.target.checked)}
+                  {...addBeneficiaryLabel(theme === "dark")}
+                />
               </div>
-            ) : (
-              <>
-                {electricityPlans &&
-                verificationMessage &&
-                !verificationError &&
-                watchedProvider &&
-                watchedBillerCode &&
-                watchedBillerNumber &&
-                watchedBillerNumber.length === 11 ? (
-                  <div className="flex flex-col  ">
-                    <p className="text-primary text-sm">
-                      {verificationMessage}
-                    </p>{" "}
-                    <div className="flex items-center gap-2 sm:gap-4 ">
-                      <p className="text-sm md:text-base dark:text-white dark:text-opacity-70">
-                        Add as beneficiary
-                      </p>
-                      <Switch
-                        checked={isBeneficiaryChecked}
-                        onChange={(e) =>
-                          setIsBeneficiaryChecked(e.target.checked)
-                        }
-                        {...addBeneficiaryLabel(theme === "dark")}
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <p className="flex self-start text-red-500 font-semibold  text-sm">
-                    {verificationError}
-                  </p>
-                )}
-              </>
-            )}
+            </div>
           </div>
 
           <div
@@ -363,7 +280,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
               htmlFor="provider"
               className="text-base text-text-200 dark:text-text-400 mb-1 flex items-start w-full"
             >
-              Select Provider{" "}
+              Network Provider{" "}
             </label>
             <div
               onClick={() => {
@@ -375,21 +292,21 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length !== 11 ? (
+                {!watchedBillerNumber ? (
                   <p className="text-sm 2xs:text-base">
-                    Enter valid meter number{" "}
+                    Enter valid device number{" "}
                   </p>
                 ) : !watchedProvider || !watchedBillerCode ? (
                   <p className="text-sm 2xs:text-base">Select provider </p>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <Image
+                    {/* <Image
                       src={activeProvider?.logo || ""}
                       alt={`${watchedProvider} logo`}
                       className="w-6 h-6 rounded-full"
-                    />
+                    /> */}
                     <p className="uppercase 2xs:text-base text-sm font-medium">
-                      {watchedProvider} Electricity
+                      {watchedProvider}
                     </p>
                   </div>
                 )}
@@ -417,21 +334,21 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             {providerState && (
               <div className="absolute top-full my-2.5 px-1 py-2 overflow-y-auto h-fit max-h-60 w-full bg-bg-600 border dark:bg-bg-1100 border-gray-300 dark:border-border-600 rounded-md shadow-md z-10 no-scrollbar">
                 <SearchableDropdown
-                  items={electricityPlans}
+                  items={internetPlans}
                   searchKey="shortName"
                   displayFormat={(provider) => {
-                    const providerData = ElectricityProvidersData.find(
-                      (item) => provider.shortName.toLowerCase() === item.disco
-                    );
+                    // const providerData = ElectricityProvidersData.find(
+                    //   (item) => provider.shortName.toLowerCase() === item.disco
+                    // );
                     return (
                       <div className="flex items-center gap-2">
-                        <Image
+                        {/* <Image
                           src={providerData?.logo || ""}
                           alt={`${provider.shortName} logo`}
                           className="w-7 h-7 rounded-full"
-                        />
+                        /> */}
                         <p className="uppercase 2xs:text-base text-sm font-medium text-text-200 dark:text-text-400">
-                          {provider.shortName} Electricity
+                          {provider.shortName}
                         </p>
                       </div>
                     );
@@ -439,6 +356,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                   onSelect={(plan) => {
                     setValue("billerCode", plan.billerCode);
                     setValue("provider", plan.shortName);
+                    setValue("itemCode", "");
                     clearErrors("billerCode");
                     clearErrors("provider");
                     setProviderState(false);
@@ -447,7 +365,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                   placeholder="Search Provider..."
                   isOpen={providerState}
                   onClose={() => setProviderState(false)}
-                  isLoading={isElectricityPlanLoading}
+                  isLoading={isInternetPlanLoading}
                 />
               </div>
             )}
@@ -461,16 +379,14 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
               htmlFor="plan"
               className="text-base text-text-200 dark:text-text-400 mb-1 flex items-start w-full"
             >
-              Select Plan{" "}
+              Select a Plan{" "}
             </label>
             <div
               onClick={() => {
                 if (
                   watchedBillerNumber &&
                   watchedProvider &&
-                  watchedBillerCode &&
-                  verificationMessage &&
-                  !verificationError
+                  watchedBillerCode
                 ) {
                   setPlanState(!planState);
                 }
@@ -479,7 +395,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length !== 11 ? (
+                {!watchedBillerNumber ? (
                   <p className="text-sm 2xs:text-base">Select a provider </p>
                 ) : !watchedProvider || !watchedBillerCode ? (
                   <p className="text-sm 2xs:text-base">Select provider </p>
@@ -534,12 +450,19 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                     clearErrors("itemCode");
                     setProviderState(false);
                     setPlanState(false);
+                    if (plan.amount === 0) {
+                      setValue("amount", 0);
+                      setFee(plan.payAmount);
+                    } else {
+                      setValue("amount", plan.payAmount);
+                      setFee(0);
+                    }
                   }}
                   showSearch={false}
                   placeholder="Search Plan..."
                   isOpen={planState}
                   onClose={() => setPlanState(false)}
-                  isLoading={electricityVariationsLoading}
+                  isLoading={internetVariationsLoading}
                 />
               </div>
             )}
@@ -551,19 +474,25 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
               className="w-full text-sm sm:text-base font-medium  text-text-200 dark:text-text-800 mb-1 flex items-start "
               htmlFor={"amount"}
             >
-              Amount{" "}
+              Amount (₦)
             </label>
 
-            <div className="w-full flex gap-2 justify-center items-center bg-bg-2400 dark:bg-bg-2100 border border-border-600 rounded-lg py-4 px-3">
+            <div className="w-full flex flex-col gap-2 justify-center items-center bg-bg-2400 dark:bg-bg-2100 border border-border-600 rounded-lg py-4 px-3">
               <input
                 className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-[#797B86] dark:placeholder:text-text-1000 placeholder:text-sm"
-                placeholder="&#8358;5,000"
+                placeholder="₦5,000"
                 type="number"
+                disabled={fee === 0}
                 {...register("amount")}
                 // onKeyDown={handleNumericKeyDown}
                 // onPaste={handleNumericPaste}
               />
             </div>
+            {fee && fee !== 0 ? (
+              <p className="flex self-start text-sm text-primary">
+                Fee: {`₦${fee}`}
+              </p>
+            ) : null}
 
             {errors?.amount?.message && (
               <p className="flex self-start text-red-500 font-semibold mt-0.5 text-sm">
@@ -574,7 +503,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
 
           <CustomButton
             type="submit"
-            disabled={!isValid}
+            disabled={!isSubmitValid}
             className="w-full border-2 dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
           >
             Next{" "}
@@ -585,4 +514,4 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
   );
 };
 
-export default ElectricityStageOne;
+export default InternetStageOne;

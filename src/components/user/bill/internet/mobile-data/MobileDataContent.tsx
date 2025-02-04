@@ -11,6 +11,7 @@ import DataStageTwo from "../../StageTwo";
 import DataStageThree from "../../StageThree";
 import { IoChevronBack } from "react-icons/io5";
 import InternetNav from "../InternetNav";
+import { BILL_TYPE } from "@/constants/types";
 
 const MobileDataContent = () => {
   const [stage, setStage] = useState<"one" | "two" | "three">("one");
@@ -80,7 +81,7 @@ const MobileDataContent = () => {
         )}
         {stage === "two" && (
           <DataStageTwo
-            type="data"
+            type={BILL_TYPE.DATA}
             operatorId={operatorId}
             phone={phone}
             amount={amount}
@@ -103,7 +104,7 @@ const MobileDataContent = () => {
         )}
         {stage === "three" && (
           <DataStageThree
-            type="data"
+            type={BILL_TYPE.DATA}
             setStage={setStage}
             phone={phone}
             network={network}

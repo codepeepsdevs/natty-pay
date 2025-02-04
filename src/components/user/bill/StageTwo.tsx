@@ -1,4 +1,5 @@
 import CustomButton from "@/components/shared/Button";
+import { BILL_TYPE } from "@/constants/types";
 import React, { useState } from "react";
 
 type StageTwoProps = {
@@ -10,7 +11,7 @@ type StageTwoProps = {
   amount: string;
   network?: string;
   cableProvider?: string;
-  type: "airtime" | "data" | "cable" | "electricity";
+  type: BILL_TYPE;
   currency: string;
   payFunction: (walletPin: string) => void;
   isLoading?: boolean;
@@ -44,6 +45,9 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
 
       case "electricity":
         return checkoutMessage;
+
+      case "internet":
+        return checkoutMessage;
     }
   };
 
@@ -57,6 +61,9 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
         return `Cable Plan`;
       case "electricity":
         return `for meter No. ${billerNumber}`;
+
+      case "internet":
+        return `for ${billerNumber}`;
     }
   };
 

@@ -50,6 +50,7 @@ export const usePayForElectricity = (
     mutationFn: electricityPaymentRequest,
     onError,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["get-beneficiaries"] });
       queryClient.invalidateQueries({ queryKey: ["user"] });
       onSuccess(data);
     },

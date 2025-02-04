@@ -7,8 +7,14 @@ import { zoomIn } from "@/utils/motion";
 import { textVariant } from "@/utils/motion";
 import ContactUsForm from "./ContactUsForm";
 import { RiFacebookCircleLine } from "react-icons/ri";
-import { FaInstagram, FaPhone, FaXTwitter } from "react-icons/fa6";
-import { FiLinkedin } from "react-icons/fi";
+import {
+  FaInstagram,
+  FaPhone,
+  FaSnapchat,
+  FaTiktok,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 import { MdMail } from "react-icons/md";
 
 const ContactUs = () => {
@@ -58,21 +64,57 @@ const ContactUs = () => {
                 Social Handles
               </p>
               <motion.div
-                className="flex items-center gap-4 text-2xl text-secondary"
+                className="flex items-center gap-2.5 2xs:gap-4 text-2xl text-secondary"
                 variants={zoomIn(0.2, 0.5)}
               >
-                <span className="p-2 rounded-full bg-bg-1200">
+                <a
+                  href="https://www.facebook.com/NattypayGlobal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
                   <RiFacebookCircleLine />
-                </span>
-                <span className="p-2 rounded-full bg-bg-1200">
+                </a>
+                <a
+                  href="https://www.instagram.com/NattypayGlobal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
                   <FaInstagram />
-                </span>
-                <span className="p-2 rounded-full bg-bg-1200">
+                </a>
+                <a
+                  href="https://www.tiktok.com/@NattypayGlobal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
+                  <FaTiktok />
+                </a>
+                <a
+                  href="https://www.youtube.com/NattypayGlobal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
+                  <FaYoutube />
+                </a>
+                <a
+                  href="https://www.snapchat.com/add/NattypayGlobal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
+                  <FaSnapchat />
+                </a>
+                <a
+                  href="https://twitter.com/Nattypays"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-full bg-bg-1200"
+                >
                   <FaXTwitter />
-                </span>
-                <span className="p-2 rounded-full bg-bg-1200">
-                  <FiLinkedin />
-                </span>
+                </a>
               </motion.div>
               <div className="flex flex-col gap-2 text-text-200 dark:text-text-400">
                 <div className="flex items-center gap-1 ">

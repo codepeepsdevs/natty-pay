@@ -22,6 +22,13 @@ import SearchableDropdown from "@/components/shared/SearchableDropdown";
 import SpinnerLoader from "@/components/Loader/SpinnerLoader";
 import Skeleton from "react-loading-skeleton";
 import EmptyState from "@/components/user/table/EmptyState";
+import {
+  BENEFICIARY_TYPE,
+  BeneficiaryProps,
+  BILL_TYPE,
+} from "@/constants/types";
+import { useGetBeneficiaries } from "@/api/user/user.queries";
+import Beneficiaries from "../../Beneficiaries";
 
 type DataStageOneProps = {
   network: string;
@@ -103,6 +110,7 @@ const DataStageOne: React.FC<DataStageOneProps> = ({
 
   const isDataPlanLoading = isDataPlanPending && !isDataPlanError;
   const [selectedNetworkPlan, setSelectedNetworkPlan] = useState<number>();
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   // const { data: dataPlanByNetwork } = useGetDataPlanByNetwork(
   //   network?.toLocaleUpperCase()
@@ -128,6 +136,7 @@ const DataStageOne: React.FC<DataStageOneProps> = ({
 
   const onBackPressClick = () => {
     setValue("phone", "");
+    setSelectedBeneficiary("");
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -135,9 +144,35 @@ const DataStageOne: React.FC<DataStageOneProps> = ({
     setNetworkState(false);
   });
 
+  const handleBeneficiarySelect = (beneficiary: BeneficiaryProps) => {
+    setSelectedBeneficiary(beneficiary.id);
+
+    if (beneficiary?.billerNumber) {
+      setValue("phone", beneficiary.billerNumber);
+    }
+  };
+
+  const { beneficiaries } = useGetBeneficiaries({
+    category: BENEFICIARY_TYPE.BILL,
+    billType: BILL_TYPE.DATA,
+  });
+
   return (
     <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
       <div className="w-full bg-transparent p-2 xs:p-4">
+        {beneficiaries?.length > 0 && (
+          <div className="mb-6 flex flex-col gap-1">
+            <h2 className="text-base font-medum text-text-200 dark:text-text-400">
+              Recent Beneficiaries
+            </h2>
+            <Beneficiaries
+              beneficiaries={beneficiaries}
+              handleBeneficiarySelect={handleBeneficiarySelect}
+              selectedBeneficiary={selectedBeneficiary}
+              type={BILL_TYPE.DATA}
+            />
+          </div>
+        )}
         <div className="flex flex-col gap-2 h-full w-full">
           <div className="flex flex-col sm:flex-row items-start h-full w-full  lg:w-[90%] xl:w-[80%] 2xl:w-[70%] gap-4">
             {/* phone number section */}
@@ -196,8 +231,8 @@ const DataStageOne: React.FC<DataStageOneProps> = ({
               >
                 <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                   {isDataPlanLoading ? (
-                    <div className="flex items-center gap-2 p-2 text-text-200 dark:text-text-400">
-                      <SpinnerLoader width={25} height={25} color="#d4b139" />
+                    <div className="flex items-center gap-2 px-2 text-text-200 dark:text-text-400">
+                      <SpinnerLoader width={20} height={20} color="#d4b139" />
                       <p>Fetching...</p>
                     </div>
                   ) : (

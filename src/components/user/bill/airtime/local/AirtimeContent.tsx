@@ -11,6 +11,7 @@ import { usePayForAirtime } from "@/api/airtime/airtime.queries";
 import ErrorToast from "@/components/toast/ErrorToast";
 import AirtimeNav from "../AirtimeNav";
 import { IoChevronBack } from "react-icons/io5";
+import { BILL_TYPE } from "@/constants/types";
 
 const AirtimeContent = () => {
   const [stage, setStage] = useState<"one" | "two" | "three">("one");
@@ -82,7 +83,7 @@ const AirtimeContent = () => {
             amount={amount}
             network={network}
             currency={currency}
-            type="airtime"
+            type={BILL_TYPE.AIRTIME}
             payFunction={(walletPin: string) => {
               PayForAirtime({
                 phone,
@@ -99,7 +100,7 @@ const AirtimeContent = () => {
         )}
         {stage === "three" && (
           <AirtimeStageThree
-            type="airtime"
+            type={BILL_TYPE.AIRTIME}
             setStage={setStage}
             phone={phone}
             network={network}

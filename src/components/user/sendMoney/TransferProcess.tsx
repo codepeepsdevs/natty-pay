@@ -25,10 +25,19 @@ import ErrorToast from "@/components/toast/ErrorToast";
 import SpinnerLoader from "@/components/Loader/SpinnerLoader";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import SearchableDropdown from "@/components/shared/SearchableDropdown";
-import { BankProps } from "@/constants/types";
+import {
+  BankProps,
+  BENEFICIARY_TYPE,
+  BeneficiaryProps,
+  TRANSFER_TYPE,
+} from "@/constants/types";
 import { Switch } from "@mui/material";
 import { addBeneficiaryLabel } from "../bill/bill.data";
 import { useTheme } from "@/store/theme.store";
+import Beneficiaries from "./Beneficiaries";
+import { useGetBeneficiaries } from "@/api/user/user.queries";
+import Image from "next/image";
+import images from "../../../../public/images";
 
 const transferMethods = [
   {
@@ -89,6 +98,7 @@ const TransferProcess = () => {
   const [pin, setPin] = useState<string>("");
   const [bankName, setBankName] = useState<string>("");
   const [isBeneficiaryChecked, setIsBeneficiaryChecked] = useState(false);
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState("");
 
   const { banks } = useGetAllBanks();
 
@@ -209,6 +219,29 @@ const TransferProcess = () => {
     setBankState(false);
   });
 
+  const handleBeneficiarySelect = (beneficiary: BeneficiaryProps) => {
+    console.log(beneficiary);
+    setSelectedBeneficiary(beneficiary.id);
+
+    const bank = banks?.find((bank) => bank.bankCode === beneficiary.bankCode);
+    if (beneficiary?.accountNumber && bank) {
+      setValue("accountNumber", beneficiary.accountNumber);
+      setValue("bankCode", bank.bankCode);
+      setSelectedBank(bank);
+    }
+  };
+
+  const onBackPressClick = () => {
+    setValue("accountNumber", "");
+    setSelectedBeneficiary("");
+  };
+
+  const { beneficiaries } = useGetBeneficiaries({
+    category: BENEFICIARY_TYPE.TRANSFER,
+    transferType:
+      selectedType === "nattypay" ? TRANSFER_TYPE.INTRA : TRANSFER_TYPE.INTER,
+  });
+
   return (
     <div className="w-full flex max-xl:flex-col 2xs:px-2 xs:px-4 sm:px-6 md:px-8 py-4 2xs:py-6 sm:py-10 bg-transparent xs:bg-bg-600 dark:xs:bg-bg-1100 gap-6 xs:gap-10 lg:gap-12 2xl:gap-16 rounded-xl">
       <div className="w-full xl:w-[40%] flex flex-col gap-4 md:gap-6 lg:gap-8 2xl:gap-10">
@@ -232,8 +265,10 @@ const TransferProcess = () => {
                 onChange={() => {
                   setSelectedType(method.value);
                   setBankData(null);
+                  setSelectedBank(undefined);
                   setScreen(0);
                   setPin("");
+                  setIsBeneficiaryChecked(false);
                   reset();
                 }}
               />
@@ -273,6 +308,29 @@ const TransferProcess = () => {
               Enter Nattypay Account Details{" "}
             </h2>
 
+            {beneficiaries?.length > 0 && (
+              <div className="mb-2 flex flex-col gap-1">
+                <h2 className="text-base font-medum text-text-200 dark:text-text-400">
+                  Recent Beneficiaries
+                </h2>
+                {selectedType === "nattypay" && (
+                  <Beneficiaries
+                    beneficiaries={beneficiaries}
+                    handleBeneficiarySelect={handleBeneficiarySelect}
+                    selectedBeneficiary={selectedBeneficiary}
+                  />
+                )}
+
+                {selectedType === "bank" && (
+                  <Beneficiaries
+                    beneficiaries={beneficiaries}
+                    handleBeneficiarySelect={handleBeneficiarySelect}
+                    selectedBeneficiary={selectedBeneficiary}
+                  />
+                )}
+              </div>
+            )}
+
             <motion.form
               whileInView={{ opacity: [0, 1] }}
               transition={{ duration: 0.5, type: "tween" }}
@@ -301,6 +359,15 @@ const TransferProcess = () => {
                     onKeyDown={handleNumericKeyDown}
                     onPaste={handleNumericPaste}
                   />
+
+                  {watchedAccountNumber && (
+                    <Image
+                      onClick={onBackPressClick}
+                      src={images.airtime.backPress}
+                      alt="backPress"
+                      className="cursor-pointer"
+                    />
+                  )}
                 </div>
 
                 {errors?.accountNumber?.message ? (
@@ -655,8 +722,9 @@ const TransferProcess = () => {
               disabled={!pin || pin.length !== 4 || transferLoading}
               className="w-full border-2 border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
               onClick={() => {
-                if (pin && pin.length === 4) {
+                if (pin && pin.length === 4 && bankData) {
                   initiateTransfer({
+                    accountName: bankData?.accountName,
                     accountNumber: watchedAccountNumber,
                     amount: watchedAmount,
                     description: watchedDescription,

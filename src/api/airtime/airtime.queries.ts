@@ -40,6 +40,7 @@ export const usePayForAirtime = (
     mutationFn: airtimePaymentRequest,
     onError,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["get-beneficiaries"] });
       queryClient.invalidateQueries({ queryKey: ["user"] });
       onSuccess(data);
     },

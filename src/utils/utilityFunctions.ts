@@ -164,7 +164,22 @@ export const getCableIconByString = (
   return iconMap[provider as CableIconsKey] || null;
 };
 
-export const shortenReference = (ref: string) => {
+export const shortenReference = ({
+  ref,
+  first = 4,
+  last = 4,
+  limit = 2,
+}: {
+  ref: string;
+  first?: number;
+  last?: number;
+  limit?: number;
+}) => {
   if (!ref) return "";
-  return `${ref.slice(0, 4)}...${ref.slice(-4)}`;
+
+  if (ref.length > limit) {
+    return `${ref.slice(0, first)}...${ref.slice(-last)}`;
+  }
+
+  return ref;
 };

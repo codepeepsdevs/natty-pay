@@ -240,3 +240,83 @@ export interface ElectricityVariationProps {
   validity_period: string; // Assuming this is always a string
   payAmount: number;
 }
+
+export interface InternetPlan {
+  id: string;
+  planName: string;
+  countryISOCode: string;
+  billerCode: string;
+  description: string;
+  shortName: string;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
+
+export interface InternetVariationProps {
+  id: number;
+  biller_code: string;
+  name: string;
+  default_commission: number;
+  date_added: string; // ISO date string
+  country: string;
+  is_airtime: boolean;
+  biller_name: string;
+  item_code: string;
+  short_name: string;
+  fee: number;
+  commission_on_fee: boolean;
+  reg_expression: string;
+  label_name: string;
+  amount: number;
+  is_resolvable: boolean;
+  group_name: string;
+  category_name: string;
+  is_data: boolean | null;
+  default_commission_on_amount: number | null;
+  commission_on_fee_or_amount: number;
+  validity_period: string; // Assuming this is always a string
+  payAmount: number;
+}
+
+export enum NETWORK {
+  mtn = "mtn",
+  airtel = "airtel",
+  etisalat = "etisalat",
+  glo = "glo",
+}
+
+export enum BILL_TYPE {
+  DATA = "data",
+  AIRTIME = "airtime",
+  CABLE = "cable",
+  ELECTRICITY = "electricity",
+  INTERNET = "internet",
+}
+
+export enum BENEFICIARY_TYPE {
+  TRANSFER = "TRANSFER",
+  BILL = "BILL",
+}
+
+export enum TRANSFER_TYPE {
+  INTRA = "intra",
+  INTER = "inter",
+}
+
+export interface BeneficiaryProps {
+  id: string;
+  userId: string;
+  type: BENEFICIARY_TYPE;
+  bankName?: string;
+  bankCode?: string;
+  accountNumber?: string;
+  accountName?: string;
+  network?: NETWORK;
+  billerNumber?: string;
+  operatorId?: number;
+  billerCode?: string;
+  itemCode?: string;
+  currency?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
