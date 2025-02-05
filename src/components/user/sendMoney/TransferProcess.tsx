@@ -306,7 +306,8 @@ const TransferProcess = () => {
         {screen === 0 && (
           <div className="w-full px-4 xs:px-6 md:px-8 lg:px-10 2xl:px-12 py-8 flex flex-col gap-8 items-center bg-bg-400 max-xs:bg-bg-600 dark:bg-black dark:max-xs:bg-bg-1100 rounded-xl ">
             <h2 className="text-lg 2xs:text-xl sm:text-2xl font-medium text-text-200 dark:text-text-400 text-center">
-              Enter Nattypay Account Details{" "}
+              Enter {selectedType === "nattypay" ? "NattyPay" : "Bank"} Account
+              Details{" "}
             </h2>
 
             {beneficiaries?.length > 0 && (
