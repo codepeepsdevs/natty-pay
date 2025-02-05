@@ -49,7 +49,7 @@ const ContactUs = () => {
             />
             <motion.div
               variants={textVariant(0.1)}
-              className="z-10 w-full sm:w-[90%] md:w-[80%] lg:w-[90%] xl:w-[80%] text-text-200 dark:text-text-400 flex flex-col max-lg:items-center max-lg:text-center gap-2 xs:gap-3"
+              className="z-30 w-full sm:w-[90%] md:w-[80%] lg:w-[90%] xl:w-[80%] text-text-200 dark:text-text-400 flex flex-col max-lg:items-center max-lg:text-center gap-2 xs:gap-3"
             >
               <h1 className="text-3xl 2xs:text-4xl xs:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-[2.4rem] 2xs:leading-[2.8rem] xs:leading-[3.5rem] xl:leading-[4rem] 2xl:leading-[5rem]">
                 Get In Touch With Us{" "}
@@ -64,7 +64,7 @@ const ContactUs = () => {
                 Social Handles
               </p>
               <motion.div
-                className="flex items-center gap-2.5 2xs:gap-4 text-2xl text-secondary"
+                className="z-20 flex items-center gap-2.5 2xs:gap-4 text-2xl text-secondary"
                 variants={zoomIn(0.2, 0.5)}
               >
                 <a
@@ -116,14 +116,24 @@ const ContactUs = () => {
                   <FaXTwitter />
                 </a>
               </motion.div>
-              <div className="flex flex-col gap-2 text-text-200 dark:text-text-400">
-                <div className="flex items-center gap-1 ">
+              <div className="z-20 flex flex-col gap-2 text-text-200 dark:text-text-400">
+                <div
+                  onClick={() => {
+                    window.open("https://wa.me/2348134146906", "_blank");
+                  }}
+                  className="cursor-pointer flex items-center gap-1 "
+                >
                   <FaPhone className="text-xl text-text-1000" />
                   <p className="">+2348134146906</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div
+                  onClick={() => {
+                    window.open("mailto:contact@webtrendshub.com", "_blank");
+                  }}
+                  className="cursor-pointer flex items-center gap-2"
+                >
                   <MdMail className="text-xl text-text-1000" />
-                  <p className="">Support@Nattypay.com </p>
+                  <p className="">support@nattypay.com </p>
                 </div>
               </div>
             </div>

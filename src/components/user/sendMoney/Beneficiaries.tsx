@@ -66,14 +66,15 @@ const Beneficiaries = ({
             onClick={() => {
               handleBeneficiarySelect(item);
             }}
-            className={`text-xs 2xs:text-sm font-medium cursor-pointer flex flex-col gap-0.5 border rounded-md  px-3 py-2 ${
+            className={`w-full text-xs 2xs:text-sm font-medium cursor-pointer flex flex-col gap-0.5 border rounded-md  px-3 py-2 ${
               selectedBeneficiary === item.id
                 ? "bg-primary border-primary text-text-200"
                 : "bg-white dark:bg-bg-1100 text-text-200 dark:text-text-400"
             }`}
           >
-            <div className="flex items-center gap-2">
-              {item.accountNumber}{" "}
+            <div className="w-full flex items-center gap-2">
+              <p className="!no-underline">{item.accountNumber}</p>
+
               <button
                 onClick={() => {
                   handleCopy(item?.accountNumber || "", () => {
@@ -88,7 +89,7 @@ const Beneficiaries = ({
                 <LuCopy className="w-4 h-4" />
               </button>
             </div>
-            <span className="">
+            <span className="underline-none">
               {shortenReference({
                 ref: item.accountName || "",
                 first: 10,

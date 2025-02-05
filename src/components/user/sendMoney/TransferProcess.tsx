@@ -309,7 +309,7 @@ const TransferProcess = () => {
             </h2>
 
             {beneficiaries?.length > 0 && (
-              <div className="mb-2 flex flex-col gap-1">
+              <div className="w-full mb-2 flex flex-col gap-1">
                 <h2 className="text-base font-medum text-text-200 dark:text-text-400">
                   Recent Beneficiaries
                 </h2>

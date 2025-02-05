@@ -24,11 +24,11 @@ const Footer = () => {
         <div className="flex max-xl:flex-col items-start gap-8 xs:gap-12 sm:gap-16 xl:gap-12 2xl:gap-20">
           <div className="relative w-full xl:w-[40%] flex flex-col items-start ">
             <p className="max-xs:text-center text-sm 2xs:text-base leading-5 2xs:leading-6 xs:leading-7">
-              Nattpay is more than just a financial service provider; we are a
+              NattyPay is more than just a financial service provider; we are a
               community dedicated to improving financial well-being. Join
-              thousands of satisfied users who trust Nattpay for their financial
-              needs. Download the Natypay app today and experience the future of
-              finance in Nigeria.
+              thousands of satisfied users who trust NattyPay for their
+              financial needs. Download the NattyPay app today and experience
+              the future of finance in Nigeria.
             </p>
             <div
               className="absolute -top-40 left-[25rem] -inset-32 opacity-60 dark:opacity-40"

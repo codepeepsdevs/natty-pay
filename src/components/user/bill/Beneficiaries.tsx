@@ -125,7 +125,7 @@ const Beneficiaries = ({
               />
             ) : null}
 
-            <span className="text-base">{item.billerNumber}</span>
+            <p className="text-base !no-underline">{item.billerNumber}</p>
           </div>
         </SwiperSlide>
       ))}
