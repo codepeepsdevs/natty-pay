@@ -269,6 +269,7 @@ const TransferProcess = () => {
                   setScreen(0);
                   setPin("");
                   setIsBeneficiaryChecked(false);
+                  setSelectedBeneficiary("");
                   reset();
                 }}
               />
