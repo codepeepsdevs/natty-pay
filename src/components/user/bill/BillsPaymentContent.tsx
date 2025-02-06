@@ -100,8 +100,8 @@ const BillsPaymentContent = () => {
                 [
                   "Cable /TV Bills",
                   "Electricity Bills",
-                  "Education",
-                  "Gift Cards",
+                  // "Education",
+                  // "Gift Cards",
                 ].includes(item.name)
               ) {
                 navigate(item.path);

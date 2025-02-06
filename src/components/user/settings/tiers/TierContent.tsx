@@ -20,16 +20,16 @@ const TierContent = () => {
   const UserTypes = [
     {
       planType: "one",
-      maxBal: 300000,
-      transLimit: 50000,
+      maxBal: 5000000,
+      transLimit: 1000000,
       title: "Tier One",
       image: images.tiers.tier1,
     },
 
     {
       planType: "two",
-      maxBal: 500000,
-      transLimit: 200000,
+      maxBal: 10000000,
+      transLimit: 5000000,
       title: "Tier Two",
       image: images.tiers.tier2,
     },
@@ -37,7 +37,7 @@ const TierContent = () => {
     {
       planType: "three",
       maxBal: Infinity,
-      transLimit: 1000000,
+      transLimit: Infinity,
       title: "Tier Three",
       image: images.tiers.tier3,
     },
@@ -136,7 +136,12 @@ const TierCard = ({
             {" "}
             <p className="flex items-center gap-1">
               <p>Daily Limit: </p>
-              <span className="font-bold">₦{transLimit.toLocaleString()}</span>
+              <span className="font-bold">
+                {" "}
+                {maxBal === Infinity
+                  ? "Unlimited"
+                  : `₦${transLimit.toLocaleString()}`}
+              </span>
             </p>
             <p className="flex items-center gap-1">
               <p>Wallet Cap: </p>
