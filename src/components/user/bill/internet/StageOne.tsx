@@ -104,7 +104,7 @@ const InternetStageOne: React.FC<StageOneProps> = ({
     setValue,
     clearErrors,
   } = form;
-  const { errors, isValid } = formState;
+  const { errors } = formState;
 
   const watchedBillerNumber = watch("billerNumber");
   const watchedBillerCode = watch("billerCode");
@@ -171,7 +171,7 @@ const InternetStageOne: React.FC<StageOneProps> = ({
       Promise.resolve(setItemCode(data.itemCode)),
       Promise.resolve(setBillerCode(data.billerCode)),
       Promise.resolve(setBillerNumber(data.billerNumber)),
-      Promise.resolve(setAmount(String(data.amount))),
+      Promise.resolve(setAmount(String(data.amount + fee))),
       Promise.resolve(setCheckoutMessage(String(`${data.plan}`))),
       Promise.resolve(setInternetProvider(data.provider)),
       Promise.resolve(setStage("two")),
@@ -193,7 +193,6 @@ const InternetStageOne: React.FC<StageOneProps> = ({
 
   // Add a derived isValid state based on specific fields
   const isSubmitValid =
-    isValid &&
     !!watchedBillerNumber &&
     !!watchedBillerCode &&
     !!watchedItemCode &&

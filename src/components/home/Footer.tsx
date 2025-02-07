@@ -150,7 +150,7 @@ const Footer = () => {
           </p>
           <div className="flex space-x-4 sm:space-x-6 mt-2.5 xs:mt-4 md:mt-0">
             <a
-              href="https://www.facebook.com/NattypayGlobal"
+              href="https://www.facebook.com/profile.php?id=100084829514458"
               target="_blank"
               rel="noopener noreferrer"
               className=""
@@ -158,7 +158,7 @@ const Footer = () => {
               <Image src={icons.socialIcons.facebookIcon} alt="facebook" />
             </a>
             <a
-              href="https://www.instagram.com/NattypayGlobal"
+              href="https://www.instagram.com/nattypays?igsh=MWYxdW9iY2M1bzVmbg=="
               target="_blank"
               rel="noopener noreferrer"
               className=" "
@@ -183,7 +183,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://www.snapchat.com/add/NattypayGlobal"
+              href="https://www.snapchat.com/add/nattypayglobal"
               target="_blank"
               rel="noopener noreferrer"
               className=" "

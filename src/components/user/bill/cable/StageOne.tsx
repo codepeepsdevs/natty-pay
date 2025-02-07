@@ -467,7 +467,7 @@ const DataStageOne: React.FC<CableStageOneProps> = ({
                             setStage("two");
                           }}
                           key={index}
-                          className=" flex flex-col items-center justify-center gap-2 p-4 text-center border border-border-200 dark:border-border-700 cursor-pointer hover:bg-primary hover:text-text-1500 hover:dark:text-text-200 text-text-200 dark:text-text-800 hover:border-none rounded"
+                          className=" flex flex-col items-center justify-center gap-1 p-4 text-center border border-border-200 dark:border-border-700 cursor-pointer hover:bg-primary hover:text-text-1500 hover:dark:text-text-200 text-text-200 dark:text-text-800 hover:border-none rounded"
                         >
                           <p className="text-xs lg:text-sm">
                             {String(item.biller_name)}
@@ -476,10 +476,13 @@ const DataStageOne: React.FC<CableStageOneProps> = ({
                             {String(item.validity_period)} Days
                           </p>
                           <p className="font-semibold text-sm lg:text-base">
-                            &#8358;{" "}
+                            ₦{" "}
                             {new Intl.NumberFormat("en-NG", {
                               maximumFractionDigits: 2,
-                            }).format(Number(item.payAmount))}{" "}
+                            }).format(Number(item.amount))}{" "}
+                          </p>
+                          <p className="font-medium  text-xs lg:text-sm ">
+                            Fee: ₦ {item.payAmount - item.amount}{" "}
                           </p>
                         </div>
                       );

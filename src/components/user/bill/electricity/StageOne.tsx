@@ -121,6 +121,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
 
   const [providerState, setProviderState] = useState(false);
   const [planState, setPlanState] = useState(false);
+  const [fee, setFee] = useState(0);
 
   const {
     electricityPlans,
@@ -236,7 +237,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
       Promise.resolve(setItemCode(data.itemCode)),
       Promise.resolve(setBillerCode(data.billerCode)),
       Promise.resolve(setBillerNumber(data.billerNumber)),
-      Promise.resolve(setAmount(String(data.amount))),
+      Promise.resolve(setAmount(String(data.amount + fee))),
       Promise.resolve(setCheckoutMessage(String(`${data.plan}`))),
       Promise.resolve(setStage("two")),
     ]);
@@ -483,6 +484,8 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                   <p className="text-sm 2xs:text-base">Select a provider </p>
                 ) : !watchedProvider || !watchedBillerCode ? (
                   <p className="text-sm 2xs:text-base">Select provider </p>
+                ) : verifyLoading ? (
+                  <p className="text-sm 2xs:text-base">Verifying customer...</p>
                 ) : !watchedItemCode || !watchedPlan ? (
                   <p className="text-sm 2xs:text-base">Select plan </p>
                 ) : (
@@ -530,6 +533,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                   onSelect={(plan) => {
                     setValue("plan", plan.short_name);
                     setValue("itemCode", plan.item_code);
+                    setFee(plan.payAmount - plan.amount);
                     clearErrors("plan");
                     clearErrors("itemCode");
                     setProviderState(false);
@@ -564,6 +568,12 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                 // onPaste={handleNumericPaste}
               />
             </div>
+
+            {fee && fee !== 0 ? (
+              <p className="flex self-start text-sm text-primary">
+                Fee: {`₦${fee}`}
+              </p>
+            ) : null}
 
             {errors?.amount?.message && (
               <p className="flex self-start text-red-500 font-semibold mt-0.5 text-sm">

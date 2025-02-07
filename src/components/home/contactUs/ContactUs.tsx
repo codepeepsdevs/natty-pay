@@ -68,7 +68,7 @@ const ContactUs = () => {
                 variants={zoomIn(0.2, 0.5)}
               >
                 <a
-                  href="https://www.facebook.com/NattypayGlobal"
+                  href="https://www.facebook.com/profile.php?id=100084829514458"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-bg-1200"
@@ -76,7 +76,7 @@ const ContactUs = () => {
                   <RiFacebookCircleLine />
                 </a>
                 <a
-                  href="https://www.instagram.com/NattypayGlobal"
+                  href="https://www.instagram.com/nattypays?igsh=MWYxdW9iY2M1bzVmbg=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-bg-1200"
@@ -100,7 +100,7 @@ const ContactUs = () => {
                   <FaYoutube />
                 </a>
                 <a
-                  href="https://www.snapchat.com/add/NattypayGlobal"
+                  href="https://www.snapchat.com/add/nattypayglobal"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-bg-1200"
