@@ -166,7 +166,7 @@ const Footer = () => {
               <Image src={icons.socialIcons.instagramIcon} alt="instagram" />
             </a>
             <a
-              href="https://www.tiktok.com/@NattypayGlobal"
+              href="https://www.tiktok.com/@nattypayglobal?_t=ZM-8tjAVR0cYQ1&_r=1"
               target="_blank"
               rel="noopener noreferrer"
               className=" "
@@ -174,7 +174,7 @@ const Footer = () => {
               <Image src={icons.socialIcons.tiktokIcon} alt="tiktok" />
             </a>
             <a
-              href="https://www.youtube.com/NattypayGlobal"
+              href="https://youtube.com/@nattypayglobal?si=9LyF8iMK1pwnGX8P"
               target="_blank"
               rel="noopener noreferrer"
               className=" "

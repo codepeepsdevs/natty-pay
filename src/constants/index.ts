@@ -124,7 +124,7 @@ export const WcuData = [
     id: 2,
     title: "Convenience",
     description:
-      "With Natypay, you can manage your finances anytime, anywhere by eliminating the need to visit a bank or service provider.",
+      "With NattyPay, you can manage your finances anytime, anywhere by eliminating the need to visit a bank or service provider.",
   },
   {
     id: 3,
@@ -154,7 +154,7 @@ export const CoreValuesData = [
     title: "Innovation",
     image: images.about.coreValues2,
     description:
-      "We believe in the power of technology to transform lives. Natypay is built on a foundation of continuous innovation, leveraging the latest advancements in fintech to offer cutting-edge services",
+      "We believe in the power of technology to transform lives. NattyPay is built on a foundation of continuous innovation, leveraging the latest advancements in fintech to offer cutting-edge services",
   },
   {
     id: 3,

@@ -84,7 +84,7 @@ const ContactUs = () => {
                   <FaInstagram />
                 </a>
                 <a
-                  href="https://www.tiktok.com/@NattypayGlobal"
+                  href="https://www.tiktok.com/@nattypayglobal?_t=ZM-8tjAVR0cYQ1&_r=1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-bg-1200"
@@ -92,7 +92,7 @@ const ContactUs = () => {
                   <FaTiktok />
                 </a>
                 <a
-                  href="https://www.youtube.com/NattypayGlobal"
+                  href="https://youtube.com/@nattypayglobal?si=9LyF8iMK1pwnGX8P"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-full bg-bg-1200"

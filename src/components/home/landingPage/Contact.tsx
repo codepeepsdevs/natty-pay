@@ -37,7 +37,7 @@ const Contact = () => {
                 If you have any additional questions or need further assistance,
                 please do not hesitate to contact our customer support team. We
                 are here to help you have a seamless and satisfying experience
-                with Natypay.
+                with NattyPay.
               </p>
             </motion.div>
             <div className="flex flex-col gap-2 text-black">
