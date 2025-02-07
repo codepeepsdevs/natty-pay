@@ -147,6 +147,7 @@ export const useGetQrCode = ({ amount }: { amount: number }) => {
   const { data, isPending, isError } = useQuery({
     queryKey: ["qrCode", { amount }],
     queryFn: () => getQrCode({ amount }),
+    enabled: amount !== undefined && amount !== 0,
   });
 
   const qrCode: string = data?.data?.data;

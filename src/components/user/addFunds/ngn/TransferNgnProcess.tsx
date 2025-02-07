@@ -31,9 +31,11 @@ const transferMethods = [
 const TransferNgnProcess = () => {
   const { user } = useUserStore();
   const [selectedType, setSelectedType] = useState<string>("bank");
-  const [amount, setAmount] = useState<number | undefined>(undefined);
+  const [amount, setAmount] = useState("");
 
-  const { qrCode, isPending, isError } = useGetQrCode({ amount: amount || 0 });
+  const { qrCode, isPending, isError } = useGetQrCode({
+    amount: Number(amount) || 0,
+  });
   const isLoading = isPending && !isError;
   return (
     <div className="w-full flex max-xl:flex-col 2xs:px-2 xs:px-4 sm:px-6 md:px-8 py-4 2xs:py-6 sm:py-10 bg-transparent xs:bg-bg-600 dark:xs:bg-bg-1100 gap-6 xs:gap-10 lg:gap-12 2xl:gap-16 rounded-xl">
@@ -164,15 +166,18 @@ const TransferNgnProcess = () => {
                     className="w-full bg-transparent p-0 border-none outline-none text-base text-text-200 dark:text-white placeholder:text-text-200 dark:placeholder:text-text-1000 placeholder:text-sm"
                     placeholder="Enter Amount"
                     required={true}
-                    type="number"
+                    type="text"
                     value={amount}
                     onChange={(e) => {
-                      setAmount(Number(e.target.value));
+                      const value = e.target.value;
+                      if (/^\d*\.?\d*$/.test(value)) {
+                        setAmount(value);
+                      }
                     }}
                   />
                 </div>
               </div>
-              {amount && (
+              {amount && Number(amount) !== 0 ? (
                 <>
                   {" "}
                   {isLoading ? (
@@ -194,7 +199,7 @@ const TransferNgnProcess = () => {
                             alt="QR Code"
                             width={200}
                             height={200}
-                            className="w-[70%] 2xs:w-[60%] xs:w-[50%] sm:w-[40%] xl:w-[50%]"
+                            className="w-full 2xs:w-[70%] xs:w-[60%] sm:w-[50%] md:w-[40%] lg:w-[50%] xl:w-[40%]"
                           />
                         </div>
                       ) : (
@@ -207,7 +212,7 @@ const TransferNgnProcess = () => {
                     </>
                   )}
                 </>
-              )}
+              ) : null}
             </div>
           </div>
         )}

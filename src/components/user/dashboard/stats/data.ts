@@ -51,8 +51,8 @@ export const statsPieOption = {
         boxHeight: window.innerWidth < 500 ? 7 : 14,
         padding: 15,
         font: {
-          size: 14, // Increased from 12
-          weight: "bold", // Added font weight
+          size: window.innerWidth < 500 ? 12 : 14, // Increased from 12
+          weight: window.innerWidth < 500 ? "" : "bold", // Added font weight
         },
       },
     },

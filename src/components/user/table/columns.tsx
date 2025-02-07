@@ -98,26 +98,26 @@ export const GenerateColumns = () => {
         return <span>{format(new Date(value), "yyyy-MM-dd '|' h:mm a")}</span>;
       },
     },
+    // {
+    //   Header: "Amount",
+    //   id: "amount",
+    //   accessor: "category",
+    //   Cell: ({ value, row }: { value: string; row: Row<Transaction> }) => {
+    //     if (value === TRANSACTION_CATEGORY.TRANSFER) {
+    //       const transferDetails = row.original?.transferDetails;
+    //       return <span>₦{transferDetails?.amount} </span>;
+    //     } else if (value === TRANSACTION_CATEGORY.DEPOSIT) {
+    //       const depositDetails = row.original?.depositDetails;
+    //       return <span>₦{depositDetails?.amount}</span>;
+    //     } else if (value === TRANSACTION_CATEGORY.BILL_PAYMENT) {
+    //       const billDetails = row.original?.billDetails;
+    //       return <span>₦{billDetails?.amount}</span>;
+    //     }
+    //     return <span>N/A</span>;
+    //   },
+    // },
     {
       Header: "Amount",
-      id: "amount",
-      accessor: "category",
-      Cell: ({ value, row }: { value: string; row: Row<Transaction> }) => {
-        if (value === TRANSACTION_CATEGORY.TRANSFER) {
-          const transferDetails = row.original?.transferDetails;
-          return <span>₦{transferDetails?.amount} </span>;
-        } else if (value === TRANSACTION_CATEGORY.DEPOSIT) {
-          const depositDetails = row.original?.depositDetails;
-          return <span>₦{depositDetails?.amount}</span>;
-        } else if (value === TRANSACTION_CATEGORY.BILL_PAYMENT) {
-          const billDetails = row.original?.billDetails;
-          return <span>₦{billDetails?.amount}</span>;
-        }
-        return <span>N/A</span>;
-      },
-    },
-    {
-      Header: "Amount Paid",
       id: "amountPaid",
       accessor: "category",
       Cell: ({ value, row }: { value: string; row: Row<Transaction> }) => {
