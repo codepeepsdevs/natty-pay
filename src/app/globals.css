@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -21,16 +32,6 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Hide the arrows in Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
-}
-
-/* Make input autocomplete background transparent */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px transparent inset !important;
-  -webkit-text-fill-color: inherit !important;
-  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Dark mode styles for autofill */
