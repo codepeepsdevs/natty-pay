@@ -67,8 +67,8 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
         billerNumber: yup
           .string()
           .required("Meter Number is required")
-          .min(11, "Meter Number must be at least 11 digits")
-          .max(11, "Meter Number must be exactly 11 digits"),
+          .min(10, "Meter Number must be at least 10 digits")
+          .max(12, "Meter Number must be exactly 12 digits"),
 
         billerCode: yup.string().required("Biller code is required"),
 
@@ -292,8 +292,8 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                   placeholder="Enter Meter Number"
                   required={true}
                   type="text"
-                  maxLength={11}
-                  minLength={11}
+                  maxLength={12}
+                  minLength={10}
                   {...register("billerNumber")}
                   onKeyDown={handleNumericKeyDown}
                   onPaste={handleNumericPaste}
@@ -329,7 +329,8 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                 watchedProvider &&
                 watchedBillerCode &&
                 watchedBillerNumber &&
-                watchedBillerNumber.length === 11 ? (
+                watchedBillerNumber.length >= 10 &&
+                watchedBillerNumber.length <= 12 ? (
                   <div className="flex flex-col  ">
                     <p className="text-primary text-sm">
                       {verificationMessage}
@@ -376,7 +377,9 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length !== 11 ? (
+                {!watchedBillerNumber ||
+                watchedBillerNumber.length >= 10 ||
+                watchedBillerNumber.length <= 12 ? (
                   <p className="text-sm 2xs:text-base">
                     Enter valid meter number{" "}
                   </p>
@@ -480,7 +483,9 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length !== 11 ? (
+                {!watchedBillerNumber ||
+                watchedBillerNumber.length >= 10 ||
+                watchedBillerNumber.length <= 12 ? (
                   <p className="text-sm 2xs:text-base">Select a provider </p>
                 ) : !watchedProvider || !watchedBillerCode ? (
                   <p className="text-sm 2xs:text-base">Select provider </p>
