@@ -66,6 +66,10 @@ const Navbar = () => {
       title: "Settings",
       path: "/user/settings",
     },
+    {
+      title: "Receipt",
+      path: "/user/receipt",
+    },
   ];
 
   const Heading = HeadingData.sort(

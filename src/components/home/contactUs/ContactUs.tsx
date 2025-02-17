@@ -128,7 +128,7 @@ const ContactUs = () => {
                 </div>
                 <div
                   onClick={() => {
-                    window.open("mailto:contact@webtrendshub.com", "_blank");
+                    window.open("mailto:support@nattypay.com", "_blank");
                   }}
                   className="cursor-pointer flex items-center gap-2"
                 >

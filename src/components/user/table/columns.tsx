@@ -10,6 +10,8 @@ import {
   TRANSACTION_STATUS,
 } from "@/constants/types";
 import { handleCopy, shortenReference } from "@/utils/utilityFunctions";
+import useNavigate from "@/hooks/useNavigate";
+import useTransactionStore from "@/store/useTransaction.store";
 
 const statusStyles: Record<string, string> = {
   success: "text-green-500",
@@ -18,6 +20,8 @@ const statusStyles: Record<string, string> = {
 };
 
 export const GenerateColumns = () => {
+  const navigate = useNavigate();
+  const { setTransaction } = useTransactionStore();
   return [
     {
       Header: "Trx. Ref",
@@ -145,6 +149,26 @@ export const GenerateColumns = () => {
             className={`font-medium capitalize ${statusStyles[status] || ""}`}
           >
             {status}
+          </span>
+        );
+      },
+    },
+
+    {
+      Header: "Receipt",
+      accessor: "",
+      Cell: ({ row }: { row: Row<Transaction> }) => {
+        const transaction = row.original;
+
+        return (
+          <span
+            onClick={() => {
+              setTransaction(transaction);
+              navigate(`/user/receipt`);
+            }}
+            className={`cursor-pointer`}
+          >
+            View
           </span>
         );
       },

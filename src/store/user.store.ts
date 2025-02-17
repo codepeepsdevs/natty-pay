@@ -61,12 +61,7 @@ const useUserStore = create(
         if (token && user) {
           const isValid = await get().checkToken();
           if (isValid) {
-            try {
-              set({ user, isLoggedIn: true, isInitialized: true });
-            } catch (error) {
-              console.error("Error fetching user data:", error);
-              set({ user: null, isLoggedIn: false, isInitialized: true });
-            }
+            set({ user, isLoggedIn: true, isInitialized: true });
           } else {
             set({ user: null, isLoggedIn: false, isInitialized: true });
           }

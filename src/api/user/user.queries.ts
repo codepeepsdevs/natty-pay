@@ -22,7 +22,7 @@ import {
 } from "@/constants/types";
 
 export const useGetUser = () => {
-  const { data, isError } = useQuery({
+  const { data, isError, isSuccess, error } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
     // Run in the background
@@ -38,7 +38,7 @@ export const useGetUser = () => {
   });
   const user: User = data?.data;
 
-  return { user, isError };
+  return { user, isError, isSuccess, error };
 };
 
 export const useUpdateUser = (

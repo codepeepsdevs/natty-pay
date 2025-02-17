@@ -1,29 +1,31 @@
 "use client";
 import { useGetUser } from "@/api/user/user.queries";
-import LoadingAnimation from "@/components/Loader/LoadingCompletion";
 import useUserStore from "@/store/user.store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+interface ApiError {
+  response?: {
+    status: number;
+  };
+}
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const { initializeAuth } = useUserStore();
-  const [showLoading, setShowLoading] = useState(true);
+  const { initializeAuth, isInitialized } = useUserStore();
 
   // Initialize query in background without blocking
-  const { user } = useGetUser();
+  const { user, isSuccess, error } = useGetUser();
+
+  const isApiError = (error: unknown): error is ApiError => {
+    return error !== null && typeof error === "object" && "response" in error;
+  };
 
   useEffect(() => {
-    initializeAuth(user);
-  }, [initializeAuth, user]);
-
-  if (showLoading) {
-    return (
-      <LoadingAnimation
-        onLoadingComplete={() => {
-          setShowLoading(false);
-        }}
-      />
-    );
-  }
+    if (isSuccess) {
+      initializeAuth(user);
+    } else if (error && isApiError(error) && error.response?.status === 401) {
+      initializeAuth(null);
+    }
+  }, [initializeAuth, user, isSuccess, error, isInitialized]);
 
   return <>{children}</>;
 };

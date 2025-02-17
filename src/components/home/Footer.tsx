@@ -132,11 +132,11 @@ const Footer = () => {
                 </p>
                 <p
                   onClick={() => {
-                    window.open("mailto:contact@webtrendshub.com", "_blank");
+                    window.open("mailto:support@nattypay.com", "_blank");
                   }}
                   className="cursor-pointer"
                 >
-                  support@Nattypay.com
+                  support@nattypay.com
                 </p>
               </div>
             </div>
