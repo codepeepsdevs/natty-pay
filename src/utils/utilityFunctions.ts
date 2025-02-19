@@ -183,3 +183,7 @@ export const shortenReference = ({
 
   return ref;
 };
+
+export const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  e.target.value = e.target.value.replace(/[^0-9+]/g, "");
+};

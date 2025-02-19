@@ -3,6 +3,8 @@ import {
   IAirtimePayPayload,
   IAirtimePlan,
   IAirtimeVariation,
+  IInternationalAirtimeFxRate,
+  IInternationalAirtimePlan,
 } from "./airtime.types";
 
 export const airtimePlanRequest = async (formdata: IAirtimePlan) => {
@@ -30,6 +32,24 @@ export const airtimePaymentRequest = async (formdata: IAirtimePayPayload) => {
 export const airtimeNetworkProviderRequest = async () => {
   return request({
     url: `/bill/airtime/network-providers`,
+    method: "get",
+  });
+};
+
+export const internationalAirtimePlanRequest = async (
+  formdata: IInternationalAirtimePlan
+) => {
+  return request({
+    url: `/bill/airtime/international/get-plan?phone=${formdata.phone}`,
+    method: "get",
+  });
+};
+
+export const internationalAirtimeFxRateRequest = async (
+  formdata: IInternationalAirtimeFxRate
+) => {
+  return request({
+    url: `/bill/airtime/international/get-fx-rate?amount=${formdata.amount}&operatorId=${formdata.operatorId}`,
     method: "get",
   });
 };

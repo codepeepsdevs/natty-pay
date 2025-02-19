@@ -3,7 +3,6 @@ import useNavigate from "@/hooks/useNavigate";
 import classNames from "classnames";
 import { usePathname } from "next/navigation";
 import { LuPhoneOutgoing } from "react-icons/lu";
-import toast from "react-hot-toast";
 import { TbWorldUp } from "react-icons/tb";
 
 const navItems = [
@@ -28,14 +27,7 @@ const AirtimeNav = () => {
         <div
           key={index}
           onClick={() => {
-            if (item.path === "/user/airtime/international") {
-              toast.dismiss();
-              toast.error("Unavailable at this time", {
-                duration: 3000,
-              });
-            } else {
-              navigate(item.path);
-            }
+            navigate(item.path);
           }}
           className={classNames({
             "w-fit flex items-center gap-2 py-3 sm:py-4 px-3 2xs:px-4 sm:px-6 rounded-full cursor-pointer":

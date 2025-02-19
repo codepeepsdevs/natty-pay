@@ -19,7 +19,7 @@ type StageThreeProps = {
 const BillStageThree: React.FC<StageThreeProps> = ({
   setStage,
   phone,
-  // network,
+  network,
   amount,
   cableProvider,
   internetProvider,
@@ -32,6 +32,8 @@ const BillStageThree: React.FC<StageThreeProps> = ({
     switch (type) {
       case "airtime":
         return "Airtime Purchase";
+      case "internationalAirtime":
+        return `${network} Purchase`;
       case "data":
         return "Mobile Data Purchase";
       case "cable":

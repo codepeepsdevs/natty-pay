@@ -3,6 +3,15 @@ export type IAirtimePlan = {
   currency: string;
 };
 
+export type IInternationalAirtimePlan = {
+  phone: string;
+};
+
+export type IInternationalAirtimeFxRate = {
+  operatorId: number;
+  amount: number;
+};
+
 export type IAirtimeVariation = {
   operatorId: number;
 };

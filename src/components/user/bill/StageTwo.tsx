@@ -36,6 +36,7 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
   const getTitleMessage = () => {
     switch (type) {
       case "airtime":
+      case "internationalAirtime":
         return "Airtime Topup for";
       case "data":
         return checkoutMessage;
@@ -54,6 +55,7 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
   const getSubTitlteMessage = () => {
     switch (type) {
       case "airtime":
+      case "internationalAirtime":
       case "data":
         return `${phone} (${network?.toLocaleUpperCase()})`;
 

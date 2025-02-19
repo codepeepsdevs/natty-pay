@@ -291,6 +291,10 @@ export enum BILL_TYPE {
   CABLE = "cable",
   ELECTRICITY = "electricity",
   INTERNET = "internet",
+  INTERNATIONAL_AIRTIME = "internationalAirtime",
+  TRANSPORT = "transport",
+  SCHOOL_FEE = "schoolFee",
+  GIFTCARD = "giftcard",
 }
 
 export enum BENEFICIARY_TYPE {

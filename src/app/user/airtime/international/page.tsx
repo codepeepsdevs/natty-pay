@@ -1,7 +1,7 @@
-import React from "react";
+import InternationalAirtimeContent from "@/components/user/bill/airtime/international/InternationalAirtimeContent";
 
 const InternationalAirtimePage = () => {
-  return <div>Page</div>;
+  return <InternationalAirtimeContent />;
 };
 
 export default InternationalAirtimePage;
