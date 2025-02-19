@@ -306,9 +306,9 @@ const InternationalAirtimeStageOne: React.FC<StageOneProps> = ({
             {plan ? (
               <p className="text-sm text-primary">
                 {plan?.destinationCurrencyCode !== "NGN" &&
-                  `1 ${plan?.destinationCurrencyCode} = ${Number(
+                  `1 ${plan?.senderCurrencyCode} = ${Number(
                     formatNumberWithoutExponential(plan?.fx?.rate, 2)
-                  )} ${plan?.senderCurrencyCode}`}
+                  )} ${plan?.destinationCurrencyCode}`}
               </p>
             ) : null}
           </div>
