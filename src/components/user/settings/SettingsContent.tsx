@@ -52,7 +52,7 @@ const SettingsContent = () => {
 
   return (
     <>
-      <div className="w-full h-full bg-transparent 2xs:bg-bg-600 2xs:dark:bg-bg-1100 py-4 md:py-8 px-0 2xs:px-5 md:px-10 flex flex-col gap-4 xs:gap-6 rounded-xl sm:rounded-2xl">
+      <div className="w-full  bg-transparent 2xs:bg-bg-600 2xs:dark:bg-bg-1100 py-4 md:py-8 px-0 2xs:px-5 md:px-10 flex flex-col gap-4 xs:gap-6 rounded-xl sm:rounded-2xl">
         {/* <h2 className="text-xl sm:text-2xl font-bold text-text-200 dark:text-text-400 ">
           Settings
         </h2> */}
