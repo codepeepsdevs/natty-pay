@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { LuCopy } from "react-icons/lu";
 import { Row } from "react-table";
 import {
+  BILL_TYPE,
   Transaction,
   TRANSACTION_CATEGORY,
   TRANSACTION_STATUS,
@@ -88,7 +89,9 @@ export const GenerateColumns = () => {
 
           return (
             <span className="capitalize">
-              {billDetails?.type} purchase for {billDetails?.recipientPhone}{" "}
+              {billDetails?.type} purchase{" "}
+              {billDetails.type !== BILL_TYPE.GIFTCARD &&
+                `for ${billDetails?.recipientPhone}`}
             </span>
           );
         }

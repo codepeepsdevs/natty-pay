@@ -12,8 +12,6 @@ import "react-datepicker/dist/react-datepicker.css";
 // Initialize Inter font
 const inter = Inter({
   subsets: ["latin"],
-  // Optional: you can specify custom weights
-  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {

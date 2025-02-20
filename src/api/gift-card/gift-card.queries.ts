@@ -33,13 +33,18 @@ export const useGetGCProductsByCurrency = (payload: { currency: string }) => {
 };
 
 export const useGetGCRedeemCode = (payload: { transactionId: number }) => {
-  const { data, isLoading, isError, refetch, error } = useQuery({
+  const { data, isLoading, isError, refetch, error, isSuccess } = useQuery({
     queryKey: ["gc-redeem-code", payload],
     queryFn: () => getGCRedeemCodeRequest(payload),
     enabled: false,
   });
 
-  return { data, isLoading, error, isError, refetch };
+  const response: {
+    cardNumber: string;
+    pinCode: string;
+  }[] = data?.data?.data;
+
+  return { response, isLoading, error, isError, refetch, isSuccess };
 };
 
 export const usePayForGiftCard = (

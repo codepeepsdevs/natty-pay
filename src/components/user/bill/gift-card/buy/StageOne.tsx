@@ -100,8 +100,7 @@ const BuyGiftCardStageOne: React.FC<StageOneProps> = ({
         unitPrice: yup
           .number()
           .required("price is required")
-          .typeError("Invalid price")
-          .min(1, "Invalid price"),
+          .typeError("Invalid price"),
 
         fee: yup.number(),
         amount: yup
@@ -488,6 +487,7 @@ const BuyGiftCardStageOne: React.FC<StageOneProps> = ({
                 />
               </div>
             )}
+
             {errors?.productId?.message ? (
               <p className="flex self-start text-red-500 font-semibold mt-0.5 text-sm">
                 {errors?.productId?.message}
@@ -656,6 +656,15 @@ const BuyGiftCardStageOne: React.FC<StageOneProps> = ({
           >
             Next{" "}
           </CustomButton>
+
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-primary  ">
+              {product?.redeemInstruction?.concise}
+            </p>
+            <p className="text-sm text-primary  ">
+              {product?.redeemInstruction?.verbose}
+            </p>
+          </div>
         </form>
       </div>
     </div>

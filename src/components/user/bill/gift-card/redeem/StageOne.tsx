@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,6 +17,7 @@ import {
 import ErrorToast from "@/components/toast/ErrorToast";
 
 const RedeemGiftCardStageOne = ({}) => {
+  const [success, setSuccess] = useState(false);
   const schema = useMemo(
     () =>
       yup.object().shape({
@@ -36,12 +37,13 @@ const RedeemGiftCardStageOne = ({}) => {
     reValidateMode: "onChange",
   });
 
-  const { register, handleSubmit, formState, watch } = form;
+  const { register, handleSubmit, formState, watch, reset } = form;
   const { errors } = formState;
 
-  const { isLoading, isError, refetch, error } = useGetGCRedeemCode({
-    transactionId: Number(watch("transactionId")),
-  });
+  const { response, isLoading, isError, refetch, error, isSuccess } =
+    useGetGCRedeemCode({
+      transactionId: Number(watch("transactionId")),
+    });
 
   const loading = isLoading && !isError;
 
@@ -49,11 +51,55 @@ const RedeemGiftCardStageOne = ({}) => {
     refetch();
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccess(true);
+    }
+  }, [isSuccess]);
+
   if (error && (error as any).response) {
     ErrorToast({
       title: "Error during gift card redemption",
       descriptions: [(error as any).response.data?.message],
     });
+  }
+
+  if (success) {
+    return (
+      <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
+        <div className="w-full sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
+          <div className="flex flex-col gap-2">
+            {response.map((item, index) => (
+              <div key={index}>
+                {item.cardNumber && (
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Card Number:</p>
+                    <p>{item.cardNumber}</p>
+                  </div>
+                )}
+                {item.pinCode && (
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold">Pin Code:</p>
+                    <p>{item.pinCode}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <CustomButton
+              type="button"
+              onClick={() => {
+                setSuccess(false);
+                reset();
+              }}
+              className="mt-4 w-full border-2 dark:text-black dark:font-bold border-primary text-white text-base 2xs:text-lg max-2xs:px-6 py-3.5"
+            >
+              Continue
+            </CustomButton>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

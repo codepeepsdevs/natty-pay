@@ -39,7 +39,7 @@ export const getTransactionDetails = (
       // Hide reference fields if transaction failed
 
       if (isFailedTransaction) {
-        return !["Reference"].includes(field.label);
+        return !["Reference", "Transaction ID"].includes(field.label);
       }
 
       return true;
@@ -170,6 +170,23 @@ export const electricityFields = [
   { label: "Date & Time", value: "{createdAt}" },
 ];
 
+export const giftCardFields = [
+  { label: "Transaction Ref", value: "{transactionRef}" },
+  { label: "Category", value: "{category}" },
+  { label: "Currency", value: "{currency}" },
+  { label: "Transaction Type", value: "{type}" },
+
+  { label: "Total Amount Paid", value: "₦{billDetails.amountPaid}" },
+  { label: "Bill Type", value: "{billDetails.type}" },
+  { label: "Transaction ID", value: "{billDetails.transactionId}" },
+
+  { label: "Status", value: "{status}" },
+
+  { label: "Balance Before", value: "₦{previousBalance}" },
+  { label: "Balance After", value: "₦{currentBalance}" },
+  { label: "Date & Time", value: "{createdAt}" },
+];
+
 export const defaultBillsFields = [
   { label: "Transaction Ref", value: "{transactionRef}" },
   { label: "Category", value: "{category}" },
@@ -194,6 +211,8 @@ export const getBillsFields = (transaction: Transaction) => {
       ? networksFields
       : transaction.billDetails?.type === BILL_TYPE.ELECTRICITY
       ? electricityFields
+      : transaction.billDetails?.type === BILL_TYPE.GIFTCARD
+      ? giftCardFields
       : defaultBillsFields;
   switch (transaction?.category) {
     case TRANSACTION_CATEGORY.DEPOSIT:
