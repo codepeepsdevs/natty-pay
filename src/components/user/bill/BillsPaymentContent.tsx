@@ -78,7 +78,7 @@ const Bills = [
   {
     name: "Gift Cards",
     icon: MdCardGiftcard,
-    path: "/user/bills/gift-cards",
+    path: "/user/bills/gift-card",
   },
 
   {
@@ -101,7 +101,7 @@ const BillsPaymentContent = () => {
                   "Cable /TV Bills",
                   "Electricity Bills",
                   // "Education",
-                  // "Gift Cards",
+                  "Gift Cards",
                 ].includes(item.name)
               ) {
                 navigate(item.path);

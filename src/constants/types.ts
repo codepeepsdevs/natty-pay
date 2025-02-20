@@ -324,3 +324,67 @@ export interface BeneficiaryProps {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface GiftCardCategory {
+  id: string;
+  name: string;
+}
+
+export interface GiftCardProduct {
+  productId: number;
+  productName: string;
+  global: boolean;
+  status: "ACTIVE" | "INACTIVE";
+  supportsPreOrder: boolean;
+  senderFee: number;
+  senderFeePercentage: number;
+  discountPercentage: number;
+  denominationType: "FIXED" | "RANGE";
+  recipientCurrencyCode: string;
+  minRecipientDenomination?: number;
+  maxRecipientDenomination?: number;
+  senderCurrencyCode: string;
+  minSenderDenomination?: number;
+  maxSenderDenomination?: number;
+  fixedRecipientDenominations: number[];
+  fixedSenderDenominations: number[] | null;
+  fixedRecipientToSenderDenominationsMap: Record<string, number> | null;
+  metadata: any | null;
+  logoUrls: string[];
+  brand: {
+    brandId: number;
+    brandName: string;
+  };
+  category: {
+    id: number;
+    name: string;
+  };
+  country: {
+    isoName: string;
+    name: string;
+    flagUrl: string;
+  };
+  redeemInstruction: {
+    concise: string;
+    verbose: string;
+  };
+  additionalRequirements: {
+    userIdRequired: boolean;
+  };
+  fixedRecipientToPayAmount: Record<string, number>;
+}
+
+export interface GiftCardPriceDetail {
+  price: number;
+  amount: number;
+  fee: number;
+}
+
+export interface GiftCardDetails {
+  product: GiftCardProduct;
+  currency: string;
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+  amount: number;
+}

@@ -1,5 +1,5 @@
 import CustomButton from "@/components/shared/Button";
-import { BILL_TYPE } from "@/constants/types";
+import { BILL_TYPE, GiftCardDetails } from "@/constants/types";
 import React, { useState } from "react";
 
 type StageTwoProps = {
@@ -17,6 +17,7 @@ type StageTwoProps = {
   isLoading?: boolean;
   isBeneficiaryChecked?: boolean;
   checkoutMessage?: string;
+  giftCardDetails?: GiftCardDetails;
 };
 
 const BillStageTwo: React.FC<StageTwoProps> = ({
@@ -28,6 +29,7 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
   payFunction,
   isLoading = false,
   checkoutMessage,
+  giftCardDetails,
 }) => {
   const [walletPin, setWalletPin] = useState("");
 
@@ -49,6 +51,9 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
 
       case "internet":
         return checkoutMessage;
+
+      case "giftcard":
+        return checkoutMessage;
     }
   };
 
@@ -66,6 +71,9 @@ const BillStageTwo: React.FC<StageTwoProps> = ({
 
       case "internet":
         return `for ${billerNumber}`;
+
+      case "giftcard":
+        return `of ${giftCardDetails?.product.productName} (X${giftCardDetails?.quantity})`;
     }
   };
 

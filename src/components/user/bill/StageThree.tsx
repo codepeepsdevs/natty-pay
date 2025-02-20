@@ -1,5 +1,5 @@
 import CustomButton from "@/components/shared/Button";
-import { BILL_TYPE } from "@/constants/types";
+import { BILL_TYPE, GiftCardDetails } from "@/constants/types";
 import toast from "react-hot-toast";
 import { LuCopy } from "react-icons/lu";
 
@@ -14,6 +14,7 @@ type StageThreeProps = {
   checkoutMessage?: string;
   electricityResCode?: string;
   setNetwork?: (network: string) => void;
+  giftCardDetails?: GiftCardDetails;
 };
 
 const BillStageThree: React.FC<StageThreeProps> = ({
@@ -42,6 +43,8 @@ const BillStageThree: React.FC<StageThreeProps> = ({
         return `Electricity Purchase`;
       case "internet":
         return `Internet Purchase`;
+      case "giftcard":
+        return `Gift Card Purchase`;
       default:
         return `${internetProvider} Internet Purchase`;
     }
