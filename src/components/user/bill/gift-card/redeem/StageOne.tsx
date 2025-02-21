@@ -68,9 +68,10 @@ const RedeemGiftCardStageOne = ({}) => {
     return (
       <div className="w-full py-5 xs:py-10 flex flex-col items-center justify-center">
         <div className="w-full sm:w-[85%] lg:w-[75%] xl:w-[65%] 2xl:w-[55%] dark:bg-[#000000] bg-transparent md:bg-[#F2F1EE] rounded-lg sm:rounded-xl p-0 2xs:p-4 md:p-8">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-6">
             {response.map((item, index) => (
-              <div key={index}>
+              <div key={index} className="text-text-200 dark:text-text-400">
+                <p className="text-sm font-semibold">Gift Card {index + 1}</p>
                 {item.cardNumber && (
                   <div className="flex items-center gap-2">
                     <p className="font-semibold">Card Number:</p>

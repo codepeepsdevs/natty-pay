@@ -55,7 +55,7 @@ const InternationalAirtimeContent = () => {
           onClick={() => {
             setStage("one");
           }}
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer text-text-200 dark:text-text-400"
         >
           <IoChevronBack className="text-2xl" />
           <p className="text-lg font-medium">Back</p>
