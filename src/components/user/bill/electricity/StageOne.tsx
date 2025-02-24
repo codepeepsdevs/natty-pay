@@ -178,7 +178,6 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
   useEffect(() => {
     if (
       watchedBillerNumber &&
-      watchedBillerNumber.length === 11 &&
       watchedBillerCode &&
       variations &&
       variations.length > 0 &&
@@ -326,8 +325,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
                 !verificationError &&
                 watchedProvider &&
                 watchedBillerCode &&
-                watchedBillerNumber &&
-                watchedBillerNumber.length >= 10 ? (
+                watchedBillerNumber ? (
                   <div className="flex flex-col  ">
                     <p className="text-primary text-sm">
                       {verificationMessage}
@@ -374,7 +372,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length >= 10 ? (
+                {!watchedBillerNumber ? (
                   <p className="text-sm 2xs:text-base">
                     Enter valid meter number{" "}
                   </p>
@@ -478,7 +476,7 @@ const ElectricityStageOne: React.FC<StageOneProps> = ({
             >
               <div className="w-full flex items-center justify-between text-text-700 dark:text-text-1000">
                 {" "}
-                {!watchedBillerNumber || watchedBillerNumber.length >= 10 ? (
+                {!watchedBillerNumber ? (
                   <p className="text-sm 2xs:text-base">Select a provider </p>
                 ) : !watchedProvider || !watchedBillerCode ? (
                   <p className="text-sm 2xs:text-base">Select provider </p>
