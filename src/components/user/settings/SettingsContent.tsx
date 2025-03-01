@@ -7,6 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdSystemSecurityUpdateWarning } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
+import { HiMiniPhone } from "react-icons/hi2";
 
 export const SettingsPages = [
   {
@@ -28,6 +29,13 @@ export const SettingsPages = [
     title: "Change password",
     path: "/user/settings/changePassword",
     icon: TbLockPassword,
+  },
+
+  {
+    id: 4,
+    title: "Change phone number",
+    path: "/user/settings/changePhoneNumber",
+    icon: HiMiniPhone,
   },
 
   // {

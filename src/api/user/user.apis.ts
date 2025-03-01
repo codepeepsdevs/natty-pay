@@ -5,6 +5,8 @@ import {
   IResetPin,
   ITier2Verification,
   ITier3Verification,
+  IValidatePhoneNumber,
+  IVerifyPhoneNumber,
 } from "./user.types";
 import { BENEFICIARY_TYPE, BILL_TYPE, TRANSFER_TYPE } from "@/constants/types";
 
@@ -96,4 +98,24 @@ export const getBeneficiariesRequest = async ({
     (transferType ? `&transferType=${transferType}` : "") +
     (billType ? `&billType=${billType}` : "");
   return request({ url });
+};
+
+export const validatePhoneNumberRequest = async (
+  formdata: IValidatePhoneNumber
+) => {
+  return request({
+    url: "/user/validate-phoneNumber",
+    method: "post",
+    data: formdata,
+  });
+};
+
+export const verifyPhoneNumberRequest = async (
+  formdata: IVerifyPhoneNumber
+) => {
+  return request({
+    url: "/user/verify-phoneNumber",
+    method: "post",
+    data: formdata,
+  });
 };

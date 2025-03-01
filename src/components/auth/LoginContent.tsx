@@ -18,6 +18,7 @@ import icons from "../../../public/icons";
 import { useTheme } from "@/store/theme.store";
 import useAuthEmailStore from "@/store/authEmail.store";
 import { useEffect } from "react";
+import { User } from "@/constants/types";
 
 const schema = yup.object().shape({
   email: yup
@@ -115,15 +116,19 @@ const LoginContent = () => {
   };
 
   const onSuccess = (data: any) => {
-    const user = data?.data?.user;
+    const user: User = data?.data?.user;
     setAuthEmail(user?.email);
 
-    SuccessToast({
-      title: "Login successful!",
-      description:
-        "Check your email for verification code to continue with your two-factor authentication.",
-    });
-    navigate("/two-factor-auth");
+    if (user?.isPhoneVerified) {
+      SuccessToast({
+        title: "Login successful!",
+        description:
+          "Check your email for verification code to continue with your two-factor authentication.",
+      });
+      navigate("/two-factor-auth");
+    } else {
+      navigate("/validate-phoneNumber");
+    }
 
     reset();
   };

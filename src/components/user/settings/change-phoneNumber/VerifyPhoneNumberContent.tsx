@@ -14,28 +14,31 @@ import OtpInput from "react-otp-input";
 import useAuthEmailStore from "@/store/authEmail.store";
 import useTimerStore from "@/store/timer.store";
 import { useRouter } from "next/navigation";
-import SpinnerLoader from "../Loader/SpinnerLoader";
-import icons from "../../../public/icons";
-import {
-  useResendVerificationCode,
-  useVerifyEmail,
-} from "@/api/auth/auth.queries";
 
-const VerifyEmailContent = () => {
+import {
+  useValidatePhoneNumber,
+  useVerifyPhoneNumber,
+} from "@/api/user/user.queries";
+import useUserStore from "@/store/user.store";
+import icons from "../../../../../public/icons";
+import SpinnerLoader from "@/components/Loader/SpinnerLoader";
+
+const VerifyPhoneNumberContent = () => {
   const navigate = useNavigate();
   const router = useRouter();
+  const { user } = useUserStore();
 
-  const { authEmail } = useAuthEmailStore();
+  const { authPhoneNumber } = useAuthEmailStore();
   const [token, setToken] = useState("");
 
-  const isValid = token.length === 6;
+  const isValid = token.length === 4;
 
   const onVerificationSuccess = () => {
     SuccessToast({
       title: "Email verified",
       description: "Your email address verification successful",
     });
-    navigate("/validate-phoneNumber", "replace");
+    navigate("/user/settings", "replace");
     setToken("");
   };
 
@@ -53,10 +56,10 @@ const VerifyEmailContent = () => {
   };
 
   const {
-    mutate: verifyEmail,
+    mutate: verifyPhoneNumber,
     isPending: verificationPending,
     isError: verificationError,
-  } = useVerifyEmail(onVerificationError, onVerificationSuccess);
+  } = useVerifyPhoneNumber(onVerificationError, onVerificationSuccess);
 
   const onResendVerificationCodeSuccess = (data: any) => {
     useTimerStore.getState().setTimer(120);
@@ -82,23 +85,26 @@ const VerifyEmailContent = () => {
     mutate: resendVerificationCode,
     isPending: resendVerificationCodePending,
     isError: resendVerificationCodeError,
-  } = useResendVerificationCode(
+  } = useValidatePhoneNumber(
     onResendVerificationCodeError,
     onResendVerificationCodeSuccess
   );
 
   const handleVerify = async () => {
-    if (authEmail) {
-      verifyEmail({
-        email: authEmail,
-        otpCode: token,
+    if (user?.email) {
+      verifyPhoneNumber({
+        email: user?.email,
+        otp: token,
       });
     }
   };
 
   const handleResendClick = async () => {
-    if (resendTimer === 0) {
-      resendVerificationCode({ email: authEmail });
+    if (resendTimer === 0 && user?.email) {
+      resendVerificationCode({
+        email: user?.email,
+        phoneNumber: authPhoneNumber,
+      });
     }
   };
 
@@ -138,19 +144,19 @@ const VerifyEmailContent = () => {
   };
 
   const handlePaste: React.ClipboardEventHandler = (event) => {
-    const data = event.clipboardData.getData("text").slice(0, 6); // Get first 6 characters
+    const data = event.clipboardData.getData("text").slice(0, 4); // Get first 4 characters
     setToken(data);
   };
 
   useEffect(() => {
-    if (!authEmail) {
+    if (!user?.email) {
       ErrorToast({
         title: "Error",
         descriptions: ["No email found. Please try again."],
       });
       router.back();
     }
-  }, [authEmail, router, navigate]);
+  }, [user?.email, router, navigate]);
 
   const loadingStatus = verificationPending && !verificationError;
   const resendLoadingStatus =
@@ -158,11 +164,11 @@ const VerifyEmailContent = () => {
 
   return (
     <div className="relative flex justify-center items-center w-full bg-bg-400 dark:bg-black">
-      <div className="flex flex-col justify-center items-center w-full gap-8 mt-32 sm:mt-36 lg:mt-40 xl:mt-48 mb-12 sm:mb-14 lg:mb-16 xl:mb-20">
+      <div className="flex flex-col justify-center items-center w-full gap-8  my-12 sm:my-14 lg:my-16 xl:my-20">
         <motion.div
           whileInView={{ opacity: [0, 1] }}
           transition={{ duration: 0.5, type: "tween" }}
-          className=" z-10 flex flex-col justify-start items-start w-[90%] xs:w-[90%] md:w-[80%] lg:w-[65%] xl:w-[55%] 2xl:w-[45%] bg-bg-600 dark:bg-bg-1100 dark:border dark:border-border-600 rounded-2xl px-6 2xs:px-8 sm:px-10 py-8 2xs:py-10 sm:py-12 gap-6 2xs:gap-8 "
+          className=" z-10 flex flex-col justify-start items-start w-[90%] xs:w-[90%] md:w-[80%] lg:w-[65%]  bg-bg-600 dark:bg-bg-1100 dark:border dark:border-border-600 rounded-2xl px-6 2xs:px-8 sm:px-10 py-8 2xs:py-10 sm:py-12 gap-6 2xs:gap-8 "
         >
           <div className="text-white flex flex-col items-center justify-center w-full text-center gap-2 sm:gap-4">
             <div className="flex justify-center items-center p-3 rounded-full bg-bg-1200">
@@ -177,11 +183,11 @@ const VerifyEmailContent = () => {
             </div>
             <div className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%] md:w-[60%] flex flex-col justify-center items-center gap-0.5 sm:gap-2 text-text-700 dark:text-text-900">
               <h2 className="text-xl xs:text-2xl xl:text-3xl font-semibold">
-                Confirm Your Email Address{" "}
+                Verify Your Phone Number{" "}
               </h2>
               <p className="text-xs 2xs:text-sm xs:text-base dark:text-text-400">
-                Open your email address, we just sent a verification code to{" "}
-                {authEmail}
+                Check your phone number, we just sent a verification code to{" "}
+                {authPhoneNumber}
               </p>
             </div>
           </div>
@@ -191,7 +197,7 @@ const VerifyEmailContent = () => {
                 value={token}
                 onChange={(props) => setToken(props)}
                 onPaste={handlePaste}
-                numInputs={6}
+                numInputs={4}
                 renderSeparator={<span className="w-2 2xs:w-3 xs:w-4"></span>}
                 containerStyle={{}}
                 skipDefaultStyles
@@ -261,4 +267,4 @@ const VerifyEmailContent = () => {
   );
 };
 
-export default VerifyEmailContent;
+export default VerifyPhoneNumberContent;

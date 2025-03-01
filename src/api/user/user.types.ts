@@ -38,3 +38,13 @@ export interface ITier3Verification {
   state: string;
   address: string;
 }
+
+export interface IVerifyPhoneNumber {
+  email: string;
+  otp: string;
+}
+
+export interface IValidatePhoneNumber {
+  email: string;
+  phoneNumber: string;
+}

@@ -79,6 +79,7 @@ const SignupPersonalContent = () => {
   const [currencyState, setCurrencyState] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
 
   useOnClickOutside(datePickerRef as React.RefObject<HTMLElement>, () =>
     setShowDatePicker(false)
@@ -115,6 +116,7 @@ const SignupPersonalContent = () => {
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
+      setStartDate(date);
       const newDate = new Date(date);
       const day = newDate.getDate();
       const month = newDate.toLocaleString("en-US", { month: "short" });
@@ -123,7 +125,6 @@ const SignupPersonalContent = () => {
       setShowDatePicker(false);
     }
   };
-
   const onError = async (error: any) => {
     const errorMessage = error?.response?.data?.message;
     const descriptions = Array.isArray(errorMessage)
@@ -468,12 +469,15 @@ const SignupPersonalContent = () => {
               {showDatePicker && (
                 <div ref={datePickerRef} className="absolute z-10 mt-1">
                   <DatePicker
-                    selected={
-                      watchedDateOfBirth ? new Date(watchedDateOfBirth) : null
-                    }
+                    selected={startDate}
                     onChange={handleDateChange}
                     inline
                     calendarClassName="custom-calendar"
+                    showYearDropdown
+                    scrollableYearDropdown
+                    yearDropdownItemNumber={100}
+                    dropdownMode="select" // This enables selecting the year directly
+                    openToDate={new Date(2000, 0, 1)} // Opens to year 2000 by default
                   />
                 </div>
               )}

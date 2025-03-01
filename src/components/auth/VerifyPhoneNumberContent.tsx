@@ -16,26 +16,27 @@ import useTimerStore from "@/store/timer.store";
 import { useRouter } from "next/navigation";
 import SpinnerLoader from "../Loader/SpinnerLoader";
 import icons from "../../../public/icons";
-import {
-  useResendVerificationCode,
-  useVerifyEmail,
-} from "@/api/auth/auth.queries";
 
-const VerifyEmailContent = () => {
+import {
+  useValidatePhoneNumber,
+  useVerifyPhoneNumber,
+} from "@/api/user/user.queries";
+
+const VerifyPhoneNumberContent = () => {
   const navigate = useNavigate();
   const router = useRouter();
 
-  const { authEmail } = useAuthEmailStore();
+  const { authEmail, authPhoneNumber } = useAuthEmailStore();
   const [token, setToken] = useState("");
 
-  const isValid = token.length === 6;
+  const isValid = token.length === 4;
 
   const onVerificationSuccess = () => {
     SuccessToast({
       title: "Email verified",
       description: "Your email address verification successful",
     });
-    navigate("/validate-phoneNumber", "replace");
+    navigate("/login", "replace");
     setToken("");
   };
 
@@ -53,10 +54,10 @@ const VerifyEmailContent = () => {
   };
 
   const {
-    mutate: verifyEmail,
+    mutate: verifyPhoneNumber,
     isPending: verificationPending,
     isError: verificationError,
-  } = useVerifyEmail(onVerificationError, onVerificationSuccess);
+  } = useVerifyPhoneNumber(onVerificationError, onVerificationSuccess);
 
   const onResendVerificationCodeSuccess = (data: any) => {
     useTimerStore.getState().setTimer(120);
@@ -82,23 +83,26 @@ const VerifyEmailContent = () => {
     mutate: resendVerificationCode,
     isPending: resendVerificationCodePending,
     isError: resendVerificationCodeError,
-  } = useResendVerificationCode(
+  } = useValidatePhoneNumber(
     onResendVerificationCodeError,
     onResendVerificationCodeSuccess
   );
 
   const handleVerify = async () => {
     if (authEmail) {
-      verifyEmail({
+      verifyPhoneNumber({
         email: authEmail,
-        otpCode: token,
+        otp: token,
       });
     }
   };
 
   const handleResendClick = async () => {
     if (resendTimer === 0) {
-      resendVerificationCode({ email: authEmail });
+      resendVerificationCode({
+        email: authEmail,
+        phoneNumber: authPhoneNumber,
+      });
     }
   };
 
@@ -138,7 +142,7 @@ const VerifyEmailContent = () => {
   };
 
   const handlePaste: React.ClipboardEventHandler = (event) => {
-    const data = event.clipboardData.getData("text").slice(0, 6); // Get first 6 characters
+    const data = event.clipboardData.getData("text").slice(0, 4); // Get first 4 characters
     setToken(data);
   };
 
@@ -177,11 +181,11 @@ const VerifyEmailContent = () => {
             </div>
             <div className="w-full 2xs:w-[90%] xs:w-[80%] sm:w-[70%] md:w-[60%] flex flex-col justify-center items-center gap-0.5 sm:gap-2 text-text-700 dark:text-text-900">
               <h2 className="text-xl xs:text-2xl xl:text-3xl font-semibold">
-                Confirm Your Email Address{" "}
+                Verify Your Phone Number{" "}
               </h2>
               <p className="text-xs 2xs:text-sm xs:text-base dark:text-text-400">
-                Open your email address, we just sent a verification code to{" "}
-                {authEmail}
+                Check your phone number, we just sent a verification code to{" "}
+                {authPhoneNumber}
               </p>
             </div>
           </div>
@@ -191,7 +195,7 @@ const VerifyEmailContent = () => {
                 value={token}
                 onChange={(props) => setToken(props)}
                 onPaste={handlePaste}
-                numInputs={6}
+                numInputs={4}
                 renderSeparator={<span className="w-2 2xs:w-3 xs:w-4"></span>}
                 containerStyle={{}}
                 skipDefaultStyles
@@ -261,4 +265,4 @@ const VerifyEmailContent = () => {
   );
 };
 
-export default VerifyEmailContent;
+export default VerifyPhoneNumberContent;

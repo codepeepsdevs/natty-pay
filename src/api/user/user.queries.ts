@@ -12,6 +12,8 @@ import {
   tier2VerificationRequest,
   tier3VerificationRequest,
   updateUserRequest,
+  validatePhoneNumberRequest,
+  verifyPhoneNumberRequest,
 } from "./user.apis";
 import {
   BENEFICIARY_TYPE,
@@ -168,4 +170,26 @@ export const useGetBeneficiaries = ({
   const beneficiaries: BeneficiaryProps[] = data?.data?.data;
 
   return { beneficiaries, isPending, isError };
+};
+
+export const useValidatePhoneNumber = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: validatePhoneNumberRequest,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useVerifyPhoneNumber = (
+  onError: (error: any) => void,
+  onSuccess: (data: any) => void
+) => {
+  return useMutation({
+    mutationFn: verifyPhoneNumberRequest,
+    onError,
+    onSuccess,
+  });
 };
