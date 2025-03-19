@@ -64,7 +64,7 @@ export interface User {
   dailyCummulativeTransactionLimit: number;
   cummulativeBalanceLimit: number;
   tierLevel: TIER_LEVEL;
-  wallet?: Wallet;
+  wallet?: Wallet[];
   scamTicket?: ScamTicket[];
 }
 

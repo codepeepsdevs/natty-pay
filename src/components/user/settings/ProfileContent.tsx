@@ -20,6 +20,7 @@ import { BsCamera } from "react-icons/bs";
 import ErrorToast from "@/components/toast/ErrorToast";
 import SuccessToast from "@/components/toast/SuccessToast";
 import { useUpdateUser } from "@/api/user/user.queries";
+import { CURRENCY } from "@/constants/types";
 
 const schema = yup.object().shape({
   email: yup
@@ -49,6 +50,9 @@ const ProfileContent = () => {
   useOnClickOutside(datePickerRef as React.RefObject<HTMLElement>, () =>
     setShowDatePicker(false)
   );
+  const accountNumber = user?.wallet?.find(
+    (w) => w.currency === CURRENCY.NGN
+  )?.accountNumber;
   const form = useForm<UserFormData>({
     defaultValues: {
       email: user?.email,
@@ -58,7 +62,7 @@ const ProfileContent = () => {
       dateOfBirth: user?.dateOfBirth || "",
       referralCode: user?.referralCode || "",
       accountTier: `Tier ${user?.tierLevel}` || "",
-      accountNumber: user?.wallet?.accountNumber || "",
+      accountNumber: accountNumber || "",
     },
     resolver: yupResolver(schema),
     mode: "onChange",

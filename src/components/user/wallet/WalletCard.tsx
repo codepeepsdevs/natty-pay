@@ -8,14 +8,14 @@ const WalletCard = ({
   currency,
   balance,
   active,
-  title,
   path,
+  setCurrency,
 }: {
   currency: string;
   balance: number;
   active: boolean;
-  title: string;
   path: string;
+  setCurrency: (currency: string) => void;
 }) => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -39,6 +39,9 @@ const WalletCard = ({
       className={`w-full rounded-xl px-4 py-4 2xs:py-5 flex items-start justify-between h-fit gap-1 ${
         active ? "bg-primary" : "bg-bg-600 dark:bg-bg-1100"
       }`}
+      onClick={() => {
+        setCurrency(currency);
+      }}
     >
       <Image
         src={getCurrencyIconByString(currency) || ""}
@@ -47,7 +50,9 @@ const WalletCard = ({
       />
       <div className="flex flex-col justify-center items-center text-center gap-4 text-black">
         <div className="flex flex-col justify-center items-center text-center gap-0.5 text-black">
-          <p className="text-sm font-medium">{title}</p>
+          <p className="text-sm font-medium">
+            <span className="uppercase">{currency}</span> Balance
+          </p>
           <p className="text-2xl font-semibold">
             ₦ {balance?.toLocaleString() || 0.0}
           </p>

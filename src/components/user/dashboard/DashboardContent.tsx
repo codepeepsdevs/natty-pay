@@ -23,7 +23,14 @@ const DashboardContent = () => {
   return (
     <div className="flex flex-col gap-4 pb-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
-        <BalanceCard currency="ngn" balance={user?.wallet?.balance || 0} />
+        {user?.wallet &&
+          user?.wallet?.map((wallet) => (
+            <BalanceCard
+              key={wallet.id}
+              currency={wallet.currency.toLowerCase()}
+              balance={wallet.balance}
+            />
+          ))}
       </div>
       {verificationStatus ? (
         <VerifiedDashboard />

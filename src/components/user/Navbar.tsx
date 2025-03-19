@@ -9,6 +9,7 @@ import Toggler from "../shared/Toggler";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { CURRENCY } from "@/constants/types";
 
 const Navbar = () => {
   const { user } = useUserStore();
@@ -117,11 +118,18 @@ const Navbar = () => {
             {user?.wallet ? (
               <>
                 <p className="capitalize text-base font-semibold mb-0.5">
-                  Bal: ₦ {user?.wallet.balance.toLocaleString()}
+                  Bal: ₦{" "}
+                  {user?.wallet
+                    .find((w) => w.currency === CURRENCY.NGN)
+                    ?.balance.toLocaleString()}
                 </p>
 
                 <p className="text-sm -mt-1.5">
-                  Acc No: {user?.wallet.accountNumber}
+                  Acc No:{" "}
+                  {
+                    user?.wallet.find((w) => w.currency === CURRENCY.NGN)
+                      ?.accountNumber
+                  }
                 </p>
               </>
             ) : (

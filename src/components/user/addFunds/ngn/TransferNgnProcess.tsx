@@ -2,6 +2,7 @@
 
 import { useGetQrCode } from "@/api/wallet/wallet.queries";
 import SpinnerLoader from "@/components/Loader/SpinnerLoader";
+import { CURRENCY } from "@/constants/types";
 import useUserStore from "@/store/user.store";
 import Image from "next/image";
 import { useState } from "react";
@@ -36,6 +37,15 @@ const TransferNgnProcess = () => {
   const { qrCode, isPending, isError } = useGetQrCode({
     amount: Number(amount) || 0,
   });
+  const accountNumber = user?.wallet?.find(
+    (w) => w.currency === CURRENCY.NGN
+  )?.accountNumber;
+  const bankName = user?.wallet?.find(
+    (w) => w.currency === CURRENCY.NGN
+  )?.bankName;
+  const accountName = user?.wallet?.find(
+    (w) => w.currency === CURRENCY.NGN
+  )?.accountName;
   const isLoading = isPending && !isError;
   return (
     <div className="w-full flex max-xl:flex-col 2xs:px-2 xs:px-4 sm:px-6 md:px-8 py-4 2xs:py-6 sm:py-10 bg-transparent xs:bg-bg-600 dark:xs:bg-bg-1100 gap-6 xs:gap-10 lg:gap-12 2xl:gap-16 rounded-xl">
@@ -109,12 +119,10 @@ const TransferNgnProcess = () => {
                   Account number
                 </p>
                 <div className="flex items-center gap-2 text-text-200 dark:text-text-400 font-semibold text-right">
-                  {user?.wallet?.accountNumber}
+                  {accountNumber}
                   <button
                     onClick={() => {
-                      navigator.clipboard.writeText(
-                        user?.wallet?.accountNumber || ""
-                      );
+                      navigator.clipboard.writeText(accountNumber || "");
                       toast.success("Copied to clipboard", {
                         duration: 3000,
                       });
@@ -131,7 +139,7 @@ const TransferNgnProcess = () => {
                   Bank Name{" "}
                 </p>
                 <p className="text-text-200 dark:text-text-400 font-semibold text-right">
-                  {user?.wallet?.bankName}
+                  {bankName}
                 </p>
               </div>
 
@@ -140,7 +148,7 @@ const TransferNgnProcess = () => {
                   Account name
                 </p>
                 <p className="text-text-200 dark:text-text-400 font-semibold text-right">
-                  {user?.wallet?.accountName}
+                  {accountName}
                 </p>
               </div>
             </div>
