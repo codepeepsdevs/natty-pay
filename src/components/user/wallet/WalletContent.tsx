@@ -18,7 +18,7 @@ const WalletContent = () => {
             currency={wallet.currency.toLowerCase()}
             balance={wallet.balance || 0}
             active={wallet.currency.toLowerCase() === currency}
-            path={`/user/add-funds/${wallet.currency}`}
+            path={`/user/add-funds/${wallet.currency.toLowerCase()}`}
             setCurrency={setCurrency}
           />
         ))}
