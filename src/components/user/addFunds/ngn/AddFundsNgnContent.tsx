@@ -3,6 +3,7 @@ import useUserStore from "@/store/user.store";
 import BalanceCard from "../../BalanceCard";
 import TransferNgnProcess from "./TransferNgnProcess";
 import { CURRENCY } from "@/constants/types";
+
 const AddFundsNgnContent = () => {
   const { user } = useUserStore();
 
@@ -13,9 +14,7 @@ const AddFundsNgnContent = () => {
           currency="ngn"
           balance={
             Number(
-              user?.wallet
-                ?.find((w) => w.currency === CURRENCY.NGN)
-                ?.balance.toLocaleString()
+              user?.wallet?.find((w) => w.currency === CURRENCY.NGN)?.balance
             ) || 0
           }
         />
